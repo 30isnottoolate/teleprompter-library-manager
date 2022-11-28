@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/30isnottoolate/teleprompter-library-manager#readme",
 	"dependencies": {
+		"dompurify": "^2.4.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"typescript": "^4.9.3"
