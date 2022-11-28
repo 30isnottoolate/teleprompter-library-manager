@@ -7,7 +7,14 @@ const App: React.FC = () => {
 
     return (
         <>
-            <Editor />
+            <div id="start-menu">
+                <h1>Library Manager</h1>
+                <h2>for KV Teleprompter</h2>
+                <div id="start-buttons">
+                    <button className="start-button">New</button>
+                    <button className="start-button">Open</button>
+                </div>
+            </div>
         </>
     )
 }
