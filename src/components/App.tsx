@@ -3,8 +3,7 @@ import './App.css';
 import Editor from './Editor';
 
 const App: React.FC = () => {
-    const [inputText, setInputText] = useState("");
-
+    
     return (
         <>
             <div id="start-menu">
