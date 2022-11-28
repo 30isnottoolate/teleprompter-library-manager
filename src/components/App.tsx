@@ -6,9 +6,6 @@ const App: React.FC = () => {
 
     return (
         <>
-            <div id="text-input-container">
-                <textarea value={inputText} onChange={(event) => setInputText(event.target.value)} />
-            </div>
             <div id="text-select-container">
                 <select id="texts" name="texts" size={3}>
                     <option value="1">1</option>
@@ -16,6 +13,9 @@ const App: React.FC = () => {
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select>
+            </div>
+            <div id="text-input-container">
+                <textarea value={inputText} onChange={(event) => setInputText(event.target.value)} />
             </div>
             <div id="text-display-container">
                 {inputText}

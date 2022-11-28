@@ -6,7 +6,7 @@
 
 #root {
     display: grid;
-    grid-template-columns: 40% calc(20% - 40px) 40%;
+    grid-template-columns: calc(14% - 40px) 43% 43%;
     justify-content: space-between;
     gap: 20px;
     height: 100vh;
@@ -16,7 +16,7 @@
 #text-input-container > textarea {
     width: 100%;
     height: calc(100vh - 40px);
-    padding: 5px 10px;
+    padding: 7.5px 10px;
     resize: none;
     white-space: nowrap;
     overflow-y: scroll;
