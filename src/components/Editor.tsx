@@ -5,7 +5,7 @@ const Editor: React.FC = () => {
     const [inputText, setInputText] = useState("");
 
     return (
-        <>
+        <div id="editor">
             <div id="text-select-container">
                 <select id="texts" name="texts" size={3}>
                     <option value="1">1</option>
@@ -18,7 +18,7 @@ const Editor: React.FC = () => {
                 <textarea value={inputText} onChange={(event) => setInputText(event.target.value)} />
             </div>
             <div id="text-display-container" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(inputText)}} />
-        </>
+        </div>
     )
 }
 
