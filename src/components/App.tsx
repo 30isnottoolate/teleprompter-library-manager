@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify';
 import './App.css';
 
 const App: React.FC = () => {
@@ -17,7 +18,7 @@ const App: React.FC = () => {
             <div id="text-input-container">
                 <textarea value={inputText} onChange={(event) => setInputText(event.target.value)} />
             </div>
-            <div id="text-display-container" dangerouslySetInnerHTML={{__html: inputText}} />
+            <div id="text-display-container" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(inputText)}} />
         </>
     )
 }
