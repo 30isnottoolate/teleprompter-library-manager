@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 const App: React.FC = () => {
+    const [inputText, setInputText] = useState("");
+
     return (
         <>
             <div id="text-input-container">
-                <textarea />
+                <textarea value={inputText} onChange={(event) => setInputText(event.target.value)} />
             </div>
             <div id="text-select-container">
                 <select id="texts" name="texts" size={3}>
@@ -15,7 +17,9 @@ const App: React.FC = () => {
                     <option value="4">4</option>
                 </select>
             </div>
-            <div id="text-display-container" />
+            <div id="text-display-container">
+                {inputText}
+            </div>
         </>
     )
 }
