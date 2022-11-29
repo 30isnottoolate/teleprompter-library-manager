@@ -20,6 +20,10 @@ const Startup: React.FC<{ setLibrary: Function, setMode: Function }> = ({ setLib
         }
     }
 
+    const handleNewFile = () => {
+        setMode("new");
+    }
+
     return (
         <div id="start-menu">
             <h1>Library Manager</h1>
@@ -27,7 +31,7 @@ const Startup: React.FC<{ setLibrary: Function, setMode: Function }> = ({ setLib
             <div id="start-buttons">
                 <button
                     className="start-button"
-                    onClick={() => { }}
+                    onClick={handleNewFile}
                 >
                     New
                 </button>

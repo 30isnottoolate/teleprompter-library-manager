@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';
 
-const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: string, text: string } } }, setLibrary: Function }> = ({ library, setLibrary }) => {
+const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: string, text: string } } }, setLibrary: Function }> = ({ library, setLibrary }) => {
     const [inputText, setInputText] = useState("");
     const [titles, setTitles] = useState([""]);
     const [selectedText, setSelectedText] = useState(1);
@@ -72,6 +72,8 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
         setNewTextTitle("");
         setNewTextMode(false);
     }
+
+    console.log(library);
 
     return (
         <>
