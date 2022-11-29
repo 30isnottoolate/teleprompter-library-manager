@@ -5,12 +5,12 @@ import Editor from './Editor';
 
 const App: React.FC = () => {
     const [mode, setMode] = useState("start"); // start, new, open
-    const [library, setLibrary] = useState({texts: {text_ : {title: "", url: ""}}});
+    const [library, setLibrary] = useState({texts: {text_ : {title: "", url: "", text: ""}}});
 
     if (mode === "start") {
         return <Startup setLibrary={setLibrary} setMode={setMode} />
-    } else if (mode === "new") return <Editor />
-    else return <Editor library={library} />;
+    } else if (mode === "new") return <Editor setLibrary={setLibrary} />
+    else return <Editor library={library} setLibrary={setLibrary} />;
 
 
 }

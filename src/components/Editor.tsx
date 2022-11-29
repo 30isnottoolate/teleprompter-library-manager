@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DOMPurify from 'dompurify';
 
-const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: string } } } }> = ({ library }) => {
+const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: string, text: string } } }, setLibrary: Function }> = ({ library, setLibrary }) => {
     const [inputText, setInputText] = useState("");
     const [titles, setTitles] = useState([""]);
     const [selectedText, setSelectedText] = useState(1);
@@ -21,8 +21,22 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
     }, [library]);
 
     useEffect(() => {
-        console.log(selectedText);
-    }, [selectedText])
+        setInputText((library && library.texts[`text_${selectedText}`].text) ? library.texts[`text_${selectedText}`].text : "")
+    }, [selectedText]);
+
+    const handleInputChange = (event) => {
+        setInputText(event.target.value)
+        setLibrary(prevState => ({
+            ...prevState,
+            texts: {
+                ...prevState.texts,
+                [`text_${selectedText}`]: {
+                    ...prevState.texts[`text_${selectedText}`],
+                    text: event.target.value
+                }
+            }
+        }));
+    }
 
     return (
         <div id="editor">
@@ -34,9 +48,9 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
                 </select>
             </div>
             <div id="text-input-container">
-                <textarea value={inputText} onChange={(event) => setInputText(event.target.value)} />
+                <textarea value={inputText} onChange={handleInputChange} />
             </div>
-            <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize((library) ? library.texts[`text_${selectedText}`].text : "") }} />
+            <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(library ? library.texts[`text_${selectedText}`].text : "") }} />
         </div>
     )
 }
