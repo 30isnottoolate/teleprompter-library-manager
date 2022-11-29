@@ -37,6 +37,18 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
             }
         }));
     }
+    
+    const saveLibrary = (content: string, fileName: string, contentType: string) => {
+        const a = document.createElement("a");
+        const file = new Blob([content], { type: contentType });
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+    }
+    
+    const handleSave = () => {
+        saveLibrary(JSON.stringify(library), "librarian.json", "text/plain");
+    }
 
     return (
         <div id="editor">
@@ -46,6 +58,7 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
                         titles.map((item, index) => <option key={index + 1} value={index + 1} onClick={() => setSelectedText(index + 1)}>{item}</option>)
                     }
                 </select>
+                <button onClick={handleSave}>Save</button>
             </div>
             <div id="text-input-container">
                 <textarea value={inputText} onChange={handleInputChange} />
