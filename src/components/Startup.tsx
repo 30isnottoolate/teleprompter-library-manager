@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-const Startup: React.FC = () => {
+
+const Startup: React.FC<{ setLibrary: Function, setMode: Function }> = ({ setLibrary, setMode }) => {
     const openRef = useRef<HTMLInputElement>(null);
 
     const triggerClick = () => {
@@ -13,9 +14,12 @@ const Startup: React.FC = () => {
     }
 
     function onFileLoading(event) {
-        console.log(event.target.result);
-        let jsonData = JSON.parse(event.target.result);
+        if (event.target.result) {
+            setLibrary(JSON.parse(event.target.result));
+            setMode("open");
+        }
     }
+
     return (
         <div id="start-menu">
             <h1>Library Manager</h1>
