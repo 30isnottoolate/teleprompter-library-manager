@@ -93,7 +93,8 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
             {newTextMode &&
                 <div id="new-text-window">
                     <h3>New Text</h3>
-                    <input type="text" value={newTextTitle} onChange={(event) => setNewTextTitle(event.target.value)} />
+                    <label htmlFor="new-text-title-input">Title</label>
+                    <input id="new-text-title-input" type="text" value={newTextTitle} onChange={(event) => setNewTextTitle(event.target.value)} />
                     <button onClick={handleNewText}>Save</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </div>
