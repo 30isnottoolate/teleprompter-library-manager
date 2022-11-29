@@ -3,6 +3,7 @@ import DOMPurify from 'dompurify';
 
 const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: string, text: string } } }, setLibrary: Function }> = ({ library, setLibrary }) => {
     const [inputText, setInputText] = useState("");
+    const [titleInput, setTitleInput] = useState("");
     const [titles, setTitles] = useState([""]);
     const [selectedText, setSelectedText] = useState(1);
     const [newTextTitle, setNewTextTitle] = useState("");
@@ -23,11 +24,12 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
     }, [library]);
 
     useEffect(() => {
+        setTitleInput((library && library.texts[`text_${selectedText}`].title) ? library.texts[`text_${selectedText}`].title : "")
         setInputText((library && library.texts[`text_${selectedText}`].text) ? library.texts[`text_${selectedText}`].text : "")
-    }, [selectedText]);
+    }, [titleInput, selectedText]);
 
     const handleInputChange = (event) => {
-        setInputText(event.target.value)
+        setInputText(event.target.value);
         setLibrary(prevState => ({
             ...prevState,
             texts: {
@@ -73,7 +75,19 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
         setNewTextMode(false);
     }
 
-    console.log(library);
+    const handleTitleChange = (event) => {
+        setTitleInput(event.target.value);
+        setLibrary(prevState => ({
+            ...prevState,
+            texts: {
+                ...prevState.texts,
+                [`text_${selectedText}`]: {
+                    ...prevState.texts[`text_${selectedText}`],
+                    title: event.target.value
+                }
+            }
+        }));
+    }
 
     return (
         <>
@@ -88,6 +102,7 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                     <button onClick={() => setNewTextMode(true)} disabled={newTextMode ? true : false}>New Text</button>
                 </div>
                 <div id="text-input-container">
+                    <input type="text" value={titleInput} onChange={handleTitleChange} />
                     <textarea value={inputText} onChange={handleInputChange} disabled={newTextMode ? true : false}/>
                 </div>
                 <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(library ? library.texts[`text_${selectedText}`].text : "") }} />
@@ -96,7 +111,7 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                 <div id="new-text-window">
                     <h3>Add new text</h3>
                     <label htmlFor="new-text-title-input">Title</label>
-                    <input id="new-text-title-input" type="text" value={newTextTitle} onChange={(event) => setNewTextTitle(event.target.value)} />
+                    <input id="new-text-title-input" type="text" value={newTextTitle} onChange={event => setNewTextTitle(event.target.value)} />
                     <button onClick={handleNewText}>Save</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </div>
