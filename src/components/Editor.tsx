@@ -6,6 +6,7 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
     const [titles, setTitles] = useState([""]);
     const [selectedText, setSelectedText] = useState(1);
     const [newTextTitle, setNewTextTitle] = useState("");
+    const [newTextMode, setNewTextMode] = useState(false);
 
     useEffect(() => {
         if (library) {
@@ -53,6 +54,7 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
 
     const handleNewText = () => {
         let numberOfTitles = library ? Object.keys(library.texts).length : 0;
+
         setLibrary(prevState => ({
             ...prevState,
             texts: {
@@ -62,32 +64,41 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
                 }
             }
         }));
-        console.log(library);
+        setNewTextTitle("");
+        setNewTextMode(false);
+    }
+
+    const handleCancel = () => {
+        setNewTextTitle("");
+        setNewTextMode(false);
     }
 
     return (
         <>
             <div id="editor">
                 <div id="text-select-container">
-                    <select id="texts" name="texts" size={10}>
+                    <select id="texts" name="texts" size={10} disabled={newTextMode ? true : false}>
                         {titles &&
                             titles.map((item, index) => <option key={index + 1} value={index + 1} onClick={() => setSelectedText(index + 1)}>{item}</option>)
                         }
                     </select>
                     <button onClick={handleSave}>Save</button>
-                    <button>New Text</button>
+                    <button onClick={() => setNewTextMode(true)}>New Text</button>
                 </div>
                 <div id="text-input-container">
-                    <textarea value={inputText} onChange={handleInputChange} />
+                    <textarea value={inputText} onChange={handleInputChange} disabled={newTextMode ? true : false}/>
                 </div>
                 <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(library ? library.texts[`text_${selectedText}`].text : "") }} />
             </div>
-            <div>
-                <h3>New Text</h3>
-                <input type="text" value={newTextTitle} onChange={(event) => setNewTextTitle(event.target.value)} />
-                <button onClick={handleNewText}>Save</button>
-                <button>Cancel</button>
-            </div>
+            {newTextMode &&
+                <div>
+                    <h3>New Text</h3>
+                    <input type="text" value={newTextTitle} onChange={(event) => setNewTextTitle(event.target.value)} />
+                    <button onClick={handleNewText}>Save</button>
+                    <button onClick={handleCancel}>Cancel</button>
+                </div>
+            }
+
         </>
     )
 }
