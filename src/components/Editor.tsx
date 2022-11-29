@@ -103,7 +103,7 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                 </div>
                 <div id="text-input-container">
                     <input type="text" value={titleInput} onChange={handleTitleChange} />
-                    <textarea value={inputText} onChange={handleInputChange} disabled={newTextMode ? true : false}/>
+                    <textarea value={inputText} onChange={handleInputChange} placeholder="Type something..." disabled={newTextMode ? true : false}/>
                 </div>
                 <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(library ? library.texts[`text_${selectedText}`].text : "") }} />
             </div>
