@@ -82,8 +82,8 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
                             titles.map((item, index) => <option key={index + 1} value={index + 1} onClick={() => setSelectedText(index + 1)}>{item}</option>)
                         }
                     </select>
-                    <button onClick={handleSave}>Save</button>
-                    <button onClick={() => setNewTextMode(true)}>New Text</button>
+                    <button onClick={handleSave} disabled={newTextMode ? true : false}>Save</button>
+                    <button onClick={() => setNewTextMode(true)} disabled={newTextMode ? true : false}>New Text</button>
                 </div>
                 <div id="text-input-container">
                     <textarea value={inputText} onChange={handleInputChange} disabled={newTextMode ? true : false}/>
@@ -91,7 +91,7 @@ const Editor: React.FC<{ library?: { texts: { text_: { title: string, url: strin
                 <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(library ? library.texts[`text_${selectedText}`].text : "") }} />
             </div>
             {newTextMode &&
-                <div>
+                <div id="new-text-window">
                     <h3>New Text</h3>
                     <input type="text" value={newTextTitle} onChange={(event) => setNewTextTitle(event.target.value)} />
                     <button onClick={handleNewText}>Save</button>

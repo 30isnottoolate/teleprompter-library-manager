@@ -41,6 +41,7 @@ select > option {
     white-space: pre-wrap;
     word-break: break-word;
     overflow-y: scroll;
+    user-select: none;
 }
 
 #start-menu {
@@ -55,4 +56,18 @@ select > option {
 .start-button {
     width: 50px;
     margin: 5px;
+}
+
+#new-text-window {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    background-color: rgba(50, 50, 50, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
 }
