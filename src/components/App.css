@@ -44,6 +44,12 @@ select > option {
     overflow-y: scroll;
 }
 
+#text-input-container > input {
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+    width: 100%;
+}
+
 #text-display-container {
     background-color: #000000;
     color: #ffffff;
