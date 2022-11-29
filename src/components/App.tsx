@@ -11,8 +11,6 @@ const App: React.FC = () => {
         return <Startup setLibrary={setLibrary} setMode={setMode} />
     } else if (mode === "new") return <Editor setLibrary={setLibrary} />
     else return <Editor library={library} setLibrary={setLibrary} />;
-
-
 }
 
 export default App;
