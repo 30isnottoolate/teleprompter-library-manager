@@ -106,17 +106,40 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
         return displayTextHolder;
     }
 
+    const handleMoveUp = () => {
+        if (selectedText !== 1) {
+            setLibrary(prevState => ({
+                ...prevState,
+                texts: {
+                    ...prevState.texts,
+                    [`text_${selectedText - 1}`]: {
+                        title: (library && library.texts[`text_${selectedText}`].title) ? library.texts[`text_${selectedText}`].title : "",
+                        text: (library && library.texts[`text_${selectedText}`].text) ? library.texts[`text_${selectedText}`].text : ""
+                    },
+                    [`text_${selectedText}`]: {
+                        title: (library && library.texts[`text_${selectedText - 1}`].title) ? library.texts[`text_${selectedText - 1}`].title : "",
+                        text: (library && library.texts[`text_${selectedText - 1}`].text) ? library.texts[`text_${selectedText - 1}`].text : ""
+                    },
+                }
+            }));
+            setSelectedText(selectedText - 1);
+        }
+    }
+
     return (
         <>
             <div id="editor">
                 <div id="text-select-container">
                     <select id="texts" name="texts" size={10} disabled={newTextMode ? true : false}>
                         {titles &&
-                            titles.map((item, index) => <option key={index + 1} value={index + 1} onClick={() => setSelectedText(index + 1)}>{item}</option>)
+                            titles.map((item, index) => <option key={index + 1} onClick={() => setSelectedText(index + 1)}>{item}</option>)
                         }
                     </select>
                     <button onClick={handleSave} disabled={newTextMode ? true : false}>Save</button>
                     <button onClick={() => setNewTextMode(true)} disabled={newTextMode ? true : false}>New Text</button>
+                    <button onClick={handleMoveUp}>Move up</button>
+                    <button>Move down</button>
+                    <button>Delete Text</button>
                 </div>
                 <div id="text-input-container">
                     <input type="text" value={currentTitle} onChange={handleTitleChange} disabled={newTextMode ? true : false} />
