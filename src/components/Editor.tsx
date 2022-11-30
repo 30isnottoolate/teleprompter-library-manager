@@ -83,10 +83,27 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                 ...prevState.texts,
                 [`text_${selectedText}`]: {
                     ...prevState.texts[`text_${selectedText}`],
-                    title: event.target.value
+                    title: event.target.value,
+                    text: ""
                 }
             }
         }));
+    }
+
+    const displayText = () => {
+        let displayTextHolder = "";
+
+        if (library) {
+            if (library.texts[`text_${selectedText}`].title) {
+                displayTextHolder = displayTextHolder + library.texts[`text_${selectedText}`].title;
+            }
+            displayTextHolder = displayTextHolder + "<br/><br/>";
+            if (library.texts[`text_${selectedText}`].text) {
+                displayTextHolder = displayTextHolder + library.texts[`text_${selectedText}`].text;
+            }
+        }
+
+        return displayTextHolder;
     }
 
     return (
@@ -102,10 +119,10 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                     <button onClick={() => setNewTextMode(true)} disabled={newTextMode ? true : false}>New Text</button>
                 </div>
                 <div id="text-input-container">
-                    <input type="text" value={titleInput} onChange={handleTitleChange} />
-                    <textarea value={inputText} onChange={handleInputChange} placeholder="Type something..." disabled={newTextMode ? true : false}/>
+                    <input type="text" value={titleInput} onChange={handleTitleChange} disabled={newTextMode ? true : false} />
+                    <textarea value={inputText} onChange={handleInputChange} placeholder="Type something..." disabled={newTextMode ? true : false} />
                 </div>
-                <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(library ? library.texts[`text_${selectedText}`].text : "") }} />
+                <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }} />
             </div>
             {newTextMode &&
                 <div id="new-text-window">
