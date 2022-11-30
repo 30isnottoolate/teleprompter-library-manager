@@ -164,28 +164,65 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
         <>
             <div id="editor">
                 <div id="text-select-container">
-                    <select id="texts" ref={selectRef} name="texts" size={10} disabled={newTextMode ? true : false}>
+                    <select
+                        id="texts"
+                        ref={selectRef}
+                        name="texts"
+                        size={10}
+                        disabled={newTextMode ? true : false}>
                         {titles &&
-                            titles.map((item, index) => <option key={index + 1} value={`${index + 1}`} onClick={() => setSelectedText(index + 1)}>{item}</option>)
+                            titles.map((item, index) =>
+                                <option
+                                    key={index + 1}
+                                    value={`${index + 1}`}
+                                    onClick={() => setSelectedText(index + 1)}>
+                                    {item}
+                                </option>)
                         }
                     </select>
-                    <button onClick={handleSave} disabled={newTextMode ? true : false}>Save</button>
-                    <button onClick={() => setNewTextMode(true)} disabled={newTextMode ? true : false}>New Text</button>
-                    <button onClick={handleMoveUp}>Move up</button>
-                    <button onClick={handleMoveDown}>Move down</button>
+                    <button
+                        onClick={handleSave}
+                        disabled={newTextMode ? true : false}>
+                        Save
+                    </button>
+                    <button
+                        onClick={() => setNewTextMode(true)}
+                        disabled={newTextMode ? true : false}>
+                        New Text
+                    </button>
+                    <button onClick={handleMoveUp}>Up</button>
+                    <button onClick={handleMoveDown}>Down</button>
                     <button onClick={handleDelete}>Delete Text</button>
                 </div>
                 <div id="text-input-container">
-                    <input type="text" value={currentTitle} onChange={handleTitleChange} disabled={newTextMode ? true : false} />
-                    <textarea value={currentText} onChange={handleInputChange} placeholder="Type something..." disabled={newTextMode ? true : false} />
+                    <input
+                        type="text"
+                        value={currentTitle}
+                        onChange={handleTitleChange}
+                        disabled={newTextMode ? true : false}
+                    />
+                    <textarea
+                        value={currentText}
+                        onChange={handleInputChange}
+                        placeholder="Type something..."
+                        disabled={newTextMode ? true : false}
+                    />
                 </div>
-                <div id="text-display-container" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }} />
+                <div
+                    id="text-display-container"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
+                />
             </div>
             {newTextMode &&
                 <div id="new-text-window">
                     <h3>Add new text</h3>
                     <label htmlFor="new-text-title-input">Title</label>
-                    <input id="new-text-title-input" type="text" value={newTextTitle} onChange={event => setNewTextTitle(event.target.value)} />
+                    <input
+                        id="new-text-title-input"
+                        type="text"
+                        value={newTextTitle}
+                        onChange={event => setNewTextTitle(event.target.value)}
+                    />
                     <button onClick={handleNewText}>Save</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </div>
