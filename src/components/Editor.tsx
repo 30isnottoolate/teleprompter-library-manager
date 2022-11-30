@@ -26,9 +26,9 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
     }, [library]);
 
     useEffect(() => {
-        setCurrentTitle((library && library.texts[`text_${selectedText}`].title) ? library.texts[`text_${selectedText}`].title : "")
-        setCurrentText((library && library.texts[`text_${selectedText}`].text) ? library.texts[`text_${selectedText}`].text : "")
-    }, [currentTitle, selectedText]);
+        setCurrentTitle(typeSafeTitle(selectedText))
+        setCurrentText(typeSafeText(selectedText))
+    }, [currentTitle, currentText, selectedText]);
 
     const handleInputChange = (event) => {
         setCurrentText(event.target.value);
@@ -99,24 +99,24 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
 
         if (library) {
             if (library.texts[`text_${selectedText}`].title) {
-                displayTextHolder = displayTextHolder + library.texts[`text_${selectedText}`].title;
+                displayTextHolder = displayTextHolder + typeSafeTitle(selectedText);
             }
             displayTextHolder = displayTextHolder + "<br/><br/>";
             if (library.texts[`text_${selectedText}`].text) {
-                displayTextHolder = displayTextHolder + library.texts[`text_${selectedText}`].text;
+                displayTextHolder = displayTextHolder + typeSafeText(selectedText);
             }
         }
 
         return displayTextHolder;
     }
 
-    const typeSafeTitle = (index) => {
+    const typeSafeTitle = (index: number) => {
         if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`].title) {
             return library.texts[`text_${index}`].title;
         } else return "";
     }
 
-    const typeSafeText = (index) => {
+    const typeSafeText = (index: number) => {
         if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`].text) {
             return library.texts[`text_${index}`].text;
         } else return "";
