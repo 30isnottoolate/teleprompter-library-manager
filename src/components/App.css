@@ -94,3 +94,17 @@ select > option {
     height: 100vh;
     user-select: none;
 }
+
+#delete-text-window {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    background-color: rgba(50, 50, 50, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
+}

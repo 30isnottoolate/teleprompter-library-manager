@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
 
 const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] }, setLibrary: Function }> = ({ library, setLibrary }) => {
     const [selectedText, setSelectedText] = useState(0);
     const [newTextMode, setNewTextMode] = useState(false);
+    const [deleteTextMode, setDeleteTextMode] = useState(false);
 
     const selectRef = useRef<HTMLSelectElement>(null);
     const newTextTitleRef = useRef<HTMLInputElement>(null);
@@ -183,7 +184,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                     </button>
                     <button onClick={handleMoveUp}>Up</button>
                     <button onClick={handleMoveDown}>Down</button>
-                    <button onClick={handleDelete}>Delete Text</button>
+                    <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
                 </div>
                 <div id="text-input-container">
                     <input
@@ -215,6 +216,14 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                     />
                     <button onClick={handleNewText}>Save</button>
                     <button onClick={handleCancel}>Cancel</button>
+                </div>
+            }
+            {deleteTextMode &&
+                <div id="delete-text-window">
+                    <h3>Delete text</h3>
+                    <h4>Are you sure?</h4>
+                    <button onClick={() => {}}>Yes</button>
+                    <button onClick={() => {}}>No</button>
                 </div>
             }
         </>
