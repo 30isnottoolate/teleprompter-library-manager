@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DOMPurify from 'dompurify';
 
-const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: string, text: string } } }, setLibrary: Function }> = ({ library, setLibrary }) => {
+const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: string } } }, setLibrary: Function }> = ({ library, setLibrary }) => {
     const [currentText, setCurrentText] = useState("");
     const [currentTitle, setCurrentTitle] = useState("");
     const [titles, setTitles] = useState([""]);
@@ -110,6 +110,18 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
         return displayTextHolder;
     }
 
+    const typeSafeTitle = (index) => {
+        if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`].title) {
+            return library.texts[`text_${index}`].title;
+        } else return "";
+    }
+
+    const typeSafeText = (index) => {
+        if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`].text) {
+            return library.texts[`text_${index}`].text;
+        } else return "";
+    }
+
     const handleMoveUp = () => {
         if (selectedText !== 1) {
             setLibrary(prevState => ({
@@ -117,12 +129,12 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                 texts: {
                     ...prevState.texts,
                     [`text_${selectedText - 1}`]: {
-                        title: (library && library.texts[`text_${selectedText}`].title) ? library.texts[`text_${selectedText}`].title : "",
-                        text: (library && library.texts[`text_${selectedText}`].text) ? library.texts[`text_${selectedText}`].text : ""
+                        title: typeSafeTitle(selectedText),
+                        text: typeSafeText(selectedText)
                     },
                     [`text_${selectedText}`]: {
-                        title: (library && library.texts[`text_${selectedText - 1}`].title) ? library.texts[`text_${selectedText - 1}`].title : "",
-                        text: (library && library.texts[`text_${selectedText - 1}`].text) ? library.texts[`text_${selectedText - 1}`].text : ""
+                        title: typeSafeTitle(selectedText - 1),
+                        text: typeSafeText(selectedText - 1)
                     }
                 }
             }));
@@ -141,19 +153,29 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                 texts: {
                     ...prevState.texts,
                     [`text_${selectedText}`]: {
-                        title: (library && library.texts[`text_${selectedText + 1}`].title) ? library.texts[`text_${selectedText + 1}`].title : "",
-                        text: (library && library.texts[`text_${selectedText + 1}`].text) ? library.texts[`text_${selectedText + 1}`].text : ""
+                        title: typeSafeTitle(selectedText + 1),
+                        text: typeSafeText(selectedText + 1)
                     },
                     [`text_${selectedText + 1}`]: {
-                        title: (library && library.texts[`text_${selectedText}`].title) ? library.texts[`text_${selectedText}`].title : "",
-                        text: (library && library.texts[`text_${selectedText}`].text) ? library.texts[`text_${selectedText}`].text : ""
+                        title: typeSafeTitle(selectedText),
+                        text: typeSafeText(selectedText)
                     }
                 }
             }));
-            
+
             setSelectedText(selectedText + 1);
             if (selectRef.current) {
                 selectRef.current.value = `${selectedText + 1}`;
+            }
+        }
+    }
+
+    const handleDelete = () => {
+        if (library) {
+            delete library.texts[`text_${selectedText}`];
+            setSelectedText(prevState => prevState - 1);
+            if (selectRef.current) {
+                selectRef.current.value = `${selectedText - 1}`;
             }
         }
     }
@@ -171,7 +193,7 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, url: stri
                     <button onClick={() => setNewTextMode(true)} disabled={newTextMode ? true : false}>New Text</button>
                     <button onClick={handleMoveUp}>Move up</button>
                     <button onClick={handleMoveDown}>Move down</button>
-                    <button>Delete Text</button>
+                    <button onClick={handleDelete}>Delete Text</button>
                 </div>
                 <div id="text-input-container">
                     <input type="text" value={currentTitle} onChange={handleTitleChange} disabled={newTextMode ? true : false} />
