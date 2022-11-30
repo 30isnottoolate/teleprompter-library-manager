@@ -165,8 +165,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                         id="texts"
                         ref={selectRef}
                         name="texts"
-                        size={10}
-                        disabled={newTextMode ? true : false}>
+                        size={10}>
                         {library && library.texts &&
                             library.texts.map((item, index) =>
                                 <option
@@ -178,13 +177,11 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                         }
                     </select>
                     <button
-                        onClick={handleSave}
-                        disabled={newTextMode ? true : false}>
+                        onClick={handleSave}>
                         Save
                     </button>
                     <button
-                        onClick={() => setNewTextMode(true)}
-                        disabled={newTextMode ? true : false}>
+                        onClick={() => setNewTextMode(true)}>
                         New Text
                     </button>
                     <button onClick={handleMoveUp}>Up</button>
@@ -196,13 +193,11 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                         type="text"
                         value={typeSafeProp(selectedText, "title")}
                         onChange={handleTitleChange}
-                        disabled={newTextMode ? true : false}
                     />
                     <textarea
                         value={typeSafeProp(selectedText, "content")}
                         onChange={handleContentChange}
                         placeholder="Type something..."
-                        disabled={newTextMode ? true : false}
                     />
                 </div>
                 <div
