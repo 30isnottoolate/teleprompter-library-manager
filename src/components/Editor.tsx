@@ -149,6 +149,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
             if (selectRef.current) selectRef.current.value = `${selectedText - 1}`;
 
             setSelectedText(selectedText - 1);
+            setDeleteTextMode(false);
         }
     }
 
@@ -222,8 +223,8 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                 <div id="delete-text-window">
                     <h3>Delete text</h3>
                     <h4>Are you sure?</h4>
-                    <button onClick={() => {}}>Yes</button>
-                    <button onClick={() => {}}>No</button>
+                    <button onClick={handleDelete}>Yes</button>
+                    <button onClick={() => setDeleteTextMode(false)}>No</button>
                 </div>
             }
         </>
