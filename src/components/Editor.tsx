@@ -3,10 +3,10 @@ import DOMPurify from 'dompurify';
 
 const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] }, setLibrary: Function }> = ({ library, setLibrary }) => {
     const [selectedText, setSelectedText] = useState(0);
-    const [newTextTitle, setNewTextTitle] = useState("");
     const [newTextMode, setNewTextMode] = useState(false);
 
     const selectRef = useRef<HTMLSelectElement>(null);
+    const newTextTitleRef = useRef<HTMLInputElement>(null);
 
     const handleTitleChange = (event) => {
         setLibrary(prevState => ({
@@ -46,18 +46,18 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
             texts: [
                 ...prevState.texts,
                 {
-                    title: newTextTitle,
+                    title: newTextTitleRef.current ? newTextTitleRef.current.value : "",
                     content: ""
                 }
             ]
         }));
 
-        setNewTextTitle("");
+        if (newTextTitleRef.current) newTextTitleRef.current.value = "";
         setNewTextMode(false);
     }
 
     const handleCancel = () => {
-        setNewTextTitle("");
+        if (newTextTitleRef.current) newTextTitleRef.current.value = "";
         setNewTextMode(false);
     }
 
@@ -210,9 +210,8 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                     <label htmlFor="new-text-title-input">Title</label>
                     <input
                         id="new-text-title-input"
+                        ref={newTextTitleRef}
                         type="text"
-                        value={newTextTitle}
-                        onChange={event => setNewTextTitle(event.target.value)}
                     />
                     <button onClick={handleNewText}>Save</button>
                     <button onClick={handleCancel}>Cancel</button>
