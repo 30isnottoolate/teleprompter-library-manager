@@ -10,21 +10,25 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
     const newTextTitleRef = useRef<HTMLInputElement>(null);
 
     const handleTitleChange = (event) => {
+        let newLibraryTexts = [...library.texts];
+        newLibraryTexts[selectedText].title = event.target.value;
+
         setLibrary(prevState => ({
             ...prevState,
             texts: [
-                ...prevState.texts,
-                prevState.texts[selectedText].title = event.target.value
+                ...newLibraryTexts
             ]
         }));
     }
 
     const handleContentChange = (event) => {
+        let newLibraryTexts = [...library.texts];
+        newLibraryTexts[selectedText].content = event.target.value;
+
         setLibrary(prevState => ({
             ...prevState,
             texts: [
-                ...prevState.texts,
-                prevState.texts[selectedText].content = event.target.value
+                ...newLibraryTexts
             ]
         }));
     }
@@ -62,7 +66,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
         setNewTextMode(false);
     }
 
-    const displayText = () => typeSafeProp(selectedText, "title") + "<br/><br/>" + typeSafeProp(selectedText, "text");
+    const displayText = () => typeSafeProp(selectedText, "title") + "<br/><br/>" + typeSafeProp(selectedText, "content");
 
     const typeSafeProp = (index: number, prop: string) => {
         if (library && library.texts && library.texts[index] && library.texts[index][prop]) {
@@ -195,7 +199,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                         disabled={newTextMode ? true : false}
                     />
                     <textarea
-                        value={typeSafeProp(selectedText, "text")}
+                        value={typeSafeProp(selectedText, "content")}
                         onChange={handleContentChange}
                         placeholder="Type something..."
                         disabled={newTextMode ? true : false}
