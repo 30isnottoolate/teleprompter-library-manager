@@ -5,7 +5,7 @@ import Editor from './Editor';
 
 const App: React.FC = () => {
     const [mode, setMode] = useState("start"); // start, edit
-    const [library, setLibrary] = useState({texts: {text_1 : {title: "My First Text", text: ""}}});
+    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>({ texts: [{ title: "My First Text", content: "" }] });
 
     if (mode === "start") {
         return <Startup setLibrary={setLibrary} setMode={setMode} />
