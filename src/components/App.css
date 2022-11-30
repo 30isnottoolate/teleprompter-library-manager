@@ -35,10 +35,11 @@ select > option {
 
 #text-input-container > textarea {
     font-family: "Roboto Mono", monospace;
-    font-size: 1rem;
+    font-size: 18px;
+    line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 40px);
-    padding: 7.5px 10px;
+    height: calc(100vh - 80px);
+    padding: 12.5px 10px;
     resize: none;
     white-space: nowrap;
     overflow-y: scroll;
@@ -46,15 +47,16 @@ select > option {
 
 #text-input-container > input {
     font-family: "Roboto Mono", monospace;
-    font-size: 1rem;
+    font-size: 18px;
     width: 100%;
-    padding: 2.5px 5px;
+    padding: 5px 10px
 }
 
 #text-display-container {
     background-color: #000000;
     color: #ffffff;
-    font-size: 1.1rem;
+    font-size: 18px;
+    line-height: 1.2;
     width: 100%;
     height: calc(100vh - 40px);
     padding: 7.5px 10px;
