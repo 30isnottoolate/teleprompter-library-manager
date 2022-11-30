@@ -26,8 +26,8 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
     }, [library]);
 
     useEffect(() => {
-        setCurrentTitle(typeSafeTitle(selectedText))
-        setCurrentText(typeSafeText(selectedText))
+        setCurrentTitle(typeSafeProp(selectedText, "title"));
+        setCurrentText(typeSafeProp(selectedText, "text"));
     }, [currentTitle, currentText, selectedText]);
 
     const handleInputChange = (event) => {
@@ -94,31 +94,11 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
         }));
     }
 
-    const displayText = () => {
-        let displayTextHolder = "";
+    const displayText = () => typeSafeProp(selectedText, "title") + "<br/><br/>" + typeSafeProp(selectedText, "text");
 
-        if (library) {
-            if (library.texts[`text_${selectedText}`].title) {
-                displayTextHolder = displayTextHolder + typeSafeTitle(selectedText);
-            }
-            displayTextHolder = displayTextHolder + "<br/><br/>";
-            if (library.texts[`text_${selectedText}`].text) {
-                displayTextHolder = displayTextHolder + typeSafeText(selectedText);
-            }
-        }
-
-        return displayTextHolder;
-    }
-
-    const typeSafeTitle = (index: number) => {
-        if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`].title) {
-            return library.texts[`text_${index}`].title;
-        } else return "";
-    }
-
-    const typeSafeText = (index: number) => {
-        if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`].text) {
-            return library.texts[`text_${index}`].text;
+    const typeSafeProp = (index: number, prop: string) => {
+        if (library && library.texts && library.texts[`text_${index}`] && library.texts[`text_${index}`][prop]) {
+            return library.texts[`text_${index}`][prop];
         } else return "";
     }
 
@@ -129,12 +109,12 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
                 texts: {
                     ...prevState.texts,
                     [`text_${selectedText - 1}`]: {
-                        title: typeSafeTitle(selectedText),
-                        text: typeSafeText(selectedText)
+                        title: typeSafeProp(selectedText, "title"),
+                        text: typeSafeProp(selectedText, "text")
                     },
                     [`text_${selectedText}`]: {
-                        title: typeSafeTitle(selectedText - 1),
-                        text: typeSafeText(selectedText - 1)
+                        title: typeSafeProp(selectedText - 1, "title"),
+                        text: typeSafeProp(selectedText - 1, "text")
                     }
                 }
             }));
@@ -153,12 +133,12 @@ const Editor: React.FC<{ library?: { texts: { text_1: { title: string, text: str
                 texts: {
                     ...prevState.texts,
                     [`text_${selectedText}`]: {
-                        title: typeSafeTitle(selectedText + 1),
-                        text: typeSafeText(selectedText + 1)
+                        title: typeSafeProp(selectedText + 1, "title"),
+                        text: typeSafeProp(selectedText + 1, "text")
                     },
                     [`text_${selectedText + 1}`]: {
-                        title: typeSafeTitle(selectedText),
-                        text: typeSafeText(selectedText)
+                        title: typeSafeProp(selectedText, "title"),
+                        text: typeSafeProp(selectedText, "text")
                     }
                 }
             }));
