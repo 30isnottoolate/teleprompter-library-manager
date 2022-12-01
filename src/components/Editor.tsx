@@ -9,6 +9,31 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
     const selectRef = useRef<HTMLSelectElement>(null);
     const newTextTitleRef = useRef<HTMLInputElement>(null);
 
+    const openRef = useRef<HTMLInputElement>(null);
+
+    const triggerClick = () => {
+        if (openRef.current) openRef.current.click();
+    }
+
+    const handleOpenFile = (event) => {
+        let reader = new FileReader();
+        reader.onload = onFileLoading;
+        reader.readAsText(event.target.files[0]);
+    }
+
+    const onFileLoading = (event) => {
+        if (event.target.result) {
+            setLibrary(JSON.parse(event.target.result));
+        }
+    }
+
+    const handleNewFile = () => {
+        setLibrary(prevState => ({
+            ...prevState,
+            texts: []
+        }));
+    }
+
     const handleTitleChange = (event) => {
         let newLibraryTexts = [...library.texts];
         newLibraryTexts[selectedText].title = event.target.value;
@@ -160,8 +185,20 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
     return (
         <>
             <div id="editor">
-                <button>New</button>
-                <button>Open</button>
+                <button onClick={handleNewFile}>New</button>
+                <input
+                    id="myFile"
+                    ref={openRef}
+                    onChange={handleOpenFile}
+                    accept=".json"
+                    style={{ display: "none" }}
+                    type="file"
+                    name="filename" />
+                <button
+                    onClick={triggerClick}
+                >
+                    Open
+                </button>
                 <button
                     onClick={handleSave}>
                     Save

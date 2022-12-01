@@ -7,7 +7,7 @@ const Startup: React.FC<{ setLibrary: Function, setMode: Function }> = ({ setLib
         if (openRef.current) openRef.current.click();
     }
 
-    function handleFileOpening(event) {
+    function handleOpenFile(event) {
         let reader = new FileReader();
         reader.onload = onFileLoading;
         reader.readAsText(event.target.files[0]);
@@ -38,7 +38,7 @@ const Startup: React.FC<{ setLibrary: Function, setMode: Function }> = ({ setLib
                 <input
                     id="myFile"
                     ref={openRef}
-                    onChange={handleFileOpening}
+                    onChange={handleOpenFile}
                     accept=".json"
                     style={{ display: "none" }}
                     type="file"
