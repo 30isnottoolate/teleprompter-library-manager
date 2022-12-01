@@ -160,8 +160,21 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
     return (
         <>
             <div id="editor">
+                <button>New</button>
+                <button>Open</button>
+                <button
+                    onClick={handleSave}>
+                    Save
+                </button>
                 <div id="text-select-container">
                     <p>EXPLORER</p>
+                    <button
+                        onClick={() => setNewTextMode(true)}>
+                        New Text
+                    </button>
+                    <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
+                    <button onClick={handleMoveUp}>Up</button>
+                    <button onClick={handleMoveDown}>Down</button>
                     <select
                         id="texts"
                         ref={selectRef}
@@ -178,17 +191,6 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                                 </option>)
                         }
                     </select>
-                    <button
-                        onClick={handleSave}>
-                        Save
-                    </button>
-                    <button
-                        onClick={() => setNewTextMode(true)}>
-                        New Text
-                    </button>
-                    <button onClick={handleMoveUp}>Up</button>
-                    <button onClick={handleMoveDown}>Down</button>
-                    <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
                 </div>
                 <div id="text-input-container">
                     <p>EDITOR</p>
