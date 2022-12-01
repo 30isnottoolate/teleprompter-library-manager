@@ -43,30 +43,6 @@ const App: React.FC = () => {
         });
     }
 
-    const handleTitleChange = (event) => {
-        let newLibraryTexts = [...library.texts];
-        newLibraryTexts[selectedText].title = event.target.value;
-
-        setLibrary(prevState => ({
-            ...prevState,
-            texts: [
-                ...newLibraryTexts
-            ]
-        }));
-    }
-
-    const handleContentChange = (event) => {
-        let newLibraryTexts = [...library.texts];
-        newLibraryTexts[selectedText].content = event.target.value;
-
-        setLibrary(prevState => ({
-            ...prevState,
-            texts: [
-                ...newLibraryTexts
-            ]
-        }));
-    }
-
     const saveLibrary = (data: string, fileName: string, dataType: string) => {
         let openElement = document.createElement("a");
         let file = new Blob([data], { type: dataType });
@@ -162,8 +138,6 @@ const App: React.FC = () => {
                     selectedText={selectedText}
                     setSelectedText={setSelectedText}
                     selectRef={selectRef}
-                    setNewTextMode={setNewTextMode}
-                    setDeleteTextMode={setDeleteTextMode}
                 />
                 <Editor
                     library={library}
@@ -179,27 +153,6 @@ const App: React.FC = () => {
                     />
                 </div>
             </div>
-            {newTextMode &&
-                <div id="new-text-window">
-                    <h3>Add new text</h3>
-                    <label htmlFor="new-text-title-input">Title</label>
-                    <input
-                        id="new-text-title-input"
-                        ref={newTextTitleRef}
-                        type="text"
-                    />
-                    <button onClick={handleNewText}>Save</button>
-                    <button onClick={handleCancel}>Cancel</button>
-                </div>
-            }
-            {deleteTextMode &&
-                <div id="delete-text-window">
-                    <h3>Delete text</h3>
-                    <h4>Are you sure?</h4>
-                    <button onClick={handleDelete}>Yes</button>
-                    <button onClick={() => setDeleteTextMode(false)}>No</button>
-                </div>
-            }
         </>
     )
 }
