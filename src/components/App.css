@@ -21,15 +21,15 @@ body {
 }
 
 .scrollbar::-webkit-scrollbar {
-    width: 1vw;
+    width: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background: #d8e4fd;
+    background: #353535;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background: #6a9fc8;
+    background: #555555;
 }
 
 #text-select-container > select {
