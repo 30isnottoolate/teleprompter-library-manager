@@ -164,6 +164,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                     <select
                         id="texts"
                         ref={selectRef}
+                        className="scrollbar"
                         name="texts"
                         size={10}>
                         {library && library.texts &&
@@ -195,6 +196,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                         onChange={handleTitleChange}
                     />
                     <textarea
+                    className="scrollbar"
                         value={typeSafeProp(selectedText, "content")}
                         onChange={handleContentChange}
                         placeholder="Type something..."
@@ -202,6 +204,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                 </div>
                 <div
                     id="text-display-container"
+                    className="scrollbar"
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
                 />
             </div>
