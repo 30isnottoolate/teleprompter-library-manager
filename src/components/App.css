@@ -15,11 +15,9 @@ body {
 
 #editor {
     display: grid;
-    grid-template-columns: calc(14% - 40px) 43% 43%;
+    grid-template-columns: 15% 42.5% 42.5%;
     justify-content: space-between;
-    gap: 20px;
     height: 100vh;
-    padding: 20px;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -35,17 +33,31 @@ body {
 }
 
 #text-select-container > select {
+    background-color: #1e1e1e;
+    color: #ffffff;
     font-family: "Roboto Condensed", Helvetica;
-    font-size: 1rem;
+    font-size: 18px;
+    line-height: 1.2;
     width: 100%;
     height: calc(100vh - 80px);
 }
 
 select > option {
-    padding: 2.5px 5px;
+    padding: 5px 10px;
+}
+
+#text-input-container > input {
+    background-color: #252525;
+    color: #ffffff;
+    font-family: "Roboto Mono", monospace;
+    font-size: 18px;
+    width: 100%;
+    padding: 5px 10px;
 }
 
 #text-input-container > textarea {
+    background-color: #252525;
+    color: #ffffff;
     font-family: "Roboto Mono", monospace;
     font-size: 18px;
     line-height: 1.2;
@@ -55,13 +67,6 @@ select > option {
     resize: none;
     white-space: nowrap;
     overflow-y: scroll;
-}
-
-#text-input-container > input {
-    font-family: "Roboto Mono", monospace;
-    font-size: 18px;
-    width: 100%;
-    padding: 5px 10px
 }
 
 #text-display-container {
