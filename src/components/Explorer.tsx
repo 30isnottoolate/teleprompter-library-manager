@@ -4,14 +4,14 @@ interface ExplorerProps {
     library: any,
     setLibrary: Function,
     selectedText: number,
-    setSelectedText: Function,
-    selectRef: RefObject<HTMLSelectElement>
+    setSelectedText: Function
 }
 
-const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setSelectedText, selectRef }: ExplorerProps) => {
+const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setSelectedText }: ExplorerProps) => {
     const [newTextMode, setNewTextMode] = useState(false);
     const [deleteTextMode, setDeleteTextMode] = useState(false);
 
+    const selectRef = useRef<HTMLSelectElement>(null);
     const newTextTitleRef = useRef<HTMLInputElement>(null);
 
     const handleNewText = () => {
