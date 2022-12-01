@@ -7,6 +7,8 @@ import Editor from './Editor';
 const App: React.FC = () => {
     const [library, setLibrary] = useState({ texts: [{ title: "My First Text", content: "" }] });
     const [selectedText, setSelectedText] = useState(0);
+    const [newFileMode, setNewFileMode] = useState(false);
+    const [openFileMode, setOpenFileMode] = useState(false);
 
     const openRef = useRef<HTMLInputElement>(null);
 
@@ -16,6 +18,7 @@ const App: React.FC = () => {
 
     const handleOpenFile = (event) => {
         let reader = new FileReader();
+
         reader.onload = onFileLoading;
         reader.readAsText(event.target.files[0]);
     }
@@ -23,31 +26,27 @@ const App: React.FC = () => {
     const onFileLoading = (event) => {
         if (event.target.result) {
             setLibrary(JSON.parse(event.target.result));
+            setOpenFileMode(false);
             if (openRef.current) openRef.current.value = "";
         }
     }
 
     const handleNewFile = () => {
-        setLibrary({
-            texts: [
-                {
-                    title: "My First Text",
-                    content: ""
-                }
-            ]
-        });
+        setLibrary({ texts: [{ title: "My First Text", content: "" }] });
+        setNewFileMode(false);
     }
 
-    const saveLibrary = (data: string, fileName: string, dataType: string) => {
-        let openElement = document.createElement("a");
+    const saveFile = (data: string, fileName: string, dataType: string) => {
+        let pseudoSave = document.createElement("a");
         let file = new Blob([data], { type: dataType });
-        openElement.href = URL.createObjectURL(file);
-        openElement.download = fileName;
-        openElement.click();
+
+        pseudoSave.href = URL.createObjectURL(file);
+        pseudoSave.download = fileName;
+        pseudoSave.click();
     }
 
     const handleSave = () => {
-        saveLibrary(JSON.stringify(library), "librarian.json", "text/plain");
+        saveFile(JSON.stringify(library), "librarian.json", "text/plain");
     }
 
     const displayText = () => typeSafeProp(selectedText, "title") + "<br/><br/>" + typeSafeProp(selectedText, "content");
@@ -60,8 +59,8 @@ const App: React.FC = () => {
 
     return (
         <>
-            <div id="editor">
-                <button onClick={handleNewFile}>New</button>
+            <div id="menu">
+                <button onClick={() => setNewFileMode(true)}>New</button>
                 <input
                     id="myFile"
                     ref={openRef}
@@ -71,7 +70,7 @@ const App: React.FC = () => {
                     type="file"
                     name="filename" />
                 <button
-                    onClick={triggerClick}
+                    onClick={() => setOpenFileMode(true)}
                 >
                     Open
                 </button>
@@ -79,26 +78,45 @@ const App: React.FC = () => {
                     onClick={handleSave}>
                     Save
                 </button>
-                <Explorer
-                    library={library}
-                    setLibrary={setLibrary}
-                    selectedText={selectedText}
-                    setSelectedText={setSelectedText}
-                />
-                <Editor
-                    library={library}
-                    setLibrary={setLibrary}
-                    selectedText={selectedText}
-                />
-                <div id="text-display-container">
-                    <p>OUTPUT</p>
-                    <div
-                        id="text-display"
-                        className="scrollbar"
-                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
-                    />
-                </div>
             </div>
+            <Explorer
+                library={library}
+                setLibrary={setLibrary}
+                selectedText={selectedText}
+                setSelectedText={setSelectedText}
+            />
+            <Editor
+                library={library}
+                setLibrary={setLibrary}
+                selectedText={selectedText}
+            />
+            <div id="text-display-container">
+                <p className="section-label">OUTPUT</p>
+                <div className="toolbar">
+                    
+                </div>
+                <div
+                    id="text-display"
+                    className="scrollbar"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
+                />
+            </div>
+            {newFileMode &&
+                <div id="delete-text-window">
+                    <h3>New file</h3>
+                    <h4>Are you sure?</h4>
+                    <button onClick={handleNewFile}>Yes</button>
+                    <button onClick={() => setNewFileMode(false)}>No</button>
+                </div>
+            }
+            {openFileMode &&
+                <div id="delete-text-window">
+                    <h3>Open file</h3>
+                    <h4>Are you sure?</h4>
+                    <button onClick={triggerClick}>Yes</button>
+                    <button onClick={() => setOpenFileMode(false)}>No</button>
+                </div>
+            }
         </>
     )
 }

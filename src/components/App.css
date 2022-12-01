@@ -10,14 +10,8 @@
 }
 
 body {
+    background-color: #353535;
     font-family: "Roboto", Helvetica;
-}
-
-#editor {
-    display: grid;
-    grid-template-columns: 15% 42.5% 42.5%;
-    justify-content: space-between;
-    height: 100vh;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -25,11 +19,47 @@ body {
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background: #353535;
+    background-color: #353535;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background: #555555;
+    background-color: #555555;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: 15% 42.5% 42.5%;
+    grid-template-rows: 50px calc(100vh - 52px);
+    width: 100vw;
+    height: 100vh;
+}
+
+#menu {
+    grid-column: 1 / 4;
+    height: 50px;
+}
+
+#text-select-container {
+    grid-column: 1 / 2;
+}
+
+#text-input-container {
+    grid-column: 2 / 3;
+}
+
+#text-display-container {
+    grid-column: 3 / 4;
+}
+
+.section-label {
+    color: #ffffff;
+    font-size: 13px;
+    height: 25px;
+    padding: 6px 12px;
+}
+
+.toolbar {
+    height: 25px;
 }
 
 #text-select-container > select {
@@ -39,7 +69,7 @@ body {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 129px);
 }
 
 select > option {
@@ -55,6 +85,11 @@ select > option {
     padding: 5px 10px;
 }
 
+select, select:focus, textarea, textarea:focus, input, input:focus {
+    border-width: 0;
+    outline:none;
+}
+
 #text-input-container > textarea {
     background-color: #252525;
     color: #ffffff;
@@ -62,7 +97,7 @@ select > option {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 163px);
     padding: 12.5px 10px;
     resize: none;
     white-space: nowrap;
@@ -75,27 +110,12 @@ select > option {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 129px);
     padding: 7.5px 10px;
-    border: 1px solid #000000;
     white-space: pre-wrap;
     word-break: break-word;
     overflow-y: scroll;
     user-select: none;
-}
-
-#start-menu {
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-    width: 100vw;
-    height: 100vh;
-}
-
-.start-button {
-    width: 50px;
-    margin: 5px;
 }
 
 #new-text-window {

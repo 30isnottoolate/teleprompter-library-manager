@@ -39,7 +39,8 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText  }:
 
     return (
         <div id="text-input-container">
-            <p>EDITOR</p>
+            <p className="section-label">EDITOR</p>
+            <div className="toolbar"></div>
             <input
                 type="text"
                 value={typeSafeProp(selectedText, "title")}

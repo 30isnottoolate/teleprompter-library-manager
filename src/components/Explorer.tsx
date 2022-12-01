@@ -1,4 +1,4 @@
-import React, { useState, useRef, RefObject } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface ExplorerProps {
     library: any,
@@ -15,7 +15,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
     const newTextTitleRef = useRef<HTMLInputElement>(null);
 
     const handleNewText = () => {
-        setLibrary(prevState => ({
+        setLibrary((prevState: typeof library) => ({
             ...prevState,
             texts: [
                 ...prevState.texts,
@@ -35,17 +35,17 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
 
         if (library.texts.length > 0) {
             if (selectedText === 0) {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...bottomOfArray]
                 }));
             } else if (selectedText === library.texts.length - 1) {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...topOfArray]
                 }));
             } else {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...topOfArray, ...bottomOfArray]
                 }));
@@ -70,12 +70,12 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
 
         if (selectedText !== 0) {
             if (selectedText !== 1) {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...topOfArray, ...selectedElement, ...prevElement, ...bottomOfArray]
                 }));
             } else {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...selectedElement, ...prevElement, ...bottomOfArray]
                 }));
@@ -97,12 +97,12 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
 
         if (selectedText !== library.texts.length - 1) {
             if (selectedText !== library.texts.length - 2) {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...topOfArray, ...nextElement, ...selectedElement, ...bottomOfArray]
                 }));
             } else {
-                setLibrary(prevState => ({
+                setLibrary((prevState: typeof library) => ({
                     ...prevState,
                     texts: [...topOfArray, ...nextElement, ...selectedElement]
                 }));
@@ -119,14 +119,16 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
     return (
         <>
             <div id="text-select-container">
-                <p>EXPLORER</p>
-                <button
-                    onClick={() => setNewTextMode(true)}>
-                    New Text
-                </button>
-                <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
-                <button onClick={handleMoveUp}>Up</button>
-                <button onClick={handleMoveDown}>Down</button>
+                <p className="section-label">EXPLORER</p>
+                <div className="toolbar">
+                    <button
+                        onClick={() => setNewTextMode(true)}>
+                        New Text
+                    </button>
+                    <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
+                    <button onClick={handleMoveUp}>Up</button>
+                    <button onClick={handleMoveDown}>Down</button>
+                </div>
                 <select
                     id="texts"
                     ref={selectRef}
@@ -134,7 +136,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
                     name="texts"
                     size={10}>
                     {library && library.texts &&
-                        library.texts.map((item, index) =>
+                        library.texts.map((item: {title: string, content: string}, index: number) =>
                             <option
                                 key={index}
                                 value={`${index}`}
