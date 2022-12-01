@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
 import './App.css';
+import Explorer from './Explorer';
 
 const App: React.FC = () => {
     const [library, setLibrary] = useState({ texts: [{ title: "My First Text", content: "" }] });
@@ -26,7 +27,7 @@ const App: React.FC = () => {
     const onFileLoading = (event) => {
         if (event.target.result) {
             setLibrary(JSON.parse(event.target.result));
-            if (openRef.current) openRef.current.value="";
+            if (openRef.current) openRef.current.value = "";
         }
     }
 
@@ -66,11 +67,11 @@ const App: React.FC = () => {
     }
 
     const saveLibrary = (data: string, fileName: string, dataType: string) => {
-        let a = document.createElement("a");
+        let openElement = document.createElement("a");
         let file = new Blob([data], { type: dataType });
-        a.href = URL.createObjectURL(file);
-        a.download = fileName;
-        a.click();
+        openElement.href = URL.createObjectURL(file);
+        openElement.download = fileName;
+        openElement.click();
     }
 
     const handleSave = () => {
@@ -89,12 +90,10 @@ const App: React.FC = () => {
             ]
         }));
 
-        if (newTextTitleRef.current) newTextTitleRef.current.value = "";
         setNewTextMode(false);
     }
 
     const handleCancel = () => {
-        if (newTextTitleRef.current) newTextTitleRef.current.value = "";
         setNewTextMode(false);
     }
 
@@ -104,60 +103,6 @@ const App: React.FC = () => {
         if (library && library.texts && library.texts[index] && library.texts[index][prop]) {
             return library.texts[index][prop];
         } else return "";
-    }
-
-    const handleMoveUp = () => {
-        let topOfArray = library.texts.slice(0, selectedText - 1);
-        let prevElement = library.texts.slice(selectedText - 1, selectedText);
-        let selectedElement = library.texts.slice(selectedText, selectedText + 1);
-        let bottomOfArray = library.texts.slice(selectedText + 1);
-
-        if (selectedText !== 0) {
-            if (selectedText !== 1) {
-                setLibrary(prevState => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...selectedElement, ...prevElement, ...bottomOfArray]
-                }));
-            } else {
-                setLibrary(prevState => ({
-                    ...prevState,
-                    texts: [...selectedElement, ...prevElement, ...bottomOfArray]
-                }));
-            }
-
-            if (selectRef.current) {
-                selectRef.current.value = `${selectedText - 1}`;
-            }
-
-            setSelectedText(selectedText - 1);
-        }
-    }
-
-    const handleMoveDown = () => {
-        let topOfArray = library.texts.slice(0, selectedText);
-        let selectedElement = library.texts.slice(selectedText, selectedText + 1);
-        let nextElement = library.texts.slice(selectedText + 1, selectedText + 2);
-        let bottomOfArray = library.texts.slice(selectedText + 2);
-
-        if (selectedText !== library.texts.length - 1) {
-            if (selectedText !== library.texts.length - 2) {
-                setLibrary(prevState => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...nextElement, ...selectedElement, ...bottomOfArray]
-                }));
-            } else {
-                setLibrary(prevState => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...nextElement, ...selectedElement]
-                }));
-            }
-
-            if (selectRef.current) {
-                selectRef.current.value = `${selectedText + 1}`;
-            }
-
-            setSelectedText(selectedText + 1);
-        }
     }
 
     const handleDelete = () => {
@@ -210,32 +155,15 @@ const App: React.FC = () => {
                     onClick={handleSave}>
                     Save
                 </button>
-                <div id="text-select-container">
-                    <p>EXPLORER</p>
-                    <button
-                        onClick={() => setNewTextMode(true)}>
-                        New Text
-                    </button>
-                    <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
-                    <button onClick={handleMoveUp}>Up</button>
-                    <button onClick={handleMoveDown}>Down</button>
-                    <select
-                        id="texts"
-                        ref={selectRef}
-                        className="scrollbar"
-                        name="texts"
-                        size={10}>
-                        {library && library.texts &&
-                            library.texts.map((item, index) =>
-                                <option
-                                    key={index}
-                                    value={`${index}`}
-                                    onClick={() => setSelectedText(index)}>
-                                    {item.title}
-                                </option>)
-                        }
-                    </select>
-                </div>
+                <Explorer
+                    library={library}
+                    setLibrary={setLibrary}
+                    selectedText={selectedText}
+                    setSelectedText={setSelectedText}
+                    selectRef={selectRef}
+                    setNewTextMode={setNewTextMode}
+                    setDeleteTextMode={setDeleteTextMode}
+                />
                 <div id="text-input-container">
                     <p>EDITOR</p>
                     <input
