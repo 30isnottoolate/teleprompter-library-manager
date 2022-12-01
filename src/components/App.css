@@ -22,6 +22,18 @@ body {
     padding: 20px;
 }
 
+.scrollbar::-webkit-scrollbar {
+    width: 1vw;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #d8e4fd;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #6a9fc8;
+}
+
 #text-select-container > select {
     font-family: "Roboto Condensed", Helvetica;
     font-size: 1rem;
