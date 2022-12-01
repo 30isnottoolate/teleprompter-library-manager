@@ -69,7 +69,7 @@ select > option {
     overflow-y: scroll;
 }
 
-#text-display-container {
+#text-display {
     background-color: #000000;
     color: #ffffff;
     font-size: 18px;

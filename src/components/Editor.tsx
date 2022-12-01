@@ -161,6 +161,7 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
         <>
             <div id="editor">
                 <div id="text-select-container">
+                    <p>EXPLORER</p>
                     <select
                         id="texts"
                         ref={selectRef}
@@ -190,23 +191,27 @@ const Editor: React.FC<{ library: { texts: [{ title: string, content: string }] 
                     <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
                 </div>
                 <div id="text-input-container">
+                    <p>EDITOR</p>
                     <input
                         type="text"
                         value={typeSafeProp(selectedText, "title")}
                         onChange={handleTitleChange}
                     />
                     <textarea
-                    className="scrollbar"
+                        className="scrollbar"
                         value={typeSafeProp(selectedText, "content")}
                         onChange={handleContentChange}
                         placeholder="Type something..."
                     />
                 </div>
-                <div
-                    id="text-display-container"
-                    className="scrollbar"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
-                />
+                <div id="text-display-container">
+                    <p>OUTPUT</p>
+                    <div
+                        id="text-display"
+                        className="scrollbar"
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
+                    />
+                </div>
             </div>
             {newTextMode &&
                 <div id="new-text-window">
