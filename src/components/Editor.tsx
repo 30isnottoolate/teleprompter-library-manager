@@ -43,12 +43,12 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText  }:
             <input
                 type="text"
                 value={typeSafeProp(selectedText, "title")}
-                onChange={() => handleTitleChange}
+                onChange={handleTitleChange}
             />
             <textarea
                 className="scrollbar"
                 value={typeSafeProp(selectedText, "content")}
-                onChange={() => handleContentChange}
+                onChange={handleContentChange}
                 placeholder="Type something..."
             />
         </div>

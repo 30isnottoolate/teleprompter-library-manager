@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
 import './App.css';
 import Explorer from './Explorer';
+import Editor from './Editor';
 
 const App: React.FC = () => {
     const [library, setLibrary] = useState({ texts: [{ title: "My First Text", content: "" }] });
@@ -164,20 +165,11 @@ const App: React.FC = () => {
                     setNewTextMode={setNewTextMode}
                     setDeleteTextMode={setDeleteTextMode}
                 />
-                <div id="text-input-container">
-                    <p>EDITOR</p>
-                    <input
-                        type="text"
-                        value={typeSafeProp(selectedText, "title")}
-                        onChange={handleTitleChange}
-                    />
-                    <textarea
-                        className="scrollbar"
-                        value={typeSafeProp(selectedText, "content")}
-                        onChange={handleContentChange}
-                        placeholder="Type something..."
-                    />
-                </div>
+                <Editor
+                    library={library}
+                    setLibrary={setLibrary}
+                    selectedText={selectedText}
+                />
                 <div id="text-display-container">
                     <p>OUTPUT</p>
                     <div
