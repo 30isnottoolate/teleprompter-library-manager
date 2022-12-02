@@ -65,7 +65,6 @@ const App: React.FC = () => {
                 <Icon icon={"openFile"} size={30} clickHandler={() => setOpenFileMode(true)} />
                 <Icon icon={"saveFile"} size={30} clickHandler={handleSave} />
                 <input
-                    id="myFile"
                     ref={openRef}
                     onChange={handleOpenFile}
                     accept=".json"
@@ -85,9 +84,9 @@ const App: React.FC = () => {
                 setLibrary={setLibrary}
                 selectedText={selectedText}
             />
-            <div id="text-display-container">
+            <div id="output">
                 <p className="section-label">OUTPUT</p>
-                <div className="toolbar">
+                <div className="mini-toolbar">
 
                 </div>
                 <div
@@ -97,19 +96,23 @@ const App: React.FC = () => {
                 />
             </div>
             {newFileMode &&
-                <div id="delete-text-window">
-                    <h3>New file</h3>
-                    <h4>Are you sure?</h4>
-                    <button onClick={handleNewFile}>Yes</button>
-                    <button onClick={() => setNewFileMode(false)}>No</button>
+                <div className="dialog-screen">
+                    <div className="dialog-box confirmation">
+                        <p className="dialog-title">New file</p>
+                        <p className="dialog-question">Are you sure?</p>
+                        <button className="dialog-button" onClick={handleNewFile}>Yes</button>
+                        <button className="dialog-button" onClick={() => setNewFileMode(false)}>No</button>
+                    </div>
                 </div>
             }
             {openFileMode &&
-                <div id="delete-text-window">
-                    <h3>Open file</h3>
-                    <h4>Are you sure?</h4>
-                    <button onClick={triggerClick}>Yes</button>
-                    <button onClick={() => setOpenFileMode(false)}>No</button>
+                <div className="dialog-screen">
+                    <div className="dialog-box confirmation">
+                        <p className="dialog-title">Open file</p>
+                        <p className="dialog-question">Are you sure?</p>
+                        <button className="dialog-button" onClick={triggerClick}>Yes</button>
+                        <button className="dialog-button" onClick={() => setOpenFileMode(false)}>No</button>
+                    </div>
                 </div>
             }
         </>

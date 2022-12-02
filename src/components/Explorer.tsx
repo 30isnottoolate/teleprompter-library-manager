@@ -119,22 +119,20 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
 
     return (
         <>
-            <div id="text-select-container">
+            <div id="explorer">
                 <p className="section-label">EXPLORER</p>
-                <div className="toolbar explorer-toolbar">
+                <div className="mini-toolbar">
                     <Icon icon={"newText"} size={19} clickHandler={() => setNewTextMode(true)} />
-                    <Icon icon={"deleteText"} size={19}  clickHandler={() => setDeleteTextMode(true)} />
-                    <Icon icon={"moveDown"} size={19}  clickHandler={handleMoveDown} />
-                    <Icon icon={"moveUp"} size={19}  clickHandler={handleMoveUp} />
+                    <Icon icon={"deleteText"} size={19} clickHandler={() => setDeleteTextMode(true)} />
+                    <Icon icon={"moveDown"} size={19} clickHandler={handleMoveDown} />
+                    <Icon icon={"moveUp"} size={19} clickHandler={handleMoveUp} />
                 </div>
                 <select
-                    id="texts"
                     ref={selectRef}
                     className="scrollbar"
-                    name="texts"
                     size={10}>
                     {library && library.texts &&
-                        library.texts.map((item: {title: string, content: string}, index: number) =>
+                        library.texts.map((item: { title: string, content: string }, index: number) =>
                             <option
                                 key={index}
                                 value={`${index}`}
@@ -145,24 +143,28 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
                 </select>
             </div>
             {newTextMode &&
-                <div id="new-text-window">
-                    <h3>Add new text</h3>
-                    <label htmlFor="new-text-title-input">Title</label>
-                    <input
-                        id="new-text-title-input"
-                        ref={newTextTitleRef}
-                        type="text"
-                    />
-                    <button onClick={handleNewText}>Save</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                <div className="dialog-screen">
+                <div className="dialog-box new-text">
+                        <p className="dialog-title">Add new text</p>
+                        <label htmlFor="new-text-title-input">Title</label>
+                        <input
+                            id="new-text-title-input"
+                            ref={newTextTitleRef}
+                            type="text"
+                        />
+                        <button className="dialog-button" onClick={handleNewText}>Save</button>
+                        <button className="dialog-button" onClick={handleCancel}>Cancel</button>
+                    </div>
                 </div>
             }
             {deleteTextMode &&
-                <div id="delete-text-window">
-                    <h3>Delete text</h3>
-                    <h4>Are you sure?</h4>
-                    <button onClick={handleDelete}>Yes</button>
-                    <button onClick={() => setDeleteTextMode(false)}>No</button>
+                <div className="dialog-screen">
+                    <div className="dialog-box confirmation">
+                        <p className="dialog-title">Delete text</p>
+                        <p className="dialog-question">Are you sure?</p>
+                        <button className="dialog-button" onClick={handleDelete}>Yes</button>
+                        <button className="dialog-button" onClick={() => setDeleteTextMode(false)}>No</button>
+                    </div>
                 </div>
             }
         </>

@@ -39,15 +39,15 @@ body {
     height: 50px;
 }
 
-#text-select-container {
+#explorer {
     grid-column: 1 / 2;
 }
 
-#text-input-container {
+#editor {
     grid-column: 2 / 3;
 }
 
-#text-display-container {
+#output {
     grid-column: 3 / 4;
 }
 
@@ -58,11 +58,11 @@ body {
     padding: 6px 12px;
 }
 
-.toolbar {
+.mini-toolbar {
     height: 25px;
 }
 
-#text-select-container > select {
+#explorer > select {
     background-color: #1e1e1e;
     color: #bfbfbf;
     font-family: "Roboto Condensed", Helvetica;
@@ -76,7 +76,7 @@ select > option {
     padding: 5px 10px;
 }
 
-#text-input-container > input {
+#editor > input {
     background-color: #252525;
     color: #eeeeee;
     font-family: "Roboto Mono", monospace;
@@ -92,7 +92,7 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     outline:none;
 }
 
-#text-input-container > textarea {
+#editor > textarea {
     background-color: #252525;
     color: #eeeeee;
     font-family: "Roboto Mono", monospace;
@@ -120,7 +120,7 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     user-select: none;
 }
 
-#new-text-window {
+.dialog-screen {
     display: grid;
     align-content: center;
     justify-content: center;
@@ -134,16 +134,12 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     user-select: none;
 }
 
-#delete-text-window {
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-    background-color: rgba(50, 50, 50, 0.5);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    user-select: none;
+.dialog-box {
+    background-color: #1e1e1e;
+    color: #eeeeee;
+    width: 350px;
+    height: 150px;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px 5px #1e1e1e;
 }
