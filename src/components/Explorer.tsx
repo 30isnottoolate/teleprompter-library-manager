@@ -122,12 +122,17 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
         }
     }
 
+    const handleNewTextClick = () => {
+        setNewTextMode(true);
+        if (newTextTitleRef.current) newTextTitleRef.current.focus(); //does not work!!!
+    }
+
     return (
         <>
             <div id="explorer">
                 <p className="section-label">EXPLORER</p>
                 <div className="mini-toolbar">
-                    <Icon icon={"newText"} size={20} clickHandler={() => setNewTextMode(true)} />
+                    <Icon icon={"newText"} size={20} clickHandler={handleNewTextClick} />
                     <Icon icon={"deleteText"} size={20} disabled={library.texts.length === 0 ? true : false} clickHandler={() => setDeleteTextMode(true)} />
                     <Icon icon={"moveDown"} size={20} disabled={(library.texts.length < 2 || selectedText === library.texts.length - 1) ? true : false} clickHandler={handleMoveDown} />
                     <Icon icon={"moveUp"} size={20} disabled={(library.texts.length < 2 || selectedText === 0) ? true : false} clickHandler={handleMoveUp} />
