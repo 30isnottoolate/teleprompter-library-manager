@@ -2,14 +2,12 @@ import React, { MouseEventHandler } from 'react';
 
 interface DialogProps {
     dialogType: string, //new, open, input, delete
-    textOne: string,
-    textTwo: string,
     clickHandlerOne?: MouseEventHandler,
     clickHandlerTwo: MouseEventHandler,
     clickHandlerThree: MouseEventHandler
 }
 
-const Dialog: React.FC<DialogProps> = ({ dialogType, textOne, textTwo, clickHandlerOne, clickHandlerTwo, clickHandlerThree }) => {
+const Dialog: React.FC<DialogProps> = ({ dialogType, clickHandlerOne, clickHandlerTwo, clickHandlerThree }) => {
     return (
         <div className="dialog-screen">
             <div className="dialog-box">
