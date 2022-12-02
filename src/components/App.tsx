@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
 import './App.css';
+import Icon from './Icon';
 import Explorer from './Explorer';
 import Editor from './Editor';
 
@@ -60,7 +61,9 @@ const App: React.FC = () => {
     return (
         <>
             <div id="menu">
-                <button onClick={() => setNewFileMode(true)}>New</button>
+                <Icon icon={"newFile"} size={30} clickHandler={() => setNewFileMode(true)} />
+                <Icon icon={"openFile"} size={30} clickHandler={() => setOpenFileMode(true)} />
+                <Icon icon={"saveFile"} size={30} clickHandler={handleSave} />
                 <input
                     id="myFile"
                     ref={openRef}
@@ -68,16 +71,8 @@ const App: React.FC = () => {
                     accept=".json"
                     style={{ display: "none" }}
                     type="file"
-                    name="filename" />
-                <button
-                    onClick={() => setOpenFileMode(true)}
-                >
-                    Open
-                </button>
-                <button
-                    onClick={handleSave}>
-                    Save
-                </button>
+                    name="filename"
+                />
             </div>
             <Explorer
                 library={library}
@@ -93,7 +88,7 @@ const App: React.FC = () => {
             <div id="text-display-container">
                 <p className="section-label">OUTPUT</p>
                 <div className="toolbar">
-                    
+
                 </div>
                 <div
                     id="text-display"
