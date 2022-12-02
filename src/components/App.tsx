@@ -61,17 +61,19 @@ const App: React.FC = () => {
     return (
         <>
             <div id="menu">
-                <Icon icon={"newFile"} size={30} clickHandler={() => setNewFileMode(true)} />
-                <Icon icon={"openFile"} size={30} clickHandler={() => setOpenFileMode(true)} />
-                <Icon icon={"saveFile"} size={30} clickHandler={handleSave} />
-                <input
-                    ref={openRef}
-                    onChange={handleOpenFile}
-                    accept=".json"
-                    style={{ display: "none" }}
-                    type="file"
-                    name="filename"
-                />
+                <div className="toolbar">
+                    <Icon icon={"newFile"} size={30} viewBox="2 0 12 16" clickHandler={() => setNewFileMode(true)} />
+                    <Icon icon={"openFile"} size={30} viewBox="0 2 16 13" clickHandler={() => setOpenFileMode(true)} />
+                    <Icon icon={"saveFile"} size={30} clickHandler={handleSave} />
+                    <input
+                        ref={openRef}
+                        onChange={handleOpenFile}
+                        accept=".json"
+                        style={{ display: "none" }}
+                        type="file"
+                        name="filename"
+                    />
+                </div>
             </div>
             <Explorer
                 library={library}
@@ -85,10 +87,8 @@ const App: React.FC = () => {
                 selectedText={selectedText}
             />
             <div id="output">
+                <div className="mini-toolbar"></div>
                 <p className="section-label">OUTPUT</p>
-                <div className="mini-toolbar">
-
-                </div>
                 <div
                     id="text-display"
                     className="scrollbar"

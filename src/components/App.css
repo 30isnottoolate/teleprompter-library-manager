@@ -7,19 +7,21 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    user-select: none;
 }
 
 body {
-    background-color: #353535;
+    background-color: #303030;
     font-family: "Roboto", Helvetica;
 }
 
 .scrollbar::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background-color: #353535;
+    background-color: #303030;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
@@ -29,14 +31,34 @@ body {
 #root {
     display: grid;
     grid-template-columns: 15% 42.5% 42.5%;
-    grid-template-rows: 50px calc(100vh - 52px);
+    grid-template-rows: 60px calc(100vh - 62px);
     width: 100vw;
     height: 100vh;
 }
 
 #menu {
     grid-column: 1 / 4;
-    height: 50px;
+    height: 60px;
+}
+
+.toolbar {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 12px 20px 12px;
+}
+
+.toolbar > button {
+    margin-right: 10px;
+}
+
+.toolbar > button > svg {
+    vertical-align: bottom;
+}
+
+button:hover > svg {
+    fill: #ffffff;
 }
 
 #explorer {
@@ -54,12 +76,17 @@ body {
 .section-label {
     color: #bfbfbf;
     font-size: 13px;
-    height: 25px;
-    padding: 6px 12px;
+    height: 23px;
+    padding: 0 0 10px 12px;
 }
 
 .mini-toolbar {
-    height: 25px;
+    height: 30px;
+    padding-left: 12px;
+}
+
+.mini-toolbar > button {
+    margin-right: 3px;
 }
 
 #explorer > select {
@@ -69,7 +96,7 @@ body {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 129px);
+    height: calc(100vh - 117px);
 }
 
 select > option {
@@ -85,11 +112,16 @@ select > option {
     height: 38px;
     padding: 2.5px 0 5px 10px;
     margin-bottom: 5px;
+    user-select: auto;
+}
+
+button {
+    cursor: pointer;
 }
 
 select, select:focus, textarea, textarea:focus, input, input:focus {
     border-width: 0;
-    outline:none;
+    outline: none;
 }
 
 #editor > textarea {
@@ -99,11 +131,12 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 172px);
+    height: calc(100vh - 160px);
     padding: 7.5px 10px;
     resize: none;
     white-space: pre;
     overflow-y: scroll;
+    user-select: auto;
 }
 
 #text-display {
@@ -112,12 +145,11 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 129px);
+    height: calc(100vh - 117px);
     padding: 7.5px 10px;
     white-space: pre-wrap;
     word-break: break-word;
     overflow-y: scroll;
-    user-select: none;
 }
 
 .dialog-screen {
@@ -131,7 +163,6 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     left: 0;
     width: 100vw;
     height: 100vh;
-    user-select: none;
 }
 
 .dialog-box {
@@ -139,6 +170,7 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     color: #eeeeee;
     width: 350px;
     height: 150px;
+    padding: 15px;
     border: 1px solid #555555;
     border-radius: 5px;
     box-shadow: 5px 5px 15px 5px #1e1e1e;

@@ -122,10 +122,10 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             <div id="explorer">
                 <p className="section-label">EXPLORER</p>
                 <div className="mini-toolbar">
-                    <Icon icon={"newText"} size={19} clickHandler={() => setNewTextMode(true)} />
-                    <Icon icon={"deleteText"} size={19} clickHandler={() => setDeleteTextMode(true)} />
-                    <Icon icon={"moveDown"} size={19} clickHandler={handleMoveDown} />
-                    <Icon icon={"moveUp"} size={19} clickHandler={handleMoveUp} />
+                    <Icon icon={"newText"} size={20} clickHandler={() => setNewTextMode(true)} />
+                    <Icon icon={"deleteText"} size={20} clickHandler={() => setDeleteTextMode(true)} />
+                    <Icon icon={"moveDown"} size={20} clickHandler={handleMoveDown} />
+                    <Icon icon={"moveUp"} size={20} clickHandler={handleMoveUp} />
                 </div>
                 <select
                     ref={selectRef}
