@@ -149,23 +149,23 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             </div>
             {newTextMode &&
                 <div className="dialog-screen">
-                <div className="dialog-box new-text">
-                        <p className="dialog-question">Title:</p>
+                <div className="dialog-box">
                         <input
                             ref={newTextTitleRef}
                             type="text"
+                            placeholder="Type title here..."
                         />
-                        <button className="dialog-button button-1" onClick={handleNewText}>Save</button>
-                        <button className="dialog-button button-2" onClick={handleCancel}>Cancel</button>
+                        <button className="dialog-button button-2" onClick={handleNewText}>Save</button>
+                        <button className="dialog-button button-3" onClick={handleCancel}>Cancel</button>
                     </div>
                 </div>
             }
             {deleteTextMode &&
                 <div className="dialog-screen">
-                    <div className="dialog-box confirmation">
+                    <div className="dialog-box">
                         <p className="dialog-question">Are you sure you want to delete this text?</p>
-                        <button className="dialog-button button-1" onClick={handleDelete}>Yes</button>
-                        <button className="dialog-button button-2" onClick={() => setDeleteTextMode(false)}>No</button>
+                        <button className="dialog-button button-2" onClick={handleDelete}>Yes</button>
+                        <button className="dialog-button button-3" onClick={() => setDeleteTextMode(false)}>No</button>
                     </div>
                 </div>
             }

@@ -116,7 +116,7 @@ const App: React.FC = () => {
             </div>
             {newFileMode &&
                 <div className="dialog-screen">
-                    <div className="dialog-box confirmation">
+                    <div className="dialog-box">
                         <p className="dialog-question">Warning! This library was modified.<br/>Do you want to save it before creating a new one?</p>
                         <button className="dialog-button button-1" onClick={handleSave}>Save</button>
                         <button className="dialog-button button-2" onClick={createNewFile}>Discard</button>
@@ -126,7 +126,7 @@ const App: React.FC = () => {
             }
             {openFileMode &&
                 <div className="dialog-screen">
-                    <div className="dialog-box confirmation">
+                    <div className="dialog-box">
                         <p className="dialog-question">Warning! This library was modified.<br/>Do you want to save it before opening another one?</p>
                         <button className="dialog-button button-1" onClick={handleSave}>Save</button>
                         <button className="dialog-button button-2" onClick={triggerClick}>Discard</button>
