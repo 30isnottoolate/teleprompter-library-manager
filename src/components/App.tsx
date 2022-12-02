@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
 import './App.css';
 import Icon from './Icon';
@@ -14,12 +14,10 @@ const App: React.FC = () => {
 
     const openRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        if (fileModified) console.log("library changed");
-    }, [fileModified])
-
     const triggerClick = () => {
         if (openRef.current) openRef.current.click();
+        setOpenFileMode(false);
+        setFileModified(false);
     }
 
     const openFile = (event) => {
@@ -40,6 +38,7 @@ const App: React.FC = () => {
     const createNewFile = () => {
         setLibrary({ texts: [{ title: "My First Text", content: "" }] });
         setNewFileMode(false);
+        setFileModified(false);
     }
 
     const saveFile = (data: string, fileName: string, dataType: string) => {
@@ -53,6 +52,8 @@ const App: React.FC = () => {
 
     const handleSave = () => {
         saveFile(JSON.stringify(library), "librarian.json", "text/plain");
+        setNewFileMode(false);
+        setOpenFileMode(false);
         setFileModified(false);
     }
 
@@ -70,7 +71,7 @@ const App: React.FC = () => {
     }
 
     const handleOpenFile = () => {
-        if (fileModified) setNewFileMode(true);
+        if (fileModified) setOpenFileMode(true);
         else triggerClick();
     }
 
@@ -116,20 +117,20 @@ const App: React.FC = () => {
             {newFileMode &&
                 <div className="dialog-screen">
                     <div className="dialog-box confirmation">
-                        <p className="dialog-title">New file</p>
-                        <p className="dialog-question">Are you sure?</p>
-                        <button className="dialog-button button-1" onClick={createNewFile}>Yes</button>
-                        <button className="dialog-button button-2" onClick={() => setNewFileMode(false)}>No</button>
+                        <p className="dialog-question">Warning! This library was modified.<br/>Do you want to save it before creating a new one?</p>
+                        <button className="dialog-button button-1" onClick={handleSave}>Save</button>
+                        <button className="dialog-button button-2" onClick={createNewFile}>Discard</button>
+                        <button className="dialog-button button-3" onClick={() => setNewFileMode(false)}>Cancel</button>
                     </div>
                 </div>
             }
             {openFileMode &&
                 <div className="dialog-screen">
                     <div className="dialog-box confirmation">
-                        <p className="dialog-title">Open file</p>
-                        <p className="dialog-question">Are you sure?</p>
-                        <button className="dialog-button button-1" onClick={triggerClick}>Yes</button>
-                        <button className="dialog-button button-2" onClick={() => setOpenFileMode(false)}>No</button>
+                        <p className="dialog-question">Warning! This library was modified.<br/>Do you want to save it before opening another one?</p>
+                        <button className="dialog-button button-1" onClick={handleSave}>Save</button>
+                        <button className="dialog-button button-2" onClick={triggerClick}>Discard</button>
+                        <button className="dialog-button button-3" onClick={() => setOpenFileMode(false)}>Cancel</button>
                     </div>
                 </div>
             }
