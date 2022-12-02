@@ -61,6 +61,10 @@ button:hover > svg {
     fill: #ffffff;
 }
 
+button:disabled > svg {
+    fill: #555555
+}
+
 #explorer {
     grid-column: 1 / 2;
 }
