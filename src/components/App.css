@@ -100,6 +100,7 @@ button:hover > svg {
 }
 
 select > option {
+    height: 32px;
     padding: 5px 10px;
 }
 
@@ -166,12 +167,46 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
 }
 
 .dialog-box {
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(4, 25%);
     background-color: #1e1e1e;
     color: #eeeeee;
-    width: 350px;
+    width: 400px;
     height: 150px;
-    padding: 15px;
+    padding: 25px;
     border: 1px solid #555555;
     border-radius: 5px;
     box-shadow: 5px 5px 15px 5px #1e1e1e;
+}
+
+.dialog-box > input {
+    background-color: #252525;
+    color: #eeeeee;
+    font-family: "Roboto Condensed", Helvetica;
+    font-size: 18px;
+    width: 348px;
+    height: 30px;
+    padding: 0px 4px;
+    border: 1px solid #555555;
+    user-select: auto;
+}
+
+.dialog-question {
+    grid-row: 1 / 2;
+    grid-column: 1 / 6;
+}
+
+.dialog-button {
+    margin: 5px 0 0 5px;
+}
+
+.button-1 {
+    grid-row: 4 / 5;
+    grid-column: 4 / 5;
+}
+
+.button-2 {
+    grid-row: 4 / 5;
+    grid-column: 5 / 6;
 }
