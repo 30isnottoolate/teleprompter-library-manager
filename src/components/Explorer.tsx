@@ -5,10 +5,11 @@ interface ExplorerProps {
     library: any,
     setLibrary: Function,
     selectedText: number,
-    setSelectedText: Function
+    setSelectedText: Function,
+    setFileModified: Function
 }
 
-const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setSelectedText }: ExplorerProps) => {
+const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setSelectedText, setFileModified }: ExplorerProps) => {
     const [newTextMode, setNewTextMode] = useState(false);
     const [deleteTextMode, setDeleteTextMode] = useState(false);
 
@@ -28,6 +29,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
         }));
 
         setNewTextMode(false);
+        setFileModified(true);
     }
 
     const handleDelete = () => {
@@ -56,6 +58,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
 
             setSelectedText(selectedText - 1);
             setDeleteTextMode(false);
+            setFileModified(true);
         }
     }
 
@@ -87,6 +90,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             }
 
             setSelectedText(selectedText - 1);
+            setFileModified(true);
         }
     }
 
@@ -114,6 +118,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             }
 
             setSelectedText(selectedText + 1);
+            setFileModified(true);
         }
     }
 
@@ -145,25 +150,22 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             {newTextMode &&
                 <div className="dialog-screen">
                 <div className="dialog-box new-text">
-                        <p className="dialog-title">Add new text</p>
-                        <label htmlFor="new-text-title-input">Title</label>
+                        <p className="dialog-question">Title:</p>
                         <input
-                            id="new-text-title-input"
                             ref={newTextTitleRef}
                             type="text"
                         />
-                        <button className="dialog-button" onClick={handleNewText}>Save</button>
-                        <button className="dialog-button" onClick={handleCancel}>Cancel</button>
+                        <button className="dialog-button button-1" onClick={handleNewText}>Save</button>
+                        <button className="dialog-button button-2" onClick={handleCancel}>Cancel</button>
                     </div>
                 </div>
             }
             {deleteTextMode &&
                 <div className="dialog-screen">
                     <div className="dialog-box confirmation">
-                        <p className="dialog-title">Delete text</p>
-                        <p className="dialog-question">Are you sure?</p>
-                        <button className="dialog-button" onClick={handleDelete}>Yes</button>
-                        <button className="dialog-button" onClick={() => setDeleteTextMode(false)}>No</button>
+                        <p className="dialog-question">Are you sure you want to delete this text?</p>
+                        <button className="dialog-button button-1" onClick={handleDelete}>Yes</button>
+                        <button className="dialog-button button-2" onClick={() => setDeleteTextMode(false)}>No</button>
                     </div>
                 </div>
             }

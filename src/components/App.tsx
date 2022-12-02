@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import DOMPurify from 'dompurify';
 import './App.css';
 import Icon from './Icon';
@@ -10,14 +10,19 @@ const App: React.FC = () => {
     const [selectedText, setSelectedText] = useState(0);
     const [newFileMode, setNewFileMode] = useState(false);
     const [openFileMode, setOpenFileMode] = useState(false);
+    const [fileModified, setFileModified] = useState(false);
 
     const openRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (fileModified) console.log("library changed");
+    }, [fileModified])
 
     const triggerClick = () => {
         if (openRef.current) openRef.current.click();
     }
 
-    const handleOpenFile = (event) => {
+    const openFile = (event) => {
         let reader = new FileReader();
 
         reader.onload = onFileLoading;
@@ -32,7 +37,7 @@ const App: React.FC = () => {
         }
     }
 
-    const handleNewFile = () => {
+    const createNewFile = () => {
         setLibrary({ texts: [{ title: "My First Text", content: "" }] });
         setNewFileMode(false);
     }
@@ -48,6 +53,7 @@ const App: React.FC = () => {
 
     const handleSave = () => {
         saveFile(JSON.stringify(library), "librarian.json", "text/plain");
+        setFileModified(false);
     }
 
     const displayText = () => typeSafeProp(selectedText, "title") + "<br/><br/>" + typeSafeProp(selectedText, "content");
@@ -58,16 +64,26 @@ const App: React.FC = () => {
         } else return "";
     }
 
+    const handleNewFile = () => {
+        if (fileModified) setNewFileMode(true);
+        else createNewFile();
+    }
+
+    const handleOpenFile = () => {
+        if (fileModified) setNewFileMode(true);
+        else triggerClick();
+    }
+
     return (
         <>
             <div id="menu">
                 <div className="toolbar">
-                    <Icon icon={"newFile"} size={30} viewBox="2 0 12 16" clickHandler={() => setNewFileMode(true)} />
-                    <Icon icon={"openFile"} size={30} viewBox="0 2 16 13" clickHandler={() => setOpenFileMode(true)} />
+                    <Icon icon={"newFile"} size={30} viewBox="2 0 12 16" clickHandler={handleNewFile} />
+                    <Icon icon={"openFile"} size={30} viewBox="0 2 16 13" clickHandler={handleOpenFile} />
                     <Icon icon={"saveFile"} size={30} clickHandler={handleSave} />
                     <input
                         ref={openRef}
-                        onChange={handleOpenFile}
+                        onChange={openFile}
                         accept=".json"
                         style={{ display: "none" }}
                         type="file"
@@ -80,11 +96,13 @@ const App: React.FC = () => {
                 setLibrary={setLibrary}
                 selectedText={selectedText}
                 setSelectedText={setSelectedText}
+                setFileModified={setFileModified}
             />
             <Editor
                 library={library}
                 setLibrary={setLibrary}
                 selectedText={selectedText}
+                setFileModified={setFileModified}
             />
             <div id="output">
                 <div className="mini-toolbar"></div>
@@ -100,8 +118,8 @@ const App: React.FC = () => {
                     <div className="dialog-box confirmation">
                         <p className="dialog-title">New file</p>
                         <p className="dialog-question">Are you sure?</p>
-                        <button className="dialog-button" onClick={handleNewFile}>Yes</button>
-                        <button className="dialog-button" onClick={() => setNewFileMode(false)}>No</button>
+                        <button className="dialog-button button-1" onClick={createNewFile}>Yes</button>
+                        <button className="dialog-button button-2" onClick={() => setNewFileMode(false)}>No</button>
                     </div>
                 </div>
             }
@@ -110,8 +128,8 @@ const App: React.FC = () => {
                     <div className="dialog-box confirmation">
                         <p className="dialog-title">Open file</p>
                         <p className="dialog-question">Are you sure?</p>
-                        <button className="dialog-button" onClick={triggerClick}>Yes</button>
-                        <button className="dialog-button" onClick={() => setOpenFileMode(false)}>No</button>
+                        <button className="dialog-button button-1" onClick={triggerClick}>Yes</button>
+                        <button className="dialog-button button-2" onClick={() => setOpenFileMode(false)}>No</button>
                     </div>
                 </div>
             }

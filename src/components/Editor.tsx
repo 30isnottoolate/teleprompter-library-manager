@@ -3,10 +3,11 @@ import React from 'react';
 interface ExplorerProps {
     library: any,
     setLibrary: Function,
-    selectedText: number
+    selectedText: number,
+    setFileModified: Function
 }
 
-const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText  }: ExplorerProps) => {
+const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {
     const typeSafeProp = (index: number, prop: string) => {
         if (library && library.texts && library.texts[index] && library.texts[index][prop]) {
             return library.texts[index][prop];
@@ -23,6 +24,8 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText  }:
                 ...newLibraryTexts
             ]
         }));
+
+        setFileModified(true);
     }
 
     const handleContentChange = (event) => {
@@ -35,6 +38,8 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText  }:
                 ...newLibraryTexts
             ]
         }));
+
+        setFileModified(true);
     }
 
     return (
@@ -45,12 +50,13 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText  }:
                 type="text"
                 value={typeSafeProp(selectedText, "title")}
                 onChange={handleTitleChange}
+                placeholder="Type title here..."
             />
             <textarea
                 className="scrollbar"
                 value={typeSafeProp(selectedText, "content")}
                 onChange={handleContentChange}
-                placeholder="Type something..."
+                placeholder="Type content here..."
             />
         </div>
     )
