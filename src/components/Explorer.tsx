@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Icon from './Icon';
 
 interface ExplorerProps {
     library: any,
@@ -120,14 +121,11 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
         <>
             <div id="text-select-container">
                 <p className="section-label">EXPLORER</p>
-                <div className="toolbar">
-                    <button
-                        onClick={() => setNewTextMode(true)}>
-                        New Text
-                    </button>
-                    <button onClick={() => setDeleteTextMode(true)}>Delete Text</button>
-                    <button onClick={handleMoveUp}>Up</button>
-                    <button onClick={handleMoveDown}>Down</button>
+                <div className="toolbar explorer-toolbar">
+                    <Icon icon={"newText"} size={19} clickHandler={() => setNewTextMode(true)} />
+                    <Icon icon={"deleteText"} size={19}  clickHandler={() => setDeleteTextMode(true)} />
+                    <Icon icon={"moveDown"} size={19}  clickHandler={handleMoveDown} />
+                    <Icon icon={"moveUp"} size={19}  clickHandler={handleMoveUp} />
                 </div>
                 <select
                     id="texts"
