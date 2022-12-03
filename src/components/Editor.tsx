@@ -1,4 +1,5 @@
 import React from 'react';
+import typeSafeProp from '../utilities/typeSafeProp';
 
 interface ExplorerProps {
     library: any,
@@ -8,17 +9,12 @@ interface ExplorerProps {
 }
 
 const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {
-    const typeSafeProp = (index: number, prop: string) => {
-        if (library && library.texts && library.texts[index] && library.texts[index][prop]) {
-            return library.texts[index][prop];
-        } else return "";
-    }
 
-    const handleTitleChange = (event) => {
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
         newLibraryTexts[selectedText].title = event.target.value;
 
-        setLibrary(prevState => ({
+        setLibrary((prevState: typeof library) => ({
             ...prevState,
             texts: [
                 ...newLibraryTexts
@@ -28,11 +24,11 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         setFileModified(true);
     }
 
-    const handleContentChange = (event) => {
+    const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         let newLibraryTexts = [...library.texts];
         newLibraryTexts[selectedText].content = event.target.value;
 
-        setLibrary(prevState => ({
+        setLibrary((prevState: typeof library) => ({
             ...prevState,
             texts: [
                 ...newLibraryTexts
@@ -41,8 +37,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
 
         setFileModified(true);
     }
-
-    console.log(selectedText);
 
     return (
         <div id="editor">
@@ -50,17 +44,17 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
             <p className="section-label">EDITOR</p>
             <input
                 type="text"
-                value={typeSafeProp(selectedText, "title")}
+                value={typeSafeProp(library, selectedText, "title")}
                 onChange={handleTitleChange}
                 placeholder="Type title here..."
-                disabled={library.texts.length === 0 ? true : false}
+                disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
             />
             <textarea
                 className="scrollbar"
-                value={typeSafeProp(selectedText, "content")}
+                value={typeSafeProp(library, selectedText, "content")}
                 onChange={handleContentChange}
                 placeholder="Type content here..."
-                disabled={library.texts.length === 0 ? true : false}
+                disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
             />
         </div>
     )
