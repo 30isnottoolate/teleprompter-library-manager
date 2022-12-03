@@ -1,13 +1,13 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler, ReactNode } from 'react';
 
 interface NewOpenDialogProps {
+    message: ReactNode,
     clickHandlerOne: MouseEventHandler,
     clickHandlerTwo: MouseEventHandler,
-    clickHandlerThree: MouseEventHandler,
-    message: string
+    clickHandlerThree: MouseEventHandler
 }
 
-const NewOpenDialog: React.FC<NewOpenDialogProps> = ({ clickHandlerOne, clickHandlerTwo, clickHandlerThree, message }: NewOpenDialogProps) => {
+const NewOpenDialog: React.FC<NewOpenDialogProps> = ({ message, clickHandlerOne, clickHandlerTwo, clickHandlerThree }: NewOpenDialogProps) => {
     return (
         <div className="dialog-screen">
                     <div className="dialog-box">
