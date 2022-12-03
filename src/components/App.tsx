@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
-import DOMPurify from 'dompurify';
 import './App.css';
 import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 import Explorer from './Explorer';
 import Editor from './Editor';
+import Output from './Output';
 import NewOpenDialog from './NewOpenDialog';
 
 const App: React.FC = () => {
@@ -114,15 +114,7 @@ const App: React.FC = () => {
                 selectedText={selectedText}
                 setFileModified={setFileModified}
             />
-            <div id="output">
-                <div className="mini-toolbar"></div>
-                <p className="section-label">OUTPUT</p>
-                <div
-                    id="text-display"
-                    className="scrollbar"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(displayText()) }}
-                />
-            </div>
+            <Output output={displayText()} />
             {newFileMode &&
                 <NewOpenDialog
                     message={<>Warning! This library was modified.<br />
@@ -142,7 +134,7 @@ const App: React.FC = () => {
                 />
             }
         </>
-    )
+    );
 }
 
 export default App;
