@@ -1,13 +1,16 @@
 import React, { useState, useRef } from 'react';
 import DOMPurify from 'dompurify';
 import './App.css';
+import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 import Explorer from './Explorer';
 import Editor from './Editor';
 import NewOpenDialog from './NewOpenDialog';
 
 const App: React.FC = () => {
-    const [library, setLibrary] = useState({ texts: [{ title: "My First Text", content: "" }] });
+    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
+        ({ texts: [{ title: "My First Text", content: "" }] });
+
     const [selectedText, setSelectedText] = useState(0);
     const [newFileMode, setNewFileMode] = useState(false);
     const [openFileMode, setOpenFileMode] = useState(false);
@@ -58,12 +61,9 @@ const App: React.FC = () => {
         setFileModified(false);
     }
 
-    const displayText = () => typeSafeProp(selectedText, "title") + "<br/><br/>" + typeSafeProp(selectedText, "content");
-
-    const typeSafeProp = (index: number, prop: string) => {
-        if (library && library.texts && library.texts[index] && library.texts[index][prop]) {
-            return library.texts[index][prop];
-        } else return "";
+    const displayText = () => {
+        return typeSafeProp(library, selectedText, "title") +
+            "<br/><br/>" + typeSafeProp(library, selectedText, "content");
     }
 
     const handleNewFile = () => {
@@ -80,9 +80,21 @@ const App: React.FC = () => {
         <>
             <div id="menu">
                 <div className="toolbar">
-                    <Icon icon={"newFile"} size={30} viewBox="2 0 12 16" clickHandler={handleNewFile} />
-                    <Icon icon={"openFile"} size={30} viewBox="0 2 16 13" clickHandler={handleOpenFile} />
-                    <Icon icon={"saveFile"} size={30} clickHandler={handleSave} />
+                    <Icon
+                        icon={"newFile"}
+                        size={30} viewBox="2 0 12 16"
+                        clickHandler={handleNewFile}
+                    />
+                    <Icon
+                        icon={"openFile"}
+                        size={30} viewBox="0 2 16 13"
+                        clickHandler={handleOpenFile}
+                    />
+                    <Icon
+                        icon={"saveFile"}
+                        size={30}
+                        clickHandler={handleSave}
+                    />
                     <input
                         ref={openRef}
                         onChange={openFile}
@@ -117,7 +129,8 @@ const App: React.FC = () => {
             </div>
             {newFileMode &&
                 <NewOpenDialog
-                    message={<>Warning! This library was modified.<br />Do you want to save it before creating a new one?</>}
+                    message={<>Warning! This library was modified.<br />
+                        Do you want to save it before creating a new one?</>}
                     clickHandlerOne={handleSave}
                     clickHandlerTwo={createNewFile}
                     clickHandlerThree={() => setNewFileMode(false)}
@@ -125,7 +138,8 @@ const App: React.FC = () => {
             }
             {openFileMode &&
                 <NewOpenDialog
-                    message={<>Warning! This library was modified.<br />Do you want to save it before opening another one?</>}
+                    message={<>Warning! This library was modified.<br />
+                        Do you want to save it before opening another one?</>}
                     clickHandlerOne={handleSave}
                     clickHandlerTwo={triggerClick}
                     clickHandlerThree={() => setOpenFileMode(false)}
