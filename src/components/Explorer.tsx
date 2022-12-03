@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Icon from './Icon';
+import InputDialog from './InputDialog';
 
 interface ExplorerProps {
     library: any,
@@ -153,17 +154,11 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
                 </select>
             </div>
             {newTextMode &&
-                <div className="dialog-screen">
-                <div className="dialog-box">
-                        <input
-                            ref={newTextTitleRef}
-                            type="text"
-                            placeholder="Type title here..."
-                        />
-                        <button className="dialog-button button-2" onClick={handleNewText}>Save</button>
-                        <button className="dialog-button button-3" onClick={handleCancel}>Cancel</button>
-                    </div>
-                </div>
+                <InputDialog
+                    textTitleInputRef={newTextTitleRef}
+                    clickHandlerOne={handleNewText}
+                    clickHandlerTwo={handleCancel}
+                />
             }
             {deleteTextMode &&
                 <div className="dialog-screen">
