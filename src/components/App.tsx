@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
 import typeSafeProp from '../utilities/typeSafeProp';
-import Icon from './Icon';
+import Menu from './Menu';
 import Explorer from './Explorer';
 import Editor from './Editor';
 import Output from './Output';
@@ -74,33 +74,13 @@ const App: React.FC = () => {
 
     return (
         <>
-            <div id="menu">
-                <div className="toolbar">
-                    <Icon
-                        icon={"newFile"}
-                        size={30} viewBox="2 0 12 16"
-                        clickHandler={handleNewFileClick}
-                    />
-                    <Icon
-                        icon={"openFile"}
-                        size={30} viewBox="0 2 16 13"
-                        clickHandler={handleOpenFileClick}
-                    />
-                    <Icon
-                        icon={"saveFile"}
-                        size={30}
-                        clickHandler={handleSaveFileClick}
-                    />
-                    <input
-                        ref={inputFileRef}
-                        onChange={openFile}
-                        accept=".json"
-                        style={{ display: "none" }}
-                        type="file"
-                        name="filename"
-                    />
-                </div>
-            </div>
+            <Menu
+                handleNewFileClick={handleNewFileClick}
+                handleOpenFileClick={handleOpenFileClick}
+                handleSaveFileClick={handleSaveFileClick}
+                openFile={openFile}
+                inputFileRef={inputFileRef}
+            />
             <Explorer
                 library={library}
                 setLibrary={setLibrary}
