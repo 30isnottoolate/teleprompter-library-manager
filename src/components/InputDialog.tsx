@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, RefObject } from 'react';
+import React, { useEffect, MouseEventHandler, RefObject } from 'react';
 
 interface InputDialogProps {
     textTitleInputRef: RefObject<HTMLInputElement>, 
@@ -7,6 +7,10 @@ interface InputDialogProps {
 }
 
 const InputDialog: React.FC<InputDialogProps> = ({textTitleInputRef, clickHandlerOne, clickHandlerTwo}: InputDialogProps) => {
+    useEffect(() => {
+        if (textTitleInputRef.current) textTitleInputRef.current.focus()
+    }, []);
+
     return (
         <div className="dialog-screen">
             <div className="dialog-box">
