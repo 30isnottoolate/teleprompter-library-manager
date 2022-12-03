@@ -191,8 +191,8 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     color: #eeeeee;
     font-family: "Roboto Condensed", Helvetica;
     font-size: 18px;
-    height: 30px;
-    padding: 0px 4px;
+    height: 38px;
+    padding: 0px 6px;
     border: 1px solid #555555;
     user-select: auto;
 }
