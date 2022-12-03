@@ -12,68 +12,64 @@ const App: React.FC = () => {
         ({ texts: [{ title: "My First Text", content: "" }] });
 
     const [selectedText, setSelectedText] = useState(0);
+    const [fileModified, setFileModified] = useState(false);
     const [newFileMode, setNewFileMode] = useState(false);
     const [openFileMode, setOpenFileMode] = useState(false);
-    const [fileModified, setFileModified] = useState(false);
 
-    const openRef = useRef<HTMLInputElement>(null);
+    const inputFileRef = useRef<HTMLInputElement>(null);
 
-    const triggerClick = () => {
-        if (openRef.current) openRef.current.click();
-        setOpenFileMode(false);
-        setFileModified(false);
+    const handleNewFileClick = () => {
+        if (fileModified) setNewFileMode(true);
+        else newFile();
     }
 
-    const openFile = (event) => {
+    const newFile = () => {
+        setLibrary({ texts: [{ title: "My First Text", content: "" }] });
+        setFileModified(false);
+        setNewFileMode(false);
+    }
+
+    const handleOpenFileClick = () => {
+        if (fileModified) setOpenFileMode(true);
+        else triggerInputFileClick();
+    }
+
+    const triggerInputFileClick = () => {
+        if (inputFileRef.current) inputFileRef.current.click();
+    }
+
+    const openFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         let reader = new FileReader();
 
-        reader.onload = onFileLoading;
-        reader.readAsText(event.target.files[0]);
-    }
-
-    const onFileLoading = (event) => {
-        if (event.target.result) {
-            setLibrary(JSON.parse(event.target.result));
-            setOpenFileMode(false);
-            if (openRef.current) openRef.current.value = "";
+        const readFile = (event: ProgressEvent<FileReader>) => {
+            if (event.target && event.target.result) {
+                setLibrary(JSON.parse(event.target.result.toString()));
+                setFileModified(false);
+                setOpenFileMode(false);
+                if (inputFileRef.current) inputFileRef.current.value = "";
+            }
         }
+
+        reader.onload = readFile;
+        if (event.target.files) reader.readAsText(event.target.files[0]);
     }
 
-    const createNewFile = () => {
-        setLibrary({ texts: [{ title: "My First Text", content: "" }] });
-        setNewFileMode(false);
-        setFileModified(false);
-    }
-
-    const saveFile = (data: string, fileName: string, dataType: string) => {
+    const handleSaveFileClick = () => {
         let pseudoSave = document.createElement("a");
-        let file = new Blob([data], { type: dataType });
+        let file = new Blob([JSON.stringify(library)], { type: "text/plain" });
 
         pseudoSave.href = URL.createObjectURL(file);
-        pseudoSave.download = fileName;
+        pseudoSave.download = "librarian.json";
         pseudoSave.click();
-    }
 
-    const handleSave = () => {
-        saveFile(JSON.stringify(library), "librarian.json", "text/plain");
+        setFileModified(false);
         setNewFileMode(false);
         setOpenFileMode(false);
-        setFileModified(false);
     }
 
     const displayText = () => {
         return typeSafeProp(library, selectedText, "title") +
             "<br/><br/>" + typeSafeProp(library, selectedText, "content");
-    }
-
-    const handleNewFile = () => {
-        if (fileModified) setNewFileMode(true);
-        else createNewFile();
-    }
-
-    const handleOpenFile = () => {
-        if (fileModified) setOpenFileMode(true);
-        else triggerClick();
     }
 
     return (
@@ -83,20 +79,20 @@ const App: React.FC = () => {
                     <Icon
                         icon={"newFile"}
                         size={30} viewBox="2 0 12 16"
-                        clickHandler={handleNewFile}
+                        clickHandler={handleNewFileClick}
                     />
                     <Icon
                         icon={"openFile"}
                         size={30} viewBox="0 2 16 13"
-                        clickHandler={handleOpenFile}
+                        clickHandler={handleOpenFileClick}
                     />
                     <Icon
                         icon={"saveFile"}
                         size={30}
-                        clickHandler={handleSave}
+                        clickHandler={handleSaveFileClick}
                     />
                     <input
-                        ref={openRef}
+                        ref={inputFileRef}
                         onChange={openFile}
                         accept=".json"
                         style={{ display: "none" }}
@@ -131,8 +127,8 @@ const App: React.FC = () => {
                 <NewOpenDialog
                     message={<>Warning! This library was modified.<br />
                         Do you want to save it before creating a new one?</>}
-                    clickHandlerOne={handleSave}
-                    clickHandlerTwo={createNewFile}
+                    clickHandlerOne={handleSaveFileClick}
+                    clickHandlerTwo={newFile}
                     clickHandlerThree={() => setNewFileMode(false)}
                 />
             }
@@ -140,8 +136,8 @@ const App: React.FC = () => {
                 <NewOpenDialog
                     message={<>Warning! This library was modified.<br />
                         Do you want to save it before opening another one?</>}
-                    clickHandlerOne={handleSave}
-                    clickHandlerTwo={triggerClick}
+                    clickHandlerOne={handleSaveFileClick}
+                    clickHandlerTwo={triggerInputFileClick}
                     clickHandlerThree={() => setOpenFileMode(false)}
                 />
             }
