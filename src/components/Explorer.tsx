@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Icon from './Icon';
 import InputDialog from './InputDialog';
 import DeletionDialog from './DeletionDialog';
@@ -18,115 +18,100 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
     const selectRef = useRef<HTMLSelectElement>(null);
     const newTextTitleInputRef = useRef<HTMLInputElement>(null);
 
-    const handleNewText = () => {
-        setLibrary((prevState: typeof library) => ({
-            ...prevState,
-            texts: [
-                ...prevState.texts,
-                {
-                    title: newTextTitleInputRef.current ? newTextTitleInputRef.current.value : "",
-                    content: ""
-                }
-            ]
-        }));
+    useEffect(() => {
+        if (selectRef.current) selectRef.current.value = selectedText.toString();
+    }, [selectedText]);
+
+    const newText = () => {
+        setLibrary((prevState: typeof library) => {
+            setSelectedText(prevState.texts.length);
+            return ({
+                ...prevState,
+                texts: [
+                    ...prevState.texts,
+                    {
+                        title: newTextTitleInputRef.current ? newTextTitleInputRef.current.value : "",
+                        content: ""
+                    }
+                ]
+            });
+        });
 
         setNewTextMode(false);
         setFileModified(true);
     }
 
-    const handleDelete = () => {
+    const deleteText = () => {
         let topOfArray = library.texts.slice(0, selectedText);
         let bottomOfArray = library.texts.slice(selectedText + 1);
 
-        if (library.texts.length > 0) {
-            if (selectedText === 0) {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...bottomOfArray]
-                }));
-            } else if (selectedText === library.texts.length - 1) {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...topOfArray]
-                }));
-            } else {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...bottomOfArray]
-                }));
-            }
-
-            if (selectRef.current) selectRef.current.value = `${selectedText - 1}`;
-
-            setSelectedText(selectedText - 1);
-            setDeleteTextMode(false);
-            setFileModified(true);
+        if (selectedText === 0) {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...bottomOfArray]
+            }));
+        } else if (selectedText === library.texts.length - 1) {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...topOfArray]
+            }));
+        } else {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...topOfArray, ...bottomOfArray]
+            }));
         }
+
+        if ((selectedText === 0 && library.texts.length === 1) || selectedText !== 0) {
+            setSelectedText((prevState: number) => (prevState - 1));
+        }
+
+        setDeleteTextMode(false);
+        setFileModified(true);
     }
 
-    const handleCancel = () => {
-        setNewTextMode(false);
-    }
-
-    const handleMoveUp = () => {
+    const moveUpText = () => {
         let topOfArray = library.texts.slice(0, selectedText - 1);
         let prevElement = library.texts.slice(selectedText - 1, selectedText);
         let selectedElement = library.texts.slice(selectedText, selectedText + 1);
         let bottomOfArray = library.texts.slice(selectedText + 1);
 
-        if (selectedText !== 0) {
-            if (selectedText !== 1) {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...selectedElement, ...prevElement, ...bottomOfArray]
-                }));
-            } else {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...selectedElement, ...prevElement, ...bottomOfArray]
-                }));
-            }
-
-            if (selectRef.current) {
-                selectRef.current.value = `${selectedText - 1}`;
-            }
-
-            setSelectedText(selectedText - 1);
-            setFileModified(true);
+        if (selectedText !== 1) {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...topOfArray, ...selectedElement, ...prevElement, ...bottomOfArray]
+            }));
+        } else {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...selectedElement, ...prevElement, ...bottomOfArray]
+            }));
         }
+
+        setSelectedText((prevState: number) => (prevState - 1));
+        setFileModified(true);
     }
 
-    const handleMoveDown = () => {
+    const moveDownText = () => {
         let topOfArray = library.texts.slice(0, selectedText);
         let selectedElement = library.texts.slice(selectedText, selectedText + 1);
         let nextElement = library.texts.slice(selectedText + 1, selectedText + 2);
         let bottomOfArray = library.texts.slice(selectedText + 2);
 
-        if (selectedText !== library.texts.length - 1) {
-            if (selectedText !== library.texts.length - 2) {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...nextElement, ...selectedElement, ...bottomOfArray]
-                }));
-            } else {
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [...topOfArray, ...nextElement, ...selectedElement]
-                }));
-            }
-
-            if (selectRef.current) {
-                selectRef.current.value = `${selectedText + 1}`;
-            }
-
-            setSelectedText(selectedText + 1);
-            setFileModified(true);
+        if (selectedText !== library.texts.length - 2) {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...topOfArray, ...nextElement, ...selectedElement, ...bottomOfArray]
+            }));
+        } else {
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [...topOfArray, ...nextElement, ...selectedElement]
+            }));
         }
-    }
 
-    const handleNewTextClick = () => {
-        setNewTextMode(true);
-        if (newTextTitleInputRef.current) newTextTitleInputRef.current.focus(); //does not work!!!
+        setSelectedText((prevState: number) => (prevState + 1));
+        setFileModified(true);
     }
 
     return (
@@ -134,10 +119,29 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             <div id="explorer">
                 <p className="section-label">EXPLORER</p>
                 <div className="mini-toolbar">
-                    <Icon icon={"newText"} size={20} clickHandler={handleNewTextClick} />
-                    <Icon icon={"deleteText"} size={20} disabled={library.texts.length === 0 ? true : false} clickHandler={() => setDeleteTextMode(true)} />
-                    <Icon icon={"moveDown"} size={20} disabled={(library.texts.length < 2 || selectedText === library.texts.length - 1) ? true : false} clickHandler={handleMoveDown} />
-                    <Icon icon={"moveUp"} size={20} disabled={(library.texts.length < 2 || selectedText === 0) ? true : false} clickHandler={handleMoveUp} />
+                    <Icon
+                        icon={"newText"}
+                        size={20}
+                        clickHandler={() => setNewTextMode(true)}
+                    />
+                    <Icon
+                        icon={"deleteText"}
+                        size={20}
+                        clickHandler={() => setDeleteTextMode(true)}
+                        disabled={library.texts.length === 0 ? true : false}
+                    />
+                    <Icon
+                        icon={"moveDown"}
+                        size={20}
+                        clickHandler={moveDownText}
+                        disabled={(library.texts.length < 2 || selectedText === library.texts.length - 1) ? true : false}
+                    />
+                    <Icon
+                        icon={"moveUp"}
+                        size={20}
+                        clickHandler={moveUpText}
+                        disabled={(library.texts.length < 2 || selectedText === 0) ? true : false}
+                    />
                 </div>
                 <select
                     ref={selectRef}
@@ -157,13 +161,13 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             {newTextMode &&
                 <InputDialog
                     newTextTitleInputRef={newTextTitleInputRef}
-                    clickHandlerOne={handleNewText}
-                    clickHandlerTwo={handleCancel}
+                    clickHandlerOne={newText}
+                    clickHandlerTwo={() => setNewTextMode(false)}
                 />
             }
             {deleteTextMode &&
                 <DeletionDialog
-                    clickHandlerOne={handleDelete}
+                    clickHandlerOne={deleteText}
                     clickHandlerTwo={() => setDeleteTextMode(false)}
                 />
             }
