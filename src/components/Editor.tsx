@@ -57,7 +57,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
             />
         </div>
-    )
+    );
 }
 
 export default Editor;
