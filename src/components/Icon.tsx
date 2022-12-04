@@ -10,7 +10,6 @@ interface IconProps {
 }
 
 const Icon: React.FC<IconProps> = ({ icon, size, disabled, viewBox, clickHandler }) => {
-
     return (
         <button className="icon"
             onClick={clickHandler} disabled={disabled} style={{backgroundColor: "#353535", height: size, borderWidth: "0"}}>
@@ -18,7 +17,7 @@ const Icon: React.FC<IconProps> = ({ icon, size, disabled, viewBox, clickHandler
                 {icons[icon]}
             </svg>
         </button>
-    )
+    );
 }
 
 export default Icon;
