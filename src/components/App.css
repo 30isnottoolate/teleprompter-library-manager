@@ -180,7 +180,7 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     height: 150px;
     padding: 25px;
     border: 1px solid #555555;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 5px 5px 15px 5px #1e1e1e;
 }
 
@@ -204,7 +204,24 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
 }
 
 .dialog-button {
+    background-color: #252525;
+    color: #eeeeee;
+    font-family: "Roboto Condensed", Helvetica;
+    font-size: 15px;
+    border: 1px solid #555555;
+    border-radius: 4px;
     margin: 0px 0 0 5px;
+    box-shadow: 1px 1px 5px 1px #0f0f0f;
+}
+
+.dialog-button:hover {
+    background-color: #303030;
+    color: #ffffff;
+}
+
+.dialog-button:active {
+    box-shadow: none;
+    transform: translate(1px, 1px);
 }
 
 .button-1 {
