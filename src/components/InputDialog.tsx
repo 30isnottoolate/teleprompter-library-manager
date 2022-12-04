@@ -1,21 +1,21 @@
 import React, { useEffect, MouseEventHandler, RefObject } from 'react';
 
 interface InputDialogProps {
-    textTitleInputRef: RefObject<HTMLInputElement>, 
-    clickHandlerOne: MouseEventHandler, 
+    newTextTitleInputRef: RefObject<HTMLInputElement>,
+    clickHandlerOne: MouseEventHandler,
     clickHandlerTwo: MouseEventHandler
 }
 
-const InputDialog: React.FC<InputDialogProps> = ({textTitleInputRef, clickHandlerOne, clickHandlerTwo}: InputDialogProps) => {
+const InputDialog: React.FC<InputDialogProps> = ({ newTextTitleInputRef, clickHandlerOne, clickHandlerTwo }: InputDialogProps) => {
     useEffect(() => {
-        if (textTitleInputRef.current) textTitleInputRef.current.focus()
+        if (newTextTitleInputRef.current) newTextTitleInputRef.current.focus()
     }, []);
 
     return (
         <div className="dialog-screen">
             <div className="dialog-box">
                 <input
-                    ref={textTitleInputRef}
+                    ref={newTextTitleInputRef}
                     type="text"
                     placeholder="Type title here..."
                 />

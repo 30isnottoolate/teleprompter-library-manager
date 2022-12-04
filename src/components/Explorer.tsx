@@ -16,7 +16,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
     const [deleteTextMode, setDeleteTextMode] = useState(false);
 
     const selectRef = useRef<HTMLSelectElement>(null);
-    const newTextTitleRef = useRef<HTMLInputElement>(null);
+    const newTextTitleInputRef = useRef<HTMLInputElement>(null);
 
     const handleNewText = () => {
         setLibrary((prevState: typeof library) => ({
@@ -24,7 +24,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             texts: [
                 ...prevState.texts,
                 {
-                    title: newTextTitleRef.current ? newTextTitleRef.current.value : "",
+                    title: newTextTitleInputRef.current ? newTextTitleInputRef.current.value : "",
                     content: ""
                 }
             ]
@@ -126,7 +126,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
 
     const handleNewTextClick = () => {
         setNewTextMode(true);
-        if (newTextTitleRef.current) newTextTitleRef.current.focus(); //does not work!!!
+        if (newTextTitleInputRef.current) newTextTitleInputRef.current.focus(); //does not work!!!
     }
 
     return (
@@ -156,7 +156,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
             </div>
             {newTextMode &&
                 <InputDialog
-                    textTitleInputRef={newTextTitleRef}
+                    newTextTitleInputRef={newTextTitleInputRef}
                     clickHandlerOne={handleNewText}
                     clickHandlerTwo={handleCancel}
                 />
