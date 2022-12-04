@@ -3,14 +3,14 @@ import icons from '../utilities/icons';
 
 interface IconProps {
     icon: string,
+    tooltipText: string,
     size: number,
-    toolTipText: string,
     disabled?: boolean,
     viewBox?: string,
     clickHandler: MouseEventHandler
 }
 
-const Icon: React.FC<IconProps> = ({ icon, size, toolTipText, disabled, viewBox, clickHandler }) => {
+const Icon: React.FC<IconProps> = ({ icon, tooltipText, size, disabled, viewBox, clickHandler }) => {
     const tooltipRef = useRef<HTMLParagraphElement>(null);
 
     return (
@@ -25,7 +25,7 @@ const Icon: React.FC<IconProps> = ({ icon, size, toolTipText, disabled, viewBox,
                 ref={tooltipRef}
                 className="icon-tooltip"
             >
-                {toolTipText}
+                {tooltipText}
             </p>
         </>
     );

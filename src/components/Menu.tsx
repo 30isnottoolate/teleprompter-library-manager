@@ -15,16 +15,19 @@ const Menu: React.FC<MenuProps> = ({ handleNewFileClick, handleOpenFileClick, ha
             <div className="toolbar">
                 <Icon
                     icon={"newFile"}
+                    tooltipText={"New File"}
                     size={30} viewBox="2 0 12 16"
                     clickHandler={handleNewFileClick}
                 />
                 <Icon
                     icon={"openFile"}
+                    tooltipText={"Open File"}
                     size={30} viewBox="0 2 16 13"
                     clickHandler={handleOpenFileClick}
                 />
                 <Icon
                     icon={"saveFile"}
+                    tooltipText={"Save File"}
                     size={30}
                     clickHandler={handleSaveFileClick}
                 />
