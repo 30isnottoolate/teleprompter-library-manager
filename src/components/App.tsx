@@ -25,6 +25,7 @@ const App: React.FC = () => {
 
     const newFile = () => {
         setLibrary({ texts: [{ title: "My First Text", content: "" }] });
+        setSelectedText(0);
         setFileModified(false);
         setNewFileMode(false);
     }
@@ -52,6 +53,7 @@ const App: React.FC = () => {
 
         reader.onload = readFile;
         if (event.target.files) reader.readAsText(event.target.files[0]);
+        setSelectedText(0);
     }
 
     const handleSaveFileClick = () => {
