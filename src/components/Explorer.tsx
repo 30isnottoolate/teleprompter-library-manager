@@ -22,7 +22,7 @@ const Explorer: React.FC<ExplorerProps> = ({
 
     useEffect(() => {
         if (selectRef.current) selectRef.current.value = selectedText.toString();
-    }, [selectedText]);
+    }, [selectedText, library.texts.length]);
 
     const newText = () => {
         setLibrary((prevState: typeof library) => {
