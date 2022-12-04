@@ -15,6 +15,14 @@ body {
     font-family: "Roboto", Helvetica;
 }
 
+#root {
+    display: grid;
+    grid-template-columns: 15% 42.5% 42.5%;
+    grid-template-rows: 60px calc(100vh - 62px);
+    width: 100vw;
+    height: 100vh;
+}
+
 .scrollbar::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -26,14 +34,6 @@ body {
 
 .scrollbar::-webkit-scrollbar-thumb {
     background-color: #555555;
-}
-
-#root {
-    display: grid;
-    grid-template-columns: 15% 42.5% 42.5%;
-    grid-template-rows: 60px calc(100vh - 62px);
-    width: 100vw;
-    height: 100vh;
 }
 
 #menu {
@@ -57,24 +57,16 @@ body {
     vertical-align: bottom;
 }
 
+button {
+    cursor: pointer;
+}
+
 button:hover > svg {
     fill: #ffffff;
 }
 
 button:disabled > svg {
     fill: #555555
-}
-
-#explorer {
-    grid-column: 1 / 2;
-}
-
-#editor {
-    grid-column: 2 / 3;
-}
-
-#output {
-    grid-column: 3 / 4;
 }
 
 .section-label {
@@ -93,7 +85,16 @@ button:disabled > svg {
     margin-right: 3px;
 }
 
-#explorer > select {
+select, select:focus, textarea, textarea:focus, input, input:focus {
+    border-width: 0;
+    outline: none;
+}
+
+#explorer {
+    grid-column: 1 / 2;
+}
+
+select {
     background-color: #1e1e1e;
     color: #bfbfbf;
     font-family: "Roboto Condensed", Helvetica;
@@ -103,9 +104,13 @@ button:disabled > svg {
     height: calc(100vh - 117px);
 }
 
-select > option {
+option {
     height: 32px;
     padding: 5px 10px;
+}
+
+#editor {
+    grid-column: 2 / 3;
 }
 
 #editor > input {
@@ -120,16 +125,7 @@ select > option {
     user-select: auto;
 }
 
-button {
-    cursor: pointer;
-}
-
-select, select:focus, textarea, textarea:focus, input, input:focus {
-    border-width: 0;
-    outline: none;
-}
-
-#editor > textarea {
+textarea {
     background-color: #252525;
     color: #eeeeee;
     font-family: "Roboto Mono", monospace;
@@ -142,6 +138,10 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     white-space: pre;
     overflow-y: scroll;
     user-select: auto;
+}
+
+#output {
+    grid-column: 3 / 4;
 }
 
 #text-display {
