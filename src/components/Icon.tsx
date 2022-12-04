@@ -14,10 +14,16 @@ const Icon: React.FC<IconProps> = ({ icon, tooltipText, size, disabled, viewBox,
     const tooltipRef = useRef<HTMLParagraphElement>(null);
 
     return (
-        <>
+        <div className="icon-container">
             <button className="icon"
                 onClick={clickHandler} disabled={disabled} style={{ backgroundColor: "#353535", height: size, borderWidth: "0" }}>
-                <svg xmlns="http://www.w3.org/2000/svg" height={size} fill="#bfbfbf" viewBox={viewBox ? viewBox : "0 0 16 16"}>
+                <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    height={size} 
+                    fill="#bfbfbf" 
+                    viewBox={viewBox ? viewBox : "0 0 16 16"}
+                    onMouseEnter={() => {if (tooltipRef.current) tooltipRef.current.style.opacity = "1"}}
+                    onMouseLeave={() => {if (tooltipRef.current) tooltipRef.current.style.opacity = "0"}} >
                     {icons[icon]}
                 </svg>
             </button>
@@ -27,7 +33,7 @@ const Icon: React.FC<IconProps> = ({ icon, tooltipText, size, disabled, viewBox,
             >
                 {tooltipText}
             </p>
-        </>
+        </div>
     );
 }
 
