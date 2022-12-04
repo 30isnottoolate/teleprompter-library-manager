@@ -11,7 +11,9 @@ interface ExplorerProps {
     setFileModified: Function
 }
 
-const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setSelectedText, setFileModified }: ExplorerProps) => {
+const Explorer: React.FC<ExplorerProps> = ({
+    library, setLibrary, selectedText, setSelectedText, setFileModified }: ExplorerProps) => {
+
     const [newTextMode, setNewTextMode] = useState(false);
     const [deleteTextMode, setDeleteTextMode] = useState(false);
 
@@ -172,7 +174,7 @@ const Explorer: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, 
                 />
             }
         </>
-    )
+    );
 }
 
 export default Explorer;
