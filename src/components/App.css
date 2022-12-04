@@ -197,7 +197,7 @@ textarea {
     user-select: auto;
 }
 
-.dialog-question {
+.dialog-text {
     grid-row: 1 / 2;
     grid-column: 1 / 6;
     line-height: 1.5;
