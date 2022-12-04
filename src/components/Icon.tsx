@@ -1,7 +1,15 @@
 import React, { MouseEventHandler } from 'react';
 import icons from '../utilities/icons';
 
-const Icon: React.FC<{ icon: string, size: number, disabled?: boolean, viewBox?: string, clickHandler: MouseEventHandler }> = ({ icon, size, disabled, viewBox, clickHandler }) => {
+interface IconProps {
+    icon: string, 
+    size: number, 
+    disabled?: boolean, 
+    viewBox?: string, 
+    clickHandler: MouseEventHandler
+}
+
+const Icon: React.FC<IconProps> = ({ icon, size, disabled, viewBox, clickHandler }) => {
 
     return (
         <button className="icon"
