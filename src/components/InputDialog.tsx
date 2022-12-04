@@ -1,4 +1,4 @@
-import React, { useEffect, MouseEventHandler, RefObject } from 'react';
+import React, { useState, useEffect, MouseEventHandler, RefObject } from 'react';
 
 interface InputDialogProps {
     newTextTitleInputRef: RefObject<HTMLInputElement>,
@@ -7,8 +7,10 @@ interface InputDialogProps {
 }
 
 const InputDialog: React.FC<InputDialogProps> = ({ newTextTitleInputRef, clickHandlerOne, clickHandlerTwo }: InputDialogProps) => {
+    const [titleInput, setTitleInput] = useState("");
+
     useEffect(() => {
-        if (newTextTitleInputRef.current) newTextTitleInputRef.current.focus()
+        if (newTextTitleInputRef.current) newTextTitleInputRef.current.focus();
     }, []);
 
     return (
@@ -18,9 +20,20 @@ const InputDialog: React.FC<InputDialogProps> = ({ newTextTitleInputRef, clickHa
                     ref={newTextTitleInputRef}
                     type="text"
                     placeholder="Type title here..."
+                    value={titleInput}
+                    onChange={((event) => setTitleInput(event.target.value))}
                 />
-                <button className="dialog-button button-2" onClick={clickHandlerOne}>Save</button>
-                <button className="dialog-button button-3" onClick={clickHandlerTwo}>Cancel</button>
+                <button
+                    className="dialog-button button-2"
+                    onClick={clickHandlerOne}
+                    disabled={titleInput === "" ? true : false}>
+                    Save
+                </button>
+                <button
+                    className="dialog-button button-3"
+                    onClick={clickHandlerTwo}>
+                    Cancel
+                </button>
             </div>
         </div>
     );
