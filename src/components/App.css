@@ -224,6 +224,16 @@ select, select:focus, textarea, textarea:focus, input, input:focus {
     transform: translate(1px, 1px);
 }
 
+.dialog-button:disabled {
+    background-color: #252525;
+    color: #555555;
+}
+
+.dialog-button:disabled:active {
+    box-shadow: 1px 1px 5px 1px #0f0f0f;
+    transform: none;
+}
+
 .button-1 {
     grid-row: 4 / 5;
     grid-column: 3 / 4;
