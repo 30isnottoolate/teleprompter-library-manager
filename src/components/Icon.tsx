@@ -40,13 +40,10 @@ const Icon: React.FC<IconProps> = ({
                 disabled={disabled}
                 onClick={clickHandler}
                 style={{
-                    backgroundColor: "#353535",
                     width: width ? width : height,
-                    height: height,
-                    borderWidth: "0"
+                    height: height
                 }}>
                 <svg
-                    xmlns="http://www.w3.org/2000/svg"
                     width={width ? width : height}
                     height={height}
                     viewBox={viewBox ? viewBox : "0 0 16 16"}
@@ -69,7 +66,6 @@ const Icon: React.FC<IconProps> = ({
                 className="icon-tooltip-arrow"
                 width="10" height="10"
                 style={{
-                    display: "block",
                     position: "absolute",
                     transform: `translateX(${arrowTranslateX()}px) translateY(5px)`
                 }}>

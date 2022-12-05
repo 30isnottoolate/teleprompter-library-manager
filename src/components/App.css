@@ -62,6 +62,8 @@ body {
 }
 
 button {
+    background-color: #303030;
+    border-width: 0;
     cursor: pointer;
 }
 
@@ -89,6 +91,7 @@ button:disabled > svg {
 }
 
 .icon-tooltip-arrow {
+    display: block;
     fill: #0f0f0f;
     opacity: 0;
     transition: opacity 0.25s;
