@@ -60,6 +60,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                         ...newLibraryTexts
                     ]
                 }));
+                setFileModified(true);
             }
         }
     }
