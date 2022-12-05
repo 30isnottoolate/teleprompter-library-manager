@@ -12,7 +12,9 @@ interface IconProps {
     tooltipCentered: boolean
 }
 
-const Icon: React.FC<IconProps> = ({ icon, width, height, viewBox, disabled, clickHandler, tooltipText, tooltipCentered }) => {
+const Icon: React.FC<IconProps> = ({
+    icon, width, height, viewBox, disabled, clickHandler, tooltipText, tooltipCentered }) => {
+
     const tooltipRef = useRef<HTMLParagraphElement>(null);
     const tooltipArrowRef = useRef<SVGSVGElement>(null);
 
@@ -26,22 +28,11 @@ const Icon: React.FC<IconProps> = ({ icon, width, height, viewBox, disabled, cli
         if (tooltipArrowRef.current) tooltipArrowRef.current.style.opacity = "0";
     }
 
-    const getTooltipTransformValue = () => {
-        if (tooltipCentered) {
-            if (width)
-                return `translateX(calc(-50% + ${width / 2}px)) translateY(10px)`;
-            else
-                return `translateX(calc(-50% + ${height / 2}px)) translateY(10px)`;
-        } else
-            return `translateX(0px) translateY(10px)`;
+    const tooltipTranslateX = () => {
+        return tooltipCentered ? width ? `calc(-50% + ${width / 2}px)` : `calc(-50% + ${height / 2}px)` : `0px`;
     }
 
-    const getArrowTransformValue = () => {
-        if (width)
-            return `translateX(${(width - 10) / 2}px) translateY(5px)`;
-        else
-            return `translateX(${(height - 10) / 2}px) translateY(5px)`;
-    }
+    const arrowTranslateX = () => width ? (width - 10) / 2 : (height - 10) / 2;
 
     return (
         <div className="icon-container">
@@ -69,7 +60,7 @@ const Icon: React.FC<IconProps> = ({ icon, width, height, viewBox, disabled, cli
                 className="icon-tooltip"
                 style={{
                     position: "absolute",
-                    transform: getTooltipTransformValue()
+                    transform: `translateX(${tooltipTranslateX()}) translateY(10px)`
                 }}>
                 {tooltipText}
             </p>
@@ -80,7 +71,7 @@ const Icon: React.FC<IconProps> = ({ icon, width, height, viewBox, disabled, cli
                 style={{
                     display: "block",
                     position: "absolute",
-                    transform: getArrowTransformValue()
+                    transform: `translateX(${arrowTranslateX()}px) translateY(5px)`
                 }}>
                 <polygon points="5,0 10,5 0,5" />
             </svg>
