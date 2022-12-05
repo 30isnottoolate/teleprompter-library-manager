@@ -65,6 +65,10 @@ button {
     cursor: pointer;
 }
 
+button > svg {
+    fill: #bfbfbf;
+}
+
 button:hover > svg {
     fill: #ffffff;
 }
@@ -81,7 +85,6 @@ button:disabled > svg {
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 3px;
-    transform: translateY(10px) translateX(0px);
     transition: opacity 0.25s;
 }
 
