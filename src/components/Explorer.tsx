@@ -125,7 +125,7 @@ const Explorer: React.FC<ExplorerProps> = ({
                         icon={"newText"}
                         height={20}
                         clickHandler={() => setNewTextMode(true)}
-                        tooltipText={"New Text"}
+                        tooltipText={"Add Text"}
                         tooltipCentered={false}
                     />
                     <Icon
