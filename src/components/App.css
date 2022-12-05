@@ -16,11 +16,14 @@ body {
 }
 
 #root {
-    display: grid;
-    grid-template-columns: 15% 42.5% 42.5%;
-    grid-template-rows: 60px calc(100vh - 62px);
     width: 100vw;
     height: 100vh;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 15% 42.5% 42.5%;
+    height: calc(100vh - 82px);
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -36,16 +39,12 @@ body {
     background-color: #555555;
 }
 
-#menu {
+header {
     grid-column: 1 / 4;
     height: 60px;
 }
 
-.toolbar {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: start;
-    align-items: center;
+nav {
     padding: 10px 12px 20px 12px;
 }
 
@@ -53,12 +52,8 @@ body {
     display: inline-block;
 }
 
-.toolbar > .icon-container {
+nav > .icon-container {
     margin-right: 10px;
-}
-
-.toolbar > .icon-container > button > svg {
-    vertical-align: bottom;
 }
 
 button {
@@ -82,9 +77,9 @@ button:disabled > svg {
 .icon-tooltip {
     background-color: #0f0f0f;
     color: #bfbfbf;
-    position: absolute;
-    opacity: 0;
     font-size: 12px;
+    opacity: 0;
+    position: absolute;
     padding: 5px 10px;
     border-radius: 3px;
     transition: opacity 0.25s;
@@ -131,7 +126,7 @@ select {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 117px);
+    height: calc(100vh - 137px);
 }
 
 option {
@@ -162,7 +157,7 @@ textarea {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 180px);
     padding: 7.5px 10px;
     resize: none;
     white-space: pre;
@@ -180,7 +175,7 @@ textarea {
     font-size: 18px;
     line-height: 1.2;
     width: 100%;
-    height: calc(100vh - 117px);
+    height: calc(100vh - 137px);
     padding: 7.5px 10px;
     white-space: pre-wrap;
     word-break: break-word;

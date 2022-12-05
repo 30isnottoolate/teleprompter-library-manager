@@ -83,20 +83,22 @@ const App: React.FC = () => {
                 openFile={openFile}
                 inputFileRef={inputFileRef}
             />
-            <Explorer
-                library={library}
-                setLibrary={setLibrary}
-                selectedText={selectedText}
-                setSelectedText={setSelectedText}
-                setFileModified={setFileModified}
-            />
-            <Editor
-                library={library}
-                setLibrary={setLibrary}
-                selectedText={selectedText}
-                setFileModified={setFileModified}
-            />
-            <Output output={displayText()} />
+            <main>
+                <Explorer
+                    library={library}
+                    setLibrary={setLibrary}
+                    selectedText={selectedText}
+                    setSelectedText={setSelectedText}
+                    setFileModified={setFileModified}
+                />
+                <Editor
+                    library={library}
+                    setLibrary={setLibrary}
+                    selectedText={selectedText}
+                    setFileModified={setFileModified}
+                />
+                <Output output={displayText()} />
+            </main>
             {newFileMode &&
                 <NewOpenDialog
                     message={<>Warning! This library was modified.<br />

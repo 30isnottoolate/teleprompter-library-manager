@@ -11,8 +11,8 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({ handleNewFileClick, handleOpenFileClick, handleSaveFileClick, openFile, inputFileRef}) => {
     return (
-        <div id="menu">
-            <div className="toolbar">
+        <header>
+            <nav>
                 <Icon
                     icon={"newFile"}
                     width={23} height={30} viewBox="2 0 12 16"
@@ -41,8 +41,8 @@ const Menu: React.FC<MenuProps> = ({ handleNewFileClick, handleOpenFileClick, ha
                     style={{ display: "none" }}
                     type="file"
                 />
-            </div>
-        </div>
+            </nav>
+        </header>
     );
 }
 
