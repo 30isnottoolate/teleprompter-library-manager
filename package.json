@@ -2,10 +2,13 @@
 	"name": "teleprompter-library-manager",
 	"version": "1.0.0",
 	"description": "",
+	"homepage": "https://30isnottoolate.github.io/teleprompter-library-manager",
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack-dev-server --config webpack.dev.js",
-		"build": "webpack --config webpack.prod.js"
+		"build": "webpack --config webpack.prod.js",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"repository": {
 		"type": "git",
@@ -17,7 +20,6 @@
 	"bugs": {
 		"url": "https://github.com/30isnottoolate/teleprompter-library-manager/issues"
 	},
-	"homepage": "https://github.com/30isnottoolate/teleprompter-library-manager#readme",
 	"dependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
@@ -33,6 +35,7 @@
 		"babel-loader": "^9.1.0",
 		"css-loader": "^6.7.2",
 		"dompurify": "^2.4.1",
+		"gh-pages": "^4.0.0",
 		"html-webpack-plugin": "^5.5.0",
 		"mini-css-extract-plugin": "^2.7.0",
 		"style-loader": "^3.3.1",
