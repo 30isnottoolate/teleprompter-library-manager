@@ -99,6 +99,9 @@ const App: React.FC = () => {
                 />
                 <Output output={displayText()} />
             </main>
+            <footer>
+                CURRENT LIBRARY {fileModified ? "MODIFIED" : "SAVED"}
+            </footer>
             {newFileMode &&
                 <NewOpenDialog
                     message={<>Warning! This library was modified.<br />
