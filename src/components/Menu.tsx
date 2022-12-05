@@ -40,7 +40,6 @@ const Menu: React.FC<MenuProps> = ({ handleNewFileClick, handleOpenFileClick, ha
                     accept=".json"
                     style={{ display: "none" }}
                     type="file"
-                    name="filename"
                 />
             </div>
         </div>
