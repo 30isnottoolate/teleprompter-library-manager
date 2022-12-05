@@ -123,30 +123,34 @@ const Explorer: React.FC<ExplorerProps> = ({
                 <div className="mini-toolbar">
                     <Icon
                         icon={"newText"}
-                        tooltipText={"New Text"}
                         height={20}
                         clickHandler={() => setNewTextMode(true)}
+                        tooltipText={"New Text"}
+                        tooltipCentered={false}
                     />
                     <Icon
                         icon={"deleteText"}
-                        tooltipText={"Delete Text"}
                         height={20}
-                        clickHandler={() => setDeleteTextMode(true)}
                         disabled={library.texts.length === 0 ? true : false}
+                        clickHandler={() => setDeleteTextMode(true)}
+                        tooltipText={"Delete Text"}
+                        tooltipCentered={true}
                     />
                     <Icon
                         icon={"moveDown"}
-                        tooltipText={"Move Down"}
                         height={20}
-                        clickHandler={moveDownText}
                         disabled={(library.texts.length < 2 || selectedText === library.texts.length - 1) ? true : false}
+                        clickHandler={moveDownText}
+                        tooltipText={"Move Down"}
+                        tooltipCentered={true}
                     />
                     <Icon
                         icon={"moveUp"}
-                        tooltipText={"Move Up"}
                         height={20}
-                        clickHandler={moveUpText}
                         disabled={(library.texts.length < 2 || selectedText === 0) ? true : false}
+                        clickHandler={moveUpText}
+                        tooltipText={"Move Up"}
+                        tooltipCentered={true}
                     />
                 </div>
                 <select
