@@ -10,7 +10,8 @@ interface ExplorerProps {
 }
 
 const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {
-    const [selectionStatus, setSelectionStatus] = useState(false);
+    const [selectionExists, setSelectionExists] = useState(false);
+    const [selectionHasMarks, setSelectionHasMarks] = useState(false);
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -43,7 +44,19 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     }
 
     const handleSelection = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
-        setSelectionStatus(event.currentTarget.selectionStart !== event.currentTarget.selectionEnd);
+        let selectionStart = event.currentTarget.selectionStart;
+        let selectionEnd = event.currentTarget.selectionEnd;
+
+        let currentContent = library.texts[selectedText].content;
+        let selectedContent = currentContent.slice(selectionStart - 2, selectionEnd + 2);
+
+        if (selectionStart !== selectionEnd) {
+            setSelectionExists(true);
+
+            if (selectedContent.includes("{{") && selectedContent.includes("}}")) {
+                setSelectionHasMarks(true);
+            } else setSelectionHasMarks(false);
+        }
     }
 
     const selectionData = (data: string) => {
@@ -68,7 +81,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
-        setSelectionStatus(false);
+        setSelectionExists(false);
         setFileModified(true);
     }
 
@@ -90,7 +103,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
-        setSelectionStatus(false);
+        setSelectionExists(false);
         setFileModified(true);
     }
 
@@ -101,7 +114,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 <Icon
                     icon={"mark"}
                     height={20}
-                    disabled={!selectionStatus}
+                    disabled={!(selectionExists && !selectionHasMarks)}
                     clickHandler={markContent}
                     tooltipText={"Highlight"}
                     tooltipCentered={true}
@@ -109,7 +122,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 <Icon
                     icon={"unmark"}
                     height={20}
-                    disabled={!selectionStatus}
+                    disabled={!(selectionExists && selectionHasMarks)}
                     clickHandler={unmarkContent}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
@@ -117,7 +130,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 <Icon
                     icon={"removeMarks"}
                     height={20}
-                    disabled={!selectionStatus}
+                    disabled={!selectionExists}
                     clickHandler={() => {}}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
