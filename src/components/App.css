@@ -208,6 +208,10 @@ textarea {
     overflow-y: scroll;
 }
 
+span {
+    color: red;
+}
+
 footer {
     color: #bfbfbf;
     font-size: 13px;
