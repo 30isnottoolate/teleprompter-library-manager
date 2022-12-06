@@ -79,7 +79,23 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     height={20}
                     disabled={!selectionStatus}
                     clickHandler={markContent}
-                    tooltipText={"Highlight Selection"}
+                    tooltipText={"Highlight"}
+                    tooltipCentered={true}
+                />
+                <Icon
+                    icon={"unmark"}
+                    height={20}
+                    disabled={!selectionStatus}
+                    clickHandler={() => {}}
+                    tooltipText={"Remove Highlight"}
+                    tooltipCentered={true}
+                />
+                <Icon
+                    icon={"removeMarks"}
+                    height={20}
+                    disabled={!selectionStatus}
+                    clickHandler={() => {}}
+                    tooltipText={"Remove All Highlight"}
                     tooltipCentered={true}
                 />
             </div>
