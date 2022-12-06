@@ -19,13 +19,13 @@ const Icon: React.FC<IconProps> = ({
     const tooltipArrowRef = useRef<SVGSVGElement>(null);
 
     const handleOnMouseEnter = () => {
-        if (tooltipRef.current) tooltipRef.current.style.opacity = "1";
-        if (tooltipArrowRef.current) tooltipArrowRef.current.style.opacity = "1";
+        if (tooltipRef.current) tooltipRef.current.style.display = "block";
+        if (tooltipArrowRef.current) tooltipArrowRef.current.style.display = "block";
     }
 
     const handleOnMouseLeave = () => {
-        if (tooltipRef.current) tooltipRef.current.style.opacity = "0";
-        if (tooltipArrowRef.current) tooltipArrowRef.current.style.opacity = "0";
+        if (tooltipRef.current) tooltipRef.current.style.display = "none";
+        if (tooltipArrowRef.current) tooltipArrowRef.current.style.display = "none";
     }
 
     const tooltipTranslateX = () => {
@@ -47,7 +47,7 @@ const Icon: React.FC<IconProps> = ({
                     width={width ? width : height}
                     height={height}
                     viewBox={viewBox ? viewBox : "0 0 16 16"}
-                    onMouseEnter={handleOnMouseEnter}
+                    onMouseOver={handleOnMouseEnter}
                     onMouseLeave={handleOnMouseLeave} >
                     {icons[icon]}
                 </svg>
