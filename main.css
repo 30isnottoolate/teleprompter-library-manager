@@ -73,6 +73,7 @@ button:disabled > svg {
 }
 
 .icon-tooltip {
+    display: none;
     background-color: #0f0f0f;
     color: #bfbfbf;
     font-size: 12px;
@@ -80,14 +81,39 @@ button:disabled > svg {
     position: absolute;
     padding: 5px 10px;
     border-radius: 3px;
-    transition: opacity 0.25s;
+    animation: fade-in 0.25s ease-in;
+	animation-delay: 0.25s;
+	animation-fill-mode: forwards;
 }
 
 .icon-tooltip-arrow {
-    display: block;
+    display: none;
     fill: #0f0f0f;
     opacity: 0;
-    transition: opacity 0.25s;
+    animation: fade-in 0.25s ease-in;
+	animation-delay: 0.25s;
+	animation-fill-mode: forwards;
+}
+
+.pictures {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+	opacity: 0;
+	animation: fade-in 0.25s ease-in;
+	animation-delay: 0.25s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+	
 }
 
 .section-label {
@@ -178,6 +204,10 @@ textarea {
     white-space: pre-wrap;
     word-break: break-word;
     overflow-y: scroll;
+}
+
+span {
+    color: red;
 }
 
 footer {
