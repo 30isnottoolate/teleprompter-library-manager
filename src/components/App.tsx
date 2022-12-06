@@ -61,7 +61,7 @@ const App: React.FC = () => {
         let file = new Blob([JSON.stringify(library)], { type: "text/plain" });
 
         pseudoSave.href = URL.createObjectURL(file);
-        pseudoSave.download = "librarian.json";
+        pseudoSave.download = "library.json";
         pseudoSave.click();
 
         setFileModified(false);
