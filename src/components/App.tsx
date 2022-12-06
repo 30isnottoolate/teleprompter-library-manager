@@ -71,7 +71,7 @@ const App: React.FC = () => {
 
     const displayText = () => {
         return typeSafeProp(library, selectedText, "title") +
-            "<br/><br/>" + typeSafeProp(library, selectedText, "content");
+            "<br/><br/>" + typeSafeProp(library, selectedText, "content").replaceAll("{{", "<span>").replaceAll("}}", "</span>");
     }
 
     return (
