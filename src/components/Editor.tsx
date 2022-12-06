@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 
@@ -10,6 +10,8 @@ interface ExplorerProps {
 }
 
 const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {
+    const [selectionStatus, setSelectionStatus] = useState(false);
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,39 +42,42 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         setFileModified(true);
     }
 
+    const handleSelection = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
+        setSelectionStatus(event.currentTarget.selectionStart !== event.currentTarget.selectionEnd);
+    }
+
+    const selectionData = (data: string) => {
+        if (data === "start") return textareaRef.current ? textareaRef.current.selectionStart : 0;
+        else if (data === "end") return textareaRef.current ? textareaRef.current.selectionEnd : 0;
+    }
+
     const markContent = () => {
-        if (textareaRef.current) {
-            let selectionStart = textareaRef.current.selectionStart;
-            let selectionEnd = textareaRef.current.selectionEnd;
+        let currentContent = library.texts[selectedText].content;
+        let newLibraryTexts = [...library.texts];
 
-            if (selectionStart !== selectionEnd) {
-                let currentContent = library.texts[selectedText].content;
-                let newLibraryTexts = [...library.texts];
+        let topOfContent = currentContent.slice(0, selectionData("start"));
+        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
+        let bottomOfContent = currentContent.slice(selectionData("end"));
 
-                let topOfContent = currentContent.slice(0, selectionStart);
-                let selectedContent = currentContent.slice(selectionStart, selectionEnd);
-                let bottomOfContent = currentContent.slice(selectionEnd);
+        newLibraryTexts[selectedText].content = topOfContent + "{{" + selectedContent + "}}" + bottomOfContent;
 
-                newLibraryTexts[selectedText].content = topOfContent + "<i>" + selectedContent + "</i>" + bottomOfContent;
-
-                setLibrary((prevState: typeof library) => ({
-                    ...prevState,
-                    texts: [
-                        ...newLibraryTexts
-                    ]
-                }));
-                setFileModified(true);
-            }
-        }
+        setLibrary((prevState: typeof library) => ({
+            ...prevState,
+            texts: [
+                ...newLibraryTexts
+            ]
+        }));
+        setFileModified(true);
     }
 
     return (
         <div id="editor">
-            <p className="section-label" onClick={markContent}>EDITOR</p>
+            <p className="section-label">EDITOR</p>
             <div className="mini-toolbar">
                 <Icon
                     icon={"mark"}
                     height={20}
+                    disabled={!selectionStatus}
                     clickHandler={markContent}
                     tooltipText={"Highlight Selection"}
                     tooltipCentered={true}
@@ -90,6 +95,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ref={textareaRef}
                 value={typeSafeProp(library, selectedText, "content")}
                 onChange={handleContentChange}
+                onSelect={(event) => handleSelection(event)}
                 placeholder="Type content here..."
                 disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
             />
