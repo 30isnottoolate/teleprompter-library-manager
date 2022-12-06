@@ -53,14 +53,11 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         setFileModified(true);
     }
 
-    const handleSelection = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
-        let selectionStart = event.currentTarget.selectionStart;
-        let selectionEnd = event.currentTarget.selectionEnd;
-
+    const handleSelection = () => {
         let currentContent = library.texts[selectedText].content;
-        let selectedContent = currentContent.slice(selectionStart - 2, selectionEnd + 2);
+        let selectedContent = currentContent.slice(selectionData("start") - 2, selectionData("end") + 2);
 
-        if (selectionStart !== selectionEnd) {
+        if (selectionData("start") !== selectionData("end")) {
             setSelectionExists(true);
 
             if (selectedContent.includes("{{") && selectedContent.includes("}}")) {
@@ -91,6 +88,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
+
         setSelectionExists(false);
         setFileModified(true);
     }
@@ -104,7 +102,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let bottomOfContent = currentContent.slice(selectionData("end") + 2);
 
         selectedContent = selectedContent.replaceAll("{{", "").replaceAll("}}", "");
-
         newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
@@ -113,6 +110,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
+
         setSelectionExists(false);
         setFileModified(true);
     }
@@ -122,7 +120,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let newLibraryTexts = [...library.texts];
 
         currentContent = currentContent.replaceAll("{{", "").replaceAll("}}", "");
-
         newLibraryTexts[selectedText].content = currentContent;
 
         setLibrary((prevState: typeof library) => ({
@@ -131,6 +128,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
+        
         setSelectionExists(false);
         setFileModified(true);
     }
@@ -176,7 +174,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ref={textareaRef}
                 value={typeSafeProp(library, selectedText, "content")}
                 onChange={handleContentChange}
-                onSelect={(event) => handleSelection(event)}
+                onSelect={handleSelection}
                 placeholder="Type content here..."
                 disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
             />
