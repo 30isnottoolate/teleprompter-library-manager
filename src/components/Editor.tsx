@@ -49,6 +49,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     const selectionData = (data: string) => {
         if (data === "start") return textareaRef.current ? textareaRef.current.selectionStart : 0;
         else if (data === "end") return textareaRef.current ? textareaRef.current.selectionEnd : 0;
+        else return 0;
     }
 
     const markContent = () => {
@@ -67,6 +68,29 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
+        setSelectionStatus(false);
+        setFileModified(true);
+    }
+
+    const unmarkContent = () => {
+        let currentContent = library.texts[selectedText].content;
+        let newLibraryTexts = [...library.texts];
+
+        let topOfContent = currentContent.slice(0, selectionData("start") - 2);
+        let selectedContent = currentContent.slice(selectionData("start") - 2, selectionData("end") + 2);
+        let bottomOfContent = currentContent.slice(selectionData("end") + 2);
+
+        selectedContent = selectedContent.replaceAll("{{", "").replaceAll("}}", "");
+
+        newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
+
+        setLibrary((prevState: typeof library) => ({
+            ...prevState,
+            texts: [
+                ...newLibraryTexts
+            ]
+        }));
+        setSelectionStatus(false);
         setFileModified(true);
     }
 
@@ -86,7 +110,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     icon={"unmark"}
                     height={20}
                     disabled={!selectionStatus}
-                    clickHandler={() => {}}
+                    clickHandler={unmarkContent}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
                 />
