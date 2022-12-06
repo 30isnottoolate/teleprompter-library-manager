@@ -107,6 +107,24 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         setFileModified(true);
     }
 
+    const removeAllMarks = () => {
+        let currentContent = library.texts[selectedText].content;
+        let newLibraryTexts = [...library.texts];
+
+        currentContent = currentContent.replaceAll("{{", "").replaceAll("}}", "");
+
+        newLibraryTexts[selectedText].content = currentContent;
+
+        setLibrary((prevState: typeof library) => ({
+            ...prevState,
+            texts: [
+                ...newLibraryTexts
+            ]
+        }));
+        setSelectionExists(false);
+        setFileModified(true);
+    }
+
     return (
         <div id="editor">
             <p className="section-label">EDITOR</p>
@@ -116,7 +134,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     height={20}
                     disabled={!(selectionExists && !selectionHasMarks)}
                     clickHandler={markContent}
-                    tooltipText={"Highlight"}
+                    tooltipText={"Highlight Selection"}
                     tooltipCentered={true}
                 />
                 <Icon
@@ -130,8 +148,8 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 <Icon
                     icon={"removeMarks"}
                     height={20}
-                    disabled={!selectionExists}
-                    clickHandler={() => {}}
+                    disabled={false}
+                    clickHandler={removeAllMarks}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
                 />
