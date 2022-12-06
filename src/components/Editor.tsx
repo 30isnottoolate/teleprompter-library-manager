@@ -23,7 +23,9 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
             setContentHasMarks(true);
         } else setContentHasMarks(false);
 
-    }, [library.texts[selectedText].content]);
+        setSelectionExists(false);
+
+    }, [library.texts[selectedText].content, selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
@@ -128,7 +130,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 ...newLibraryTexts
             ]
         }));
-        
+
         setSelectionExists(false);
         setFileModified(true);
     }
