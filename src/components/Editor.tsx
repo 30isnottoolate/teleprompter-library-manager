@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import typeSafeProp from '../utilities/typeSafeProp';
+import Icon from './Icon';
 
 interface ExplorerProps {
     library: any,
@@ -39,7 +40,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         setFileModified(true);
     }
 
-    const highlightContent = () => {
+    const markContent = () => {
         if (textareaRef.current) {
             let selectionStart = textareaRef.current.selectionStart;
             let selectionEnd = textareaRef.current.selectionEnd;
@@ -67,8 +68,16 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
 
     return (
         <div id="editor">
-            <div className="mini-toolbar"></div>
-            <p className="section-label" onClick={highlightContent}>EDITOR</p>
+            <p className="section-label" onClick={markContent}>EDITOR</p>
+            <div className="mini-toolbar">
+                <Icon
+                    icon={"mark"}
+                    height={20}
+                    clickHandler={markContent}
+                    tooltipText={"Highlight Selection"}
+                    tooltipCentered={true}
+                />
+            </div>
             <input
                 type="text"
                 value={typeSafeProp(library, selectedText, "title")}
