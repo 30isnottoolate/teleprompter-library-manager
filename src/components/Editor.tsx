@@ -95,7 +95,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     height={20}
                     disabled={!selectionStatus}
                     clickHandler={() => {}}
-                    tooltipText={"Remove All Highlight"}
+                    tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
                 />
             </div>
