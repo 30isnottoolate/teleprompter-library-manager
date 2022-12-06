@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 
@@ -12,8 +12,18 @@ interface ExplorerProps {
 const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {
     const [selectionExists, setSelectionExists] = useState(false);
     const [selectionHasMarks, setSelectionHasMarks] = useState(false);
+    const [contentHasMarks, setContentHasMarks] = useState(false);
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        let currentContent = library.texts[selectedText].content;
+
+        if (currentContent.includes("{{") || currentContent.includes("}}")) {
+            setContentHasMarks(true);
+        } else setContentHasMarks(false);
+
+    }, [library.texts[selectedText].content]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
@@ -148,7 +158,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 <Icon
                     icon={"removeMarks"}
                     height={20}
-                    disabled={false}
+                    disabled={!contentHasMarks}
                     clickHandler={removeAllMarks}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
