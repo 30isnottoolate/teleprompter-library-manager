@@ -65,7 +65,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
             if (selectedContent.includes("{{") && selectedContent.includes("}}")) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
-        }
+        } else setSelectionExists(false);
     }
 
     const selectionData = (data: string) => {
@@ -177,6 +177,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 value={typeSafeProp(library, selectedText, "content")}
                 onChange={handleContentChange}
                 onSelect={handleSelection}
+                onClick={handleSelection}
                 placeholder="Type content here..."
                 disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
             />
