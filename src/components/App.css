@@ -27,16 +27,20 @@ main {
 }
 
 .scrollbar::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 5px;
+    height: 5px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background-color: #303030;
+    background-color: rgba(0,0,0,0.0);
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
     background-color: #555555;
+}
+
+.scrollbar {
+    scrollbar-color: #555555 rgba(0,0,0,0.0);
 }
 
 header {
@@ -84,8 +88,8 @@ button:disabled > svg {
     padding: 5px 10px;
     border-radius: 3px;
     animation: fade-in 0.25s ease-in;
-	animation-delay: 0.25s;
-	animation-fill-mode: forwards;
+    animation-delay: 0.25s;
+    animation-fill-mode: forwards;
 }
 
 .icon-tooltip-arrow {
@@ -93,29 +97,28 @@ button:disabled > svg {
     fill: #0f0f0f;
     opacity: 0;
     animation: fade-in 0.25s ease-in;
-	animation-delay: 0.25s;
-	animation-fill-mode: forwards;
+    animation-delay: 0.25s;
+    animation-fill-mode: forwards;
 }
 
 .pictures {
     position: absolute;
     width: 16px;
     height: 16px;
-	opacity: 0;
-	animation: fade-in 0.25s ease-in;
-	animation-delay: 0.25s;
-	animation-fill-mode: forwards;
+    opacity: 0;
+    animation: fade-in 0.25s ease-in;
+    animation-delay: 0.25s;
+    animation-fill-mode: forwards;
 }
 
 @keyframes fade-in {
-	from {
-		opacity: 0;
-	}
+    from {
+        opacity: 0;
+    }
 
-	to {
-		opacity: 1;
-	}
-	
+    to {
+        opacity: 1;
+    }
 }
 
 .section-label {
@@ -134,7 +137,7 @@ button:disabled > svg {
     margin-right: 3px;
 }
 
-select, select:focus, 
+select, select:focus,
 textarea, textarea:focus,
 input, input:focus {
     border-width: 0;
@@ -151,8 +154,9 @@ select {
     font-family: "Roboto Condensed", Helvetica;
     font-size: 18px;
     line-height: 1.2;
-    width: 100%;
+    width: calc(100% - 10px);
     height: calc(100vh - 141px);
+    overflow-y: auto;
 }
 
 option {
@@ -182,7 +186,7 @@ textarea {
     font-family: "Roboto Mono", monospace;
     font-size: 18px;
     line-height: 1.2;
-    width: 100%;
+    width: calc(100% - 10px);
     height: calc(100vh - 184px);
     padding: 7.5px 10px;
     resize: none;
@@ -200,7 +204,7 @@ textarea {
     color: #dddddd;
     font-size: 18px;
     line-height: 1.2;
-    width: 100%;
+    width: calc(100% - 10px);
     height: calc(100vh - 141px);
     padding: 7.5px 10px;
     white-space: pre-wrap;
