@@ -17,15 +17,16 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
-        let currentContent = library.texts[selectedText].content;
-
-        if (currentContent.includes("{{") || currentContent.includes("}}")) {
-            setContentHasMarks(true);
-        } else setContentHasMarks(false);
-
-        setSelectionExists(false);
-
-    }, [library.texts[selectedText].content, selectedText]);
+        if (library.texts[selectedText] && library.texts[selectedText].content) {
+            let currentContent = library.texts[selectedText].content;
+    
+            if (currentContent.includes("{{") || currentContent.includes("}}")) {
+                setContentHasMarks(true);
+            } else setContentHasMarks(false);
+    
+            setSelectionExists(false);
+        }
+    }, [library.texts, selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
