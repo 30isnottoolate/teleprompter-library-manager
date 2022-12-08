@@ -8,7 +8,7 @@ import Output from './Output';
 import NewOpenDialog from './NewOpenDialog';
 
 const App: React.FC = () => {
-    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
+    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }], librarian?: string }>
         ({ texts: [{ title: "My First Text", content: "" }] });
 
     const [selectedText, setSelectedText] = useState(0);
@@ -58,7 +58,11 @@ const App: React.FC = () => {
 
     const handleSaveFileClick = () => {
         let pseudoSave = document.createElement("a");
-        let file = new Blob([JSON.stringify(library)], { type: "text/plain" });
+        let validLibrary = library;
+
+        validLibrary.librarian = validateLibrary(library.texts);
+
+        let file = new Blob([JSON.stringify(validLibrary)], { type: "text/plain" });
 
         pseudoSave.href = URL.createObjectURL(file);
         pseudoSave.download = "library.json";
@@ -72,6 +76,16 @@ const App: React.FC = () => {
     const displayText = () => {
         return typeSafeProp(library, selectedText, "title") +
             "<br/><br/>" + typeSafeProp(library, selectedText, "content").replaceAll("{{", "<span>").replaceAll("}}", "</span>");
+    }
+
+    const validateLibrary = (texts: typeof library.texts) => {
+        let validationCode = "11";
+
+        texts.forEach((item) => {
+            validationCode += (item.title.length.toString(16) + item.content.length.toString(16));
+        });
+
+        return validationCode += "22";
     }
 
     return (
