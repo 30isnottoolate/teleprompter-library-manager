@@ -8,8 +8,8 @@ import Output from './Output';
 import NewOpenDialog from './NewOpenDialog';
 
 const App: React.FC = () => {
-    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }], librarian?: string }>
-        ({ texts: [{ title: "My First Text", content: "" }] });
+    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }], librarian: string }>
+        ({ texts: [{ title: "My First Text", content: "" }], librarian: "" });
 
     const [selectedText, setSelectedText] = useState(0);
     const [fileModified, setFileModified] = useState(false);
@@ -24,7 +24,7 @@ const App: React.FC = () => {
     }
 
     const newFile = () => {
-        setLibrary({ texts: [{ title: "My First Text", content: "" }] });
+        setLibrary({ texts: [{ title: "My First Text", content: "" }], librarian: "" });
         setSelectedText(0);
         setFileModified(false);
         setNewFileMode(false);

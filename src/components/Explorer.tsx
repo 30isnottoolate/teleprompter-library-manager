@@ -4,7 +4,7 @@ import InputDialog from './InputDialog';
 import DeletionDialog from './DeletionDialog';
 
 interface ExplorerProps {
-    library: any,
+    library: { texts: [{ title: string, content: string }], librarian: string },
     setLibrary: Function,
     selectedText: number,
     setSelectedText: Function,
@@ -131,7 +131,7 @@ const Explorer: React.FC<ExplorerProps> = ({
                     <Icon
                         icon={"deleteText"}
                         height={20}
-                        disabled={library.texts.length === 0 ? true : false}
+                        disabled={library.texts.length < 1 ? true : false}
                         clickHandler={() => setDeleteTextMode(true)}
                         tooltipText={"Delete Text"}
                         tooltipCentered={true}
