@@ -3,7 +3,7 @@ import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 
 interface ExplorerProps {
-    library: any,
+    library: { texts: [{ title: string, content: string }], librarian: string },
     setLibrary: Function,
     selectedText: number,
     setFileModified: Function
@@ -104,7 +104,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start") - 2, selectionData("end") + 2);
         let bottomOfContent = currentContent.slice(selectionData("end") + 2);
 
-        selectedContent = selectedContent.replaceAll("{{", "").replaceAll("}}", "");
+        selectedContent = selectedContent.replace(/{{/g, "").replace(/}}/g, "");
         newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
@@ -122,7 +122,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        currentContent = currentContent.replaceAll("{{", "").replaceAll("}}", "");
+        currentContent = currentContent.replace(/{{/g, "").replace(/}}/g, "");
         newLibraryTexts[selectedText].content = currentContent;
 
         setLibrary((prevState: typeof library) => ({
@@ -170,7 +170,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 value={typeSafeProp(library, selectedText, "title")}
                 onChange={handleTitleChange}
                 placeholder="Type title here..."
-                disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
+                disabled={(library.texts.length < 1 || selectedText < 0) ? true : false}
             />
             <textarea
                 className="scrollbar"
@@ -180,7 +180,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 onSelect={handleSelection}
                 onClick={handleSelection}
                 placeholder="Type content here..."
-                disabled={(library.texts.length === 0 || selectedText < 0) ? true : false}
+                disabled={(library.texts.length < 1 || selectedText < 0) ? true : false}
             />
         </div>
     );
