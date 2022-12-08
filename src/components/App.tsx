@@ -44,9 +44,14 @@ const App: React.FC = () => {
 
         const readFile = (event: ProgressEvent<FileReader>) => {
             if (event.target && event.target.result) {
-                setLibrary(JSON.parse(event.target.result.toString()));
-                setFileModified(false);
-                setOpenFileMode(false);
+                let loadedLibrary = JSON.parse(event.target.result.toString());
+
+                if (loadedLibrary.librarian === validateLibrary(loadedLibrary.texts)) {
+                    setLibrary(loadedLibrary);
+                    setFileModified(false);
+                    setOpenFileMode(false);
+                } else console.log("invalid");
+
                 if (inputFileRef.current) inputFileRef.current.value = "";
             }
         }
