@@ -48,7 +48,7 @@ const App: React.FC = () => {
             if (event.target && event.target.result) {
                 let loadedLibrary = JSON.parse(event.target.result.toString());
 
-                if (loadedLibrary.librarian === validateLibrary(loadedLibrary.texts)) {
+                if (loadedLibrary.librarian && loadedLibrary.librarian === validateLibrary(loadedLibrary.texts)) {
                     setLibrary(loadedLibrary);
                     setFileModified(false);
                     setOpenFileMode(false);
