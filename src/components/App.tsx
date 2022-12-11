@@ -6,6 +6,7 @@ import Explorer from './Explorer';
 import Editor from './Editor';
 import Output from './Output';
 import NewOpenDialog from './NewOpenDialog';
+import ErrorDialog from './ErrorDialog';
 
 const App: React.FC = () => {
     const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }], librarian: string }>
@@ -15,6 +16,7 @@ const App: React.FC = () => {
     const [fileModified, setFileModified] = useState(false);
     const [newFileMode, setNewFileMode] = useState(false);
     const [openFileMode, setOpenFileMode] = useState(false);
+    const [errorMode, setErrorMode] = useState(false);
 
     const inputFileRef = useRef<HTMLInputElement>(null);
 
@@ -137,6 +139,11 @@ const App: React.FC = () => {
                     clickHandlerOne={handleSaveFileClick}
                     clickHandlerTwo={triggerInputFileClick}
                     clickHandlerThree={() => setOpenFileMode(false)}
+                />
+            }
+            {errorMode &&
+                <ErrorDialog
+                    clickHandler={() => {}}
                 />
             }
         </>
