@@ -52,7 +52,7 @@ const App: React.FC = () => {
                     setLibrary(loadedLibrary);
                     setFileModified(false);
                     setOpenFileMode(false);
-                } else console.log("invalid");
+                } else setErrorMode(true);
 
                 if (inputFileRef.current) inputFileRef.current.value = "";
             }
@@ -143,7 +143,7 @@ const App: React.FC = () => {
             }
             {errorMode &&
                 <ErrorDialog
-                    clickHandler={() => {}}
+                    clickHandler={() => setErrorMode(false)}
                 />
             }
         </>
