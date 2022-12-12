@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 * {
     padding: 0;
@@ -44,11 +45,31 @@ main {
 
 header {
     grid-column: 1 / 4;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: space-between;
     height: 60px;
 }
 
 nav {
-    padding: 10px 12px 20px 17px;
+    height: 30px;
+    padding-left: 17px;
+}
+
+#title {
+    color: #bfbfbf;
+    font-size: 26px;
+    font-family: "Fjalla One", Helvetica;
+    line-height: 0.7;
+    padding-right: 27px;
+    transform: translateY(25px);
+}
+
+#title > span {
+    color: #bfbfbf;
+    font-size: 16px;
+    font-family: "Roboto Condensed", Helvetica;
 }
 
 .icon-container {
@@ -56,6 +77,7 @@ nav {
 }
 
 nav > .icon-container {
+    height: 30px;
     margin-right: 10px;
 }
 
