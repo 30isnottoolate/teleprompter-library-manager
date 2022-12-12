@@ -43,7 +43,7 @@ const Menu: React.FC<MenuProps> = ({ handleNewFileClick, handleOpenFileClick, ha
                 />
             </nav>
             <p id="title">
-                Library Manager <span>for KV Stage Teleprompter</span>
+                Library Manager <br/><span>for KV Stage Teleprompter</span>
             </p>
         </header>
     );
