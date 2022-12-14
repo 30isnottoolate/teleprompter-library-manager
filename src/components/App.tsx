@@ -82,7 +82,7 @@ const App: React.FC = () => {
 
     const displayText = () => {
         return typeSafeProp(library, selectedText, "title") +
-            "<br/><br/>" + typeSafeProp(library, selectedText, "content").replaceAll("{{", "<span>").replaceAll("}}", "</span>");
+            "<br/><br/>" + typeSafeProp(library, selectedText, "content").replace(/{{/g, "<span>").replace(/}}/g, "</span>");
     }
 
     const validateLibrary = (texts: typeof library.texts) => {
