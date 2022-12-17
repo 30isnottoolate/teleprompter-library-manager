@@ -10,7 +10,7 @@ const YesNoDialog: React.FC<YesNoDialogProps> = ({ text, clickHandlerOne, clickH
     return (
         <div className="dialog-screen">
             <div className="dialog-box">
-                <p className="dialog-text">{text}</p> {/* Are you sure you want to delete this text? */}
+                <p className="dialog-text">{text}</p>
                 <button className="dialog-button button-2" onClick={clickHandlerOne}>Yes</button>
                 <button className="dialog-button button-3" onClick={clickHandlerTwo}>No</button>
             </div>

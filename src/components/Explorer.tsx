@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Icon from './Icon';
 import InputDialog from './InputDialog';
-import DeletionDialog from './DeletionDialog';
+import YesNoDialog from './YesNoDialog';
 
 interface ExplorerProps {
     library: { texts: [{ title: string, content: string }], librarian: string },
@@ -176,7 +176,8 @@ const Explorer: React.FC<ExplorerProps> = ({
                 />
             }
             {deleteTextMode &&
-                <DeletionDialog
+                <YesNoDialog
+                    text="Are you sure you want to delete this text?"
                     clickHandlerOne={deleteText}
                     clickHandlerTwo={() => setDeleteTextMode(false)}
                 />
