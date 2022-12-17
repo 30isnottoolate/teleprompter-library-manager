@@ -106,7 +106,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
         let bottomOfContent = currentContent.slice(selectionData("end"));
 
-        newLibraryTexts[selectedText].content = topOfContent + "{{" + selectedContent + "}}" + bottomOfContent;
+        newLibraryTexts[selectedText].content = topOfContent + "{r{" + selectedContent + "}r}" + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -127,7 +127,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
         let bottomOfContent = currentContent.slice(selectionData("end"));
 
-        newLibraryTexts[selectedText].content = topOfContent + "~~" + selectedContent + "^^" + bottomOfContent;
+        newLibraryTexts[selectedText].content = topOfContent + "{g{" + selectedContent + "}g}" + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -148,7 +148,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
         let bottomOfContent = currentContent.slice(selectionData("end"));
 
-        newLibraryTexts[selectedText].content = topOfContent + "@@" + selectedContent + "##" + bottomOfContent;
+        newLibraryTexts[selectedText].content = topOfContent + "{b{" + selectedContent + "}b}" + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -169,7 +169,10 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start") - 2, selectionData("end") + 2);
         let bottomOfContent = currentContent.slice(selectionData("end") + 2);
 
-        selectedContent = selectedContent.replace(/{{/g, "").replace(/}}/g, "");
+        selectedContent = selectedContent.replace(/{r{/g, "").replace(/}r}/g, "")
+        .replace(/{g{/g, "").replace(/}g}/g, "")
+        .replace(/{b{/g, "").replace(/}b}/g, "");
+
         newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
