@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
+import YesNoDialog from './YesNoDialog';
 
 interface ExplorerProps {
     library: { texts: [{ title: string, content: string }], librarian: string },
@@ -13,6 +14,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     const [selectionExists, setSelectionExists] = useState(false);
     const [selectionHasMarks, setSelectionHasMarks] = useState(false);
     const [contentHasMarks, setContentHasMarks] = useState(false);
+    const [deleteAllMarksMode, setDeleteAllMarksMode] = useState(false);
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -134,6 +136,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
 
         setSelectionExists(false);
         setFileModified(true);
+        setDeleteAllMarksMode(false);
     }
 
     return (
@@ -160,7 +163,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     icon={"removeMarks"}
                     height={20}
                     disabled={!contentHasMarks}
-                    clickHandler={removeAllMarks}
+                    clickHandler={() => setDeleteAllMarksMode(true)}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
                 />
@@ -182,6 +185,13 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 placeholder="Type content here..."
                 disabled={(library.texts.length < 1 || selectedText < 0) ? true : false}
             />
+            {deleteAllMarksMode &&
+                <YesNoDialog
+                    text="Are you sure you want to remove all highlights?"
+                    clickHandlerOne={removeAllMarks}
+                    clickHandlerTwo={() => setDeleteAllMarksMode(false)}
+                />
+            }
         </div>
     );
 }
