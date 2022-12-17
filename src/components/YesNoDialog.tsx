@@ -1,15 +1,16 @@
 import React, { MouseEventHandler } from 'react';
 
-interface InputDialogProps {
+interface YesNoDialogProps {
+    text: string,
     clickHandlerOne: MouseEventHandler,
     clickHandlerTwo: MouseEventHandler
 }
 
-const DeletionDialog: React.FC<InputDialogProps> = ({ clickHandlerOne, clickHandlerTwo }: InputDialogProps) => {
+const YesNoDialog: React.FC<YesNoDialogProps> = ({ text, clickHandlerOne, clickHandlerTwo }: YesNoDialogProps) => {
     return (
         <div className="dialog-screen">
             <div className="dialog-box">
-                <p className="dialog-text">Are you sure you want to delete this text?</p>
+                <p className="dialog-text">{text}</p> {/* Are you sure you want to delete this text? */}
                 <button className="dialog-button button-2" onClick={clickHandlerOne}>Yes</button>
                 <button className="dialog-button button-3" onClick={clickHandlerTwo}>No</button>
             </div>
@@ -17,4 +18,4 @@ const DeletionDialog: React.FC<InputDialogProps> = ({ clickHandlerOne, clickHand
     );
 }
 
-export default DeletionDialog;
+export default YesNoDialog;
