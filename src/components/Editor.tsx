@@ -60,14 +60,15 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
 
     const handleSelection = () => {
         let currentContent = library.texts[selectedText].content;
-        let selectedContent = currentContent.slice(selectionData("start") - 2, selectionData("end") + 2);
+        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
+        let selectedContentPlus = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
 
-        if (selectionData("start") !== selectionData("end")) {
+        if (selectionData("start") !== selectionData("end") && selectedContent !== " ") {
             setSelectionExists(true);
 
-            if (selectedContent.includes("{r{") || selectedContent.includes("}r}") ||
-                selectedContent.includes("{g{") || selectedContent.includes("}g}") ||
-                selectedContent.includes("{b{") || selectedContent.includes("}b}")) {
+            if (selectedContentPlus.includes("{r{") || selectedContentPlus.includes("}r}") ||
+                selectedContentPlus.includes("{g{") || selectedContentPlus.includes("}g}") ||
+                selectedContentPlus.includes("{b{") || selectedContentPlus.includes("}b}")) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
         } else setSelectionExists(false);
