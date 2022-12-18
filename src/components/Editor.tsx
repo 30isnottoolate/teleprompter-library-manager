@@ -21,11 +21,11 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     useEffect(() => {
         if (library.texts[selectedText] && library.texts[selectedText].content) {
             let currentContent = library.texts[selectedText].content;
-    
+
             if (currentContent.includes("{{") || currentContent.includes("}}")) {
                 setContentHasMarks(true);
             } else setContentHasMarks(false);
-    
+
             setSelectionExists(false);
         }
     }, [library.texts, selectedText]);
@@ -65,7 +65,9 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         if (selectionData("start") !== selectionData("end")) {
             setSelectionExists(true);
 
-            if (selectedContent.includes("{{") && selectedContent.includes("}}")) {
+            if (selectedContent.includes("{r{") || selectedContent.includes("}r}") ||
+                selectedContent.includes("{g{") || selectedContent.includes("}g}") ||
+                selectedContent.includes("{b{") || selectedContent.includes("}b}")) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
         } else setSelectionExists(false);
@@ -165,13 +167,13 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        let topOfContent = currentContent.slice(0, selectionData("start") - 2);
-        let selectedContent = currentContent.slice(selectionData("start") - 2, selectionData("end") + 2);
-        let bottomOfContent = currentContent.slice(selectionData("end") + 2);
+        let topOfContent = currentContent.slice(0, selectionData("start") - 3);
+        let selectedContent = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
+        let bottomOfContent = currentContent.slice(selectionData("end") + 3);
 
         selectedContent = selectedContent.replace(/{r{/g, "").replace(/}r}/g, "")
-        .replace(/{g{/g, "").replace(/}g}/g, "")
-        .replace(/{b{/g, "").replace(/}b}/g, "");
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
 
         newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
 
@@ -191,9 +193,9 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let newLibraryTexts = [...library.texts];
 
         currentContent = currentContent.replace(/{r{/g, "").replace(/}r}/g, "")
-        .replace(/{g{/g, "").replace(/}g}/g, "")
-        .replace(/{b{/g, "").replace(/}b}/g, "");
-        
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
         newLibraryTexts[selectedText].content = currentContent;
 
         setLibrary((prevState: typeof library) => ({
