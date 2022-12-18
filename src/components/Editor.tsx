@@ -213,7 +213,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     icon={"redMark"}
                     height={20}
                     disabled={!(selectionExists && !selectionHasMarks)}
-                    clickHandler={markContent}
+                    clickHandler={markContentRed}
                     tooltipText={"Highlight Selection (Red)"}
                     tooltipCentered={true}
                 />
@@ -221,7 +221,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     icon={"greenMark"}
                     height={20}
                     disabled={!(selectionExists && !selectionHasMarks)}
-                    clickHandler={markContent}
+                    clickHandler={markContentGreen}
                     tooltipText={"Highlight Selection (Green)"}
                     tooltipCentered={true}
                 />
@@ -229,7 +229,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                     icon={"blueMark"}
                     height={20}
                     disabled={!(selectionExists && !selectionHasMarks)}
-                    clickHandler={markContent}
+                    clickHandler={markContentBlue}
                     tooltipText={"Highlight Selection (Blue)"}
                     tooltipCentered={true}
                 />
