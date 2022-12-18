@@ -79,27 +79,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         else return 0;
     }
 
-    const markContent = () => {
-        let currentContent = library.texts[selectedText].content;
-        let newLibraryTexts = [...library.texts];
-
-        let topOfContent = currentContent.slice(0, selectionData("start"));
-        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
-        let bottomOfContent = currentContent.slice(selectionData("end"));
-
-        newLibraryTexts[selectedText].content = topOfContent + "{{" + selectedContent + "}}" + bottomOfContent;
-
-        setLibrary((prevState: typeof library) => ({
-            ...prevState,
-            texts: [
-                ...newLibraryTexts
-            ]
-        }));
-
-        setSelectionExists(false);
-        setFileModified(true);
-    }
-
     const markContentRed = () => {
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
