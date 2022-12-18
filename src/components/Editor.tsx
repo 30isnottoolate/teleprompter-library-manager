@@ -190,7 +190,10 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        currentContent = currentContent.replace(/{{/g, "").replace(/}}/g, "");
+        currentContent = currentContent.replace(/{r{/g, "").replace(/}r}/g, "")
+        .replace(/{g{/g, "").replace(/}g}/g, "")
+        .replace(/{b{/g, "").replace(/}b}/g, "");
+        
         newLibraryTexts[selectedText].content = currentContent;
 
         setLibrary((prevState: typeof library) => ({
