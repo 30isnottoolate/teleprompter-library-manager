@@ -157,11 +157,27 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        let topOfContent = currentContent.slice(0, selectionData("start"));
-        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
-        let bottomOfContent = currentContent.slice(selectionData("end"));
+        let topOfContent = currentContent.slice(0, selectionData("start") - 3);
 
-        newLibraryTexts[selectedText].content = topOfContent + "{b{" + selectedContent + "}b}" + bottomOfContent;
+        let topBorderOfSelection = currentContent.slice(selectionData("start") - 3, selectionData("start"))
+            .replace(/{r{/g, "").replace(/}r}/g, "")
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
+        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"))
+            .replace(/{r{/g, "").replace(/}r}/g, "")
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
+        let bottomBorderOfSelection = currentContent.slice(selectionData("end"), selectionData("end") + 3)
+            .replace(/{r{/g, "").replace(/}r}/g, "")
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
+        let bottomOfContent = currentContent.slice(selectionData("end") + 3);
+
+        newLibraryTexts[selectedText].content = topOfContent + topBorderOfSelection +
+            "{b{" + selectedContent + "}b}" + bottomBorderOfSelection + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
