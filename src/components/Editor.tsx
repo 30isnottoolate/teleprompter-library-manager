@@ -210,11 +210,27 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
             <p className="section-label">EDITOR</p>
             <div className="mini-toolbar">
                 <Icon
-                    icon={"mark"}
+                    icon={"redMark"}
                     height={20}
                     disabled={!(selectionExists && !selectionHasMarks)}
                     clickHandler={markContent}
-                    tooltipText={"Highlight Selection"}
+                    tooltipText={"Highlight Selection (Red)"}
+                    tooltipCentered={true}
+                />
+                <Icon
+                    icon={"greenMark"}
+                    height={20}
+                    disabled={!(selectionExists && !selectionHasMarks)}
+                    clickHandler={markContent}
+                    tooltipText={"Highlight Selection (Green)"}
+                    tooltipCentered={true}
+                />
+                <Icon
+                    icon={"blueMark"}
+                    height={20}
+                    disabled={!(selectionExists && !selectionHasMarks)}
+                    clickHandler={markContent}
+                    tooltipText={"Highlight Selection (Blue)"}
                     tooltipCentered={true}
                 />
                 <Icon
