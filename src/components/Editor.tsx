@@ -32,6 +32,12 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         }
     }, [library.texts, selectedText]);
 
+    const checkForMarkSyntax = (text: string) => {
+        return text.includes("{r{") || text.includes("}r}") ||
+            text.includes("{g{") || text.includes("}g}") ||
+            text.includes("{b{") || text.includes("}b}");
+    }
+
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
         newLibraryTexts[selectedText].title = event.target.value;
@@ -63,14 +69,14 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     const handleSelection = () => {
         let currentContent = library.texts[selectedText].content;
         let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
-        let selectedContentPlus = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
+        let bufferedSelection = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
 
         if (selectionData("start") !== selectionData("end") && selectedContent !== ` ` && selectedContent !== `\n`) {
             setSelectionExists(true);
 
-            if (selectedContentPlus.includes("{r{") || selectedContentPlus.includes("}r}") ||
-                selectedContentPlus.includes("{g{") || selectedContentPlus.includes("}g}") ||
-                selectedContentPlus.includes("{b{") || selectedContentPlus.includes("}b}")) {
+            if (bufferedSelection.includes("{r{") || bufferedSelection.includes("}r}") ||
+                bufferedSelection.includes("{g{") || bufferedSelection.includes("}g}") ||
+                bufferedSelection.includes("{b{") || bufferedSelection.includes("}b}")) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
         } else setSelectionExists(false);
@@ -82,8 +88,8 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         else return 0;
     }
 
-    const removeMarkSyntax = (selectedContent: string) => {
-        return selectedContent.
+    const removeMarkSyntax = (text: string) => {
+        return text.
             replace(/{r{/g, "").replace(/}r}/g, "").
             replace(/{g{/g, "").replace(/}g}/g, "").
             replace(/{b{/g, "").replace(/}b}/g, "");
