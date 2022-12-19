@@ -74,12 +74,11 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
     const handleSelection = () => {
         let currentContent = library.texts[selectedText].content;
         let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
-        let bufferedSelection = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
 
         if (selectionData("start") !== selectionData("end") && selectedContent !== ` ` && selectedContent !== `\n`) {
             setSelectionExists(true);
 
-            if (checkForMarkSyntax(bufferedSelection)) {
+            if (checkForMarkSyntax(selectedContent)) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
             
@@ -96,14 +95,12 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        let topOfContent = currentContent.slice(0, selectionData("start") - 3);
-        let topBufferOfContent = removeMarkSyntax(currentContent.slice(selectionData("start") - 3, selectionData("start")));
+        let topOfContent = currentContent.slice(0, selectionData("start"));
         let selectedContent = removeMarkSyntax(currentContent.slice(selectionData("start"), selectionData("end")));
-        let bottomBufferOfContent = removeMarkSyntax(currentContent.slice(selectionData("end"), selectionData("end") + 3));
-        let bottomOfContent = currentContent.slice(selectionData("end") + 3);
+        let bottomOfContent = currentContent.slice(selectionData("end"));
 
-        newLibraryTexts[selectedText].content = topOfContent + topBufferOfContent +
-            `{${color}{` + selectedContent + `}${color}}` + bottomBufferOfContent + bottomOfContent;
+        newLibraryTexts[selectedText].content = topOfContent +
+            `{${color}{` + selectedContent + `}${color}}` + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -120,9 +117,9 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        let topOfContent = currentContent.slice(0, selectionData("start") - 3);
-        let selectedContent = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
-        let bottomOfContent = currentContent.slice(selectionData("end") + 3);
+        let topOfContent = currentContent.slice(0, selectionData("start"));
+        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
+        let bottomOfContent = currentContent.slice(selectionData("end"));
 
         newLibraryTexts[selectedText].content = topOfContent + removeMarkSyntax(selectedContent) + bottomOfContent;
 
