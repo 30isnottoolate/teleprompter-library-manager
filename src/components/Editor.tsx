@@ -65,8 +65,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"));
         let selectedContentPlus = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
 
-        console.log(selectedContent);
-
         if (selectionData("start") !== selectionData("end") && selectedContent !== ` ` && selectedContent !== `\n`) {
             setSelectionExists(true);
 
