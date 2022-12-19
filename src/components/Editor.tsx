@@ -82,6 +82,13 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         else return 0;
     }
 
+    const removeMarkSyntax = (selectedContent: string) => {
+        return selectedContent.
+            replace(/{r{/g, "").replace(/}r}/g, "").
+            replace(/{g{/g, "").replace(/}g}/g, "").
+            replace(/{b{/g, "").replace(/}b}/g, "");
+    }
+
     const markContent = (color: string) => {
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
@@ -106,13 +113,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         setFileModified(true);
     }
 
-    const removeMarkSyntax = (selectedContent: string) => {
-        return selectedContent.
-            replace(/{r{/g, "").replace(/}r}/g, "").
-            replace(/{g{/g, "").replace(/}g}/g, "").
-            replace(/{b{/g, "").replace(/}b}/g, "");
-    }
-
     const unmarkContent = () => {
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
@@ -121,9 +121,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
         let bottomOfContent = currentContent.slice(selectionData("end") + 3);
 
-        selectedContent = selectedContent.replace(/{r{/g, "").replace(/}r}/g, "")
-            .replace(/{g{/g, "").replace(/}g}/g, "")
-            .replace(/{b{/g, "").replace(/}b}/g, "");
+        selectedContent = removeMarkSyntax(selectedContent);
 
         newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
 
@@ -142,9 +140,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        currentContent = currentContent.replace(/{r{/g, "").replace(/}r}/g, "")
-            .replace(/{g{/g, "").replace(/}g}/g, "")
-            .replace(/{b{/g, "").replace(/}b}/g, "");
+        currentContent = removeMarkSyntax(currentContent);
 
         newLibraryTexts[selectedText].content = currentContent;
 
