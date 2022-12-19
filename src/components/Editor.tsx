@@ -22,9 +22,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         if (library.texts[selectedText] && library.texts[selectedText].content) {
             let currentContent = library.texts[selectedText].content;
 
-            if (currentContent.includes("{r{") || currentContent.includes("}r}") ||
-                currentContent.includes("{g{") || currentContent.includes("}g}") ||
-                currentContent.includes("{b{") || currentContent.includes("}b}")) {
+            if (checkForMarkSyntax(currentContent)) {
                 setContentHasMarks(true);
             } else setContentHasMarks(false);
 
@@ -36,6 +34,13 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         return text.includes("{r{") || text.includes("}r}") ||
             text.includes("{g{") || text.includes("}g}") ||
             text.includes("{b{") || text.includes("}b}");
+    }
+
+    const removeMarkSyntax = (text: string) => {
+        return text.
+            replace(/{r{/g, "").replace(/}r}/g, "").
+            replace(/{g{/g, "").replace(/}g}/g, "").
+            replace(/{b{/g, "").replace(/}b}/g, "");
     }
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,11 +79,10 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         if (selectionData("start") !== selectionData("end") && selectedContent !== ` ` && selectedContent !== `\n`) {
             setSelectionExists(true);
 
-            if (bufferedSelection.includes("{r{") || bufferedSelection.includes("}r}") ||
-                bufferedSelection.includes("{g{") || bufferedSelection.includes("}g}") ||
-                bufferedSelection.includes("{b{") || bufferedSelection.includes("}b}")) {
+            if (checkForMarkSyntax(bufferedSelection)) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
+            
         } else setSelectionExists(false);
     }
 
@@ -86,13 +90,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         if (data === "start") return textareaRef.current ? textareaRef.current.selectionStart : 0;
         else if (data === "end") return textareaRef.current ? textareaRef.current.selectionEnd : 0;
         else return 0;
-    }
-
-    const removeMarkSyntax = (text: string) => {
-        return text.
-            replace(/{r{/g, "").replace(/}r}/g, "").
-            replace(/{g{/g, "").replace(/}g}/g, "").
-            replace(/{b{/g, "").replace(/}b}/g, "");
     }
 
     const markContent = (color: string) => {
