@@ -234,7 +234,19 @@ textarea {
 }
 
 span {
-    color: red;
+	color: #f87171;
+}
+
+.red-mark {
+    color: #f87171;
+}
+
+.green-mark {
+    color: #4ade80;
+}
+
+.blue-mark {
+    color: #38bdf8;
 }
 
 footer {
