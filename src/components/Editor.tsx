@@ -121,9 +121,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let selectedContent = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3);
         let bottomOfContent = currentContent.slice(selectionData("end") + 3);
 
-        selectedContent = removeMarkSyntax(selectedContent);
-
-        newLibraryTexts[selectedText].content = topOfContent + selectedContent + bottomOfContent;
+        newLibraryTexts[selectedText].content = topOfContent + removeMarkSyntax(selectedContent) + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -140,9 +138,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
-        currentContent = removeMarkSyntax(currentContent);
-
-        newLibraryTexts[selectedText].content = currentContent;
+        newLibraryTexts[selectedText].content = removeMarkSyntax(currentContent);
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
