@@ -22,7 +22,9 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         if (library.texts[selectedText] && library.texts[selectedText].content) {
             let currentContent = library.texts[selectedText].content;
 
-            if (currentContent.includes("{{") || currentContent.includes("}}")) {
+            if (currentContent.includes("{r{") || currentContent.includes("}r}") ||
+                currentContent.includes("{g{") || currentContent.includes("}g}") ||
+                currentContent.includes("{b{") || currentContent.includes("}b}")) {
                 setContentHasMarks(true);
             } else setContentHasMarks(false);
 
