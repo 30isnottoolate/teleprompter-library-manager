@@ -82,6 +82,43 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         else return 0;
     }
 
+    const markContent = (color) => {
+        let currentContent = library.texts[selectedText].content;
+        let newLibraryTexts = [...library.texts];
+
+        let topOfContent = currentContent.slice(0, selectionData("start") - 3);
+
+        let topBorderOfSelection = currentContent.slice(selectionData("start") - 3, selectionData("start"))
+            .replace(/{r{/g, "").replace(/}r}/g, "")
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
+        let selectedContent = currentContent.slice(selectionData("start"), selectionData("end"))
+            .replace(/{r{/g, "").replace(/}r}/g, "")
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
+        let bottomBorderOfSelection = currentContent.slice(selectionData("end"), selectionData("end") + 3)
+            .replace(/{r{/g, "").replace(/}r}/g, "")
+            .replace(/{g{/g, "").replace(/}g}/g, "")
+            .replace(/{b{/g, "").replace(/}b}/g, "");
+
+        let bottomOfContent = currentContent.slice(selectionData("end") + 3);
+
+        newLibraryTexts[selectedText].content = topOfContent + topBorderOfSelection +
+            `{${color}{` + selectedContent + `}${color}}` + bottomBorderOfSelection + bottomOfContent;
+
+        setLibrary((prevState: typeof library) => ({
+            ...prevState,
+            texts: [
+                ...newLibraryTexts
+            ]
+        }));
+
+        setSelectionExists(false);
+        setFileModified(true);
+    }
+
     const markContentRed = () => {
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
