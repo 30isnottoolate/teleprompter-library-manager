@@ -43,22 +43,6 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
             replace(/{b{/g, "").replace(/}b}/g, "");
     }
 
-    const removeMarkPairs = (text: string) => {
-        while (text.includes("{r{") && text.includes("}r}")) {
-            text.replace(/{r{/, "").replace(/}r}/, "");
-        }
-
-        while (text.includes("{g{") && text.includes("}g}")) {
-            text.replace(/{g{/, "").replace(/}g}/, "");
-        }
-
-        while (text.includes("{b{") && text.includes("}b}")) {
-            text.replace(/{b{/, "").replace(/}b}/, "");
-        }
-
-        return text;
-    }
-
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
         newLibraryTexts[selectedText].title = event.target.value;
@@ -98,7 +82,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
             if (checkForMarkSyntax(bufferedSelection)) {
                 setSelectionHasMarks(true);
             } else setSelectionHasMarks(false);
-
+            
         } else setSelectionExists(false);
     }
 
