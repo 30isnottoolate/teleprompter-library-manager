@@ -87,16 +87,13 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         let newLibraryTexts = [...library.texts];
 
         let topOfContent = currentContent.slice(0, selectionData("start") - 3);
-
-        let selectedContent = currentContent.slice(selectionData("start") - 3, selectionData("end") + 3)
-            .replace(/{r{/g, "").replace(/}r}/g, "")
-            .replace(/{g{/g, "").replace(/}g}/g, "")
-            .replace(/{b{/g, "").replace(/}b}/g, "");
-
+        let topBufferOfContent = removeMarkSyntax(currentContent.slice(selectionData("start") - 3, selectionData("start")));
+        let selectedContent = removeMarkSyntax(currentContent.slice(selectionData("start"), selectionData("end")));
+        let bottomBufferOfContent = removeMarkSyntax(currentContent.slice(selectionData("end"), selectionData("end") + 3));
         let bottomOfContent = currentContent.slice(selectionData("end") + 3);
 
-        newLibraryTexts[selectedText].content = topOfContent + selectedContent.slice(0, 3) +
-            `{${color}{` + selectedContent.slice(3, -3) + `}${color}}` + selectedContent.slice(-3) + bottomOfContent;
+        newLibraryTexts[selectedText].content = topOfContent + topBufferOfContent +
+            `{${color}{` + selectedContent + `}${color}}` + bottomBufferOfContent + bottomOfContent;
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
