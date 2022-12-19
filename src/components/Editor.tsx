@@ -82,7 +82,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
         else return 0;
     }
 
-    const markContent = (color) => {
+    const markContent = (color: string) => {
         let currentContent = library.texts[selectedText].content;
         let newLibraryTexts = [...library.texts];
 
