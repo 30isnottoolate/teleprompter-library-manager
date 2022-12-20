@@ -212,6 +212,7 @@ const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, se
                 onSelect={handleSelection}
                 onClick={handleSelection}
                 placeholder="Type content here..."
+                spellCheck={false}
                 disabled={(library.texts.length < 1 || selectedText < 0) ? true : false}
             />
             {deleteAllMarksMode &&
