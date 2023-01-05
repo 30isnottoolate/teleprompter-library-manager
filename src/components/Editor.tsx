@@ -4,10 +4,10 @@ import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
 
 interface ExplorerProps {
-    library: { texts: [{ title: string, content: string }], librarian: string },
-    setLibrary: Function,
-    selectedText: number,
-    setFileModified: Function
+    library: { texts: [{ title: string, content: string }], librarian: string };
+    setLibrary: Function;
+    selectedText: number;
+    setFileModified: Function;
 }
 
 const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {

@@ -1,10 +1,10 @@
 import React, { MouseEventHandler, ReactNode } from 'react';
 
 interface NewOpenDialogProps {
-    message: ReactNode,
-    clickHandlerOne: MouseEventHandler,
-    clickHandlerTwo: MouseEventHandler,
-    clickHandlerThree: MouseEventHandler
+    message: ReactNode;
+    clickHandlerOne: MouseEventHandler;
+    clickHandlerTwo: MouseEventHandler;
+    clickHandlerThree: MouseEventHandler;
 }
 
 const NewOpenDialog: React.FC<NewOpenDialogProps> = ({ message, clickHandlerOne, clickHandlerTwo, clickHandlerThree }: NewOpenDialogProps) => {

@@ -4,11 +4,11 @@ import InputDialog from './InputDialog';
 import YesNoDialog from './YesNoDialog';
 
 interface ExplorerProps {
-    library: { texts: [{ title: string, content: string }], librarian: string },
-    setLibrary: Function,
-    selectedText: number,
-    setSelectedText: Function,
-    setFileModified: Function
+    library: { texts: [{ title: string, content: string }], librarian: string };
+    setLibrary: Function;
+    selectedText: number;
+    setSelectedText: Function;
+    setFileModified: Function;
 }
 
 const Explorer: React.FC<ExplorerProps> = ({

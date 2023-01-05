@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 
 interface ErrorDialogProps {
-    clickHandler: MouseEventHandler
+    clickHandler: MouseEventHandler;
 }
 
 const ErrorDialog: React.FC<ErrorDialogProps> = ({ clickHandler }: ErrorDialogProps) => {

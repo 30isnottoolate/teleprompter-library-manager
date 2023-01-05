@@ -1,9 +1,9 @@
 import React, { MouseEventHandler } from 'react';
 
 interface YesNoDialogProps {
-    text: string,
-    clickHandlerOne: MouseEventHandler,
-    clickHandlerTwo: MouseEventHandler
+    text: string;
+    clickHandlerOne: MouseEventHandler;
+    clickHandlerTwo: MouseEventHandler;
 }
 
 const YesNoDialog: React.FC<YesNoDialogProps> = ({ text, clickHandlerOne, clickHandlerTwo }: YesNoDialogProps) => {

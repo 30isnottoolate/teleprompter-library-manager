@@ -1,9 +1,9 @@
 import React, { useState, useEffect, MouseEventHandler, RefObject } from 'react';
 
 interface InputDialogProps {
-    newTextTitleInputRef: RefObject<HTMLInputElement>,
-    clickHandlerOne: MouseEventHandler,
-    clickHandlerTwo: MouseEventHandler
+    newTextTitleInputRef: RefObject<HTMLInputElement>;
+    clickHandlerOne: MouseEventHandler;
+    clickHandlerTwo: MouseEventHandler;
 }
 
 const InputDialog: React.FC<InputDialogProps> = ({ newTextTitleInputRef, clickHandlerOne, clickHandlerTwo }: InputDialogProps) => {

@@ -2,14 +2,14 @@ import React, { useRef, MouseEventHandler } from 'react';
 import icons from '../utilities/icons';
 
 interface IconProps {
-    icon: string,
-    width?: number,
-    height: number,
-    viewBox?: string,
-    disabled?: boolean,
-    clickHandler: MouseEventHandler,
-    tooltipText: string,
-    tooltipCentered: boolean
+    icon: string;
+    width?: number;
+    height: number;
+    viewBox?: string;
+    disabled?: boolean;
+    clickHandler: MouseEventHandler;
+    tooltipText: string;
+    tooltipCentered: boolean;
 }
 
 const Icon: React.FC<IconProps> = ({

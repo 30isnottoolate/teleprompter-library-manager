@@ -2,11 +2,11 @@ import React, { ChangeEventHandler, MouseEventHandler, RefObject } from 'react';
 import Icon from './Icon';
 
 interface MenuProps {
-    handleNewFileClick: MouseEventHandler,
-    handleOpenFileClick: MouseEventHandler,
-    handleSaveFileClick: MouseEventHandler,
-    openFile: ChangeEventHandler
-    inputFileRef: RefObject<HTMLInputElement>
+    handleNewFileClick: MouseEventHandler;
+    handleOpenFileClick: MouseEventHandler;
+    handleSaveFileClick: MouseEventHandler;
+    openFile: ChangeEventHandler;
+    inputFileRef: RefObject<HTMLInputElement>;
 }
 
 const Menu: React.FC<MenuProps> = ({ handleNewFileClick, handleOpenFileClick, handleSaveFileClick, openFile, inputFileRef}) => {
