@@ -84,6 +84,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             <div
                 id="editor-box"
                 ref={editorRef}
+                className="scrollbar"
                 contentEditable={(library.texts.length < 1 || selectedText < 0) ? false : true}
                 suppressContentEditableWarning={true}
                 placeholder="Type content here..."
