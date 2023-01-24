@@ -159,8 +159,8 @@ button:disabled > svg {
 }
 
 select, select:focus,
-textarea, textarea:focus,
-input, input:focus {
+input, input:focus,
+#editor-box, #editor-box:focus {
     border-width: 0;
     outline: none;
 }
