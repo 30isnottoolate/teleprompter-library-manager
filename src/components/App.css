@@ -217,6 +217,21 @@ textarea {
     user-select: auto;
 }
 
+#editor-box {
+    background-color: #252525;
+    color: #eeeeee;
+    font-family: "Roboto Mono", monospace;
+    font-size: 18px;
+    line-height: 1.2;
+    width: calc(100% - 10px);
+    height: calc(100vh - 184px);
+    padding: 7.5px 10px;
+    resize: none;
+    white-space: pre;
+    overflow-y: scroll;
+    user-select: auto;
+}
+
 #output {
     grid-column: 3 / 4;
 }
