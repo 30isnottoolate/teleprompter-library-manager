@@ -3,7 +3,7 @@ import './App.css';
 import typeSafeProp from '../utilities/typeSafeProp';
 import Menu from './Menu';
 import Explorer from './Explorer';
-import Editor from './Editor';
+import BetterEditor from './BetterEditor';
 import Output from './Output';
 import NewOpenDialog from './NewOpenDialog';
 import ErrorDialog from './ErrorDialog';
@@ -115,7 +115,7 @@ const App: React.FC = () => {
                     setSelectedText={setSelectedText}
                     setFileModified={setFileModified}
                 />
-                <Editor
+                <BetterEditor
                     library={library}
                     setLibrary={setLibrary}
                     selectedText={selectedText}
