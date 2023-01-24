@@ -193,7 +193,7 @@ option {
 #editor > input {
     background-color: #252525;
     color: #eeeeee;
-    font-family: "Roboto Mono", monospace;
+    font-family: "Roboto", Helvetica;
     font-size: 18px;
     width: calc(100% - 10px);
     height: 38px;
@@ -202,7 +202,7 @@ option {
     user-select: auto;
 }
 
-textarea {
+/* textarea {
     background-color: #252525;
     color: #eeeeee;
     font-family: "Roboto Mono", monospace;
@@ -215,12 +215,12 @@ textarea {
     white-space: pre;
     overflow-y: scroll;
     user-select: auto;
-}
+} */
 
 #editor-box {
     background-color: #252525;
     color: #eeeeee;
-    font-family: "Roboto Mono", monospace;
+    font-family: "Roboto", Helvetica;
     font-size: 18px;
     line-height: 1.2;
     width: calc(100% - 10px);
