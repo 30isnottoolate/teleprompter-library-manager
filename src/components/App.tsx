@@ -80,11 +80,7 @@ const App: React.FC = () => {
     }
 
     const displayText = () => {
-        return typeSafeProp(library, selectedText, "title") +
-            "<br/><br/>" + typeSafeProp(library, selectedText, "content")
-            .replace(/{r{/g, "<span class='red-mark'>").replace(/}r}/g, "</span>")
-            .replace(/{g{/g, "<span class='green-mark'>").replace(/}g}/g, "</span>")
-            .replace(/{b{/g, "<span class='blue-mark'>").replace(/}b}/g, "</span>");
+        return typeSafeProp(library, selectedText, "content");
     }
 
     const validateLibrary = (texts: typeof library.texts) => {
