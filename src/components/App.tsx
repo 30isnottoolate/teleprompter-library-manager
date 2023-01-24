@@ -4,7 +4,6 @@ import typeSafeProp from '../utilities/typeSafeProp';
 import Menu from './Menu';
 import Explorer from './Explorer';
 import BetterEditor from './BetterEditor';
-import Output from './Output';
 import NewOpenDialog from './NewOpenDialog';
 import ErrorDialog from './ErrorDialog';
 
@@ -121,7 +120,6 @@ const App: React.FC = () => {
                     selectedText={selectedText}
                     setFileModified={setFileModified}
                 />
-                <Output output={displayText()} />
             </main>
             <footer>
                 CURRENT LIBRARY {fileModified ? "MODIFIED" : "SAVED"}
