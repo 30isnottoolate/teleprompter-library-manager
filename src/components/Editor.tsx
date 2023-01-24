@@ -3,14 +3,14 @@ import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
 
-interface ExplorerProps {
+interface EditorProps {
     library: { texts: [{ title: string, content: string }], librarian: string };
     setLibrary: Function;
     selectedText: number;
     setFileModified: Function;
 }
 
-const Editor: React.FC<ExplorerProps> = ({ library, setLibrary, selectedText, setFileModified }: ExplorerProps) => {
+const Editor: React.FC<EditorProps> = ({ library, setLibrary, selectedText, setFileModified }: EditorProps) => {
     const [selectionExists, setSelectionExists] = useState(false);
     const [selectionHasMarks, setSelectionHasMarks] = useState(false);
     const [contentHasMarks, setContentHasMarks] = useState(false);
