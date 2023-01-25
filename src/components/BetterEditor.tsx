@@ -29,6 +29,23 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         setFileModified(true);
     }
 
+    const insertText = (text: string) => {
+        const selection = document.getSelection();
+
+        if (selection && selection.rangeCount) {
+            const range = selection.getRangeAt(0);
+            const textNode = document.createTextNode(text);
+
+            range.deleteContents();
+            range.insertNode(textNode);
+            range.selectNode(textNode);
+            range.collapse(false);
+
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
     return (
         <div id="editor">
             <p className="section-label">EDITOR</p>
