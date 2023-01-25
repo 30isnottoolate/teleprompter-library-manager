@@ -18,7 +18,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     useEffect(() => {
         if (editorRef.current)
             editorRef.current.innerHTML = library.texts[selectedText].content;
-    }, [library, selectedText]);
+    }, [selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
@@ -69,8 +69,9 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     }
 
     const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
-        event.preventDefault();
         let plainText = event.clipboardData.getData('text/plain');
+
+        event.preventDefault();
         insertText(plainText);
 
         handleContentChange();
