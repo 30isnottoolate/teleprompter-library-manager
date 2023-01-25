@@ -12,6 +12,7 @@ interface BetterEditorProps {
 
 const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, selectedText, setFileModified }: BetterEditorProps) => {
     const [selectionExist, setSelectionExist] = useState(false);
+    const [selectionHasHighlight, setSelectionHasHighlight] = useState(false);
     const [deleteAllMarksMode, setDeleteAllMarksMode] = useState(false);
 
     const editorRef = useRef<HTMLDivElement>(null);
@@ -87,6 +88,19 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             } else setSelectionExist(false);
 
             const range = selection.getRangeAt(0);
+            const selectionFrag = range.cloneContents();
+
+            if (range.startContainer.parentNode && range.startContainer.parentNode.nodeName === "SPAN" ||
+                range.endContainer.parentNode && range.endContainer.parentNode.nodeName === "SPAN") {
+                    setSelectionHasHighlight(true);
+
+            } else if (selectionFrag.hasChildNodes()) {
+                [...selectionFrag.childNodes].forEach(node => {
+                    if (node.nodeName === "SPAN" || (node.parentNode && node.parentNode.nodeName === "SPAN")) {
+                        setSelectionHasHighlight(true);
+                    }
+                })
+            } else setSelectionHasHighlight(false);
         }
     }
 
@@ -257,7 +271,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 <Icon
                     icon={"unmark"}
                     height={20}
-                    disabled={false}
+                    disabled={selectionExist && selectionHasHighlight ? false : true}
                     clickHandler={removeHighlight}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
