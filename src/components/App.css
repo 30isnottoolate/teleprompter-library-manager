@@ -54,7 +54,7 @@ header {
 
 nav {
     height: 30px;
-    padding-left: 17px;
+    padding-left: 20px;
 }
 
 #title {
@@ -146,12 +146,12 @@ button:disabled > svg {
     color: #bfbfbf;
     font-size: 13px;
     height: 23px;
-    padding: 0 0 10px 12px;
+    padding: 0 0 10px 10px;
 }
 
 .mini-toolbar {
     height: 30px;
-    padding-left: 12px;
+    padding-left: 10px;
 }
 
 .mini-toolbar > .icon-container {
@@ -167,7 +167,7 @@ input, input:focus,
 
 #explorer {
     grid-column: 1 / 2;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 select {
@@ -183,7 +183,7 @@ select {
 
 option {
     height: 32px;
-    padding: 5px 12px;
+    padding: 5px 10px;
 }
 
 #editor {
@@ -269,7 +269,7 @@ footer {
     color: #bfbfbf;
     font-size: 13px;
     height: 25px;
-    padding: 4px 12px 8px 17px;
+    padding: 4px 12px 8px 20px;
 }
 
 .dialog-screen {
