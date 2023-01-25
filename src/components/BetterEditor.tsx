@@ -122,6 +122,51 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
+    const removeAllFormatting = () => {
+        const selection = document.getSelection();
+
+        if (selection && selection.rangeCount && selection.toString().length !== 0) {
+            const range = selection.getRangeAt(0);
+
+            const startNode = range.startContainer;
+            const endNode = range.endContainer;
+            const startOffset = range.startOffset;
+            const endOffset = range.endOffset;
+
+            const selectionFrag = range.cloneContents();
+
+            removeStyleTag(selectionFrag, "SPAN");
+
+            if (startNode.parentNode && startNode.parentNode.nodeName !== "DIV" && endNode.parentNode && endNode.parentNode.nodeName !== "DIV") {
+                range.setStartBefore(startNode.parentNode);
+                range.setEnd(startNode, startOffset);
+                const startFrag = range.cloneContents();
+
+                range.setEndAfter(endNode.parentNode);
+                range.setStart(endNode, endOffset);
+                const endFrag = range.cloneContents();
+
+                range.setStartBefore(startNode.parentNode);
+                range.deleteContents();
+
+                range.insertNode(startFrag);
+                range.collapse(false);
+                range.insertNode(endFrag);
+                range.collapse(true);
+                range.insertNode(selectionFrag);
+
+                selection.removeAllRanges();
+                selection.addRange(range);
+            } else {
+                range.deleteContents();
+                range.insertNode(selectionFrag);
+
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+    }
+
     const handleRemovalOfAllHighlights = () => {
         editorRef.current && removeStyleTag(editorRef.current, "SPAN"); 
         setDeleteAllMarksMode(false);
@@ -159,7 +204,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"unmark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => { }}
+                    clickHandler={() => removeAllFormatting()}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
                 />
