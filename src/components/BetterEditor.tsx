@@ -68,6 +68,14 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         cleanupAndStoreContent();
     }
 
+    const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        let plainText = event.clipboardData.getData('text/plain');
+        insertText(plainText);
+
+        handleContentChange();
+    }
+
     const insertText = (text: string) => {
         const selection = document.getSelection();
 
@@ -262,6 +270,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 className="scrollbar"
                 onInput={event => handleInput(event)}
                 onKeyDown={event => handleKeyDown(event)}
+                onPaste={event => handlePaste(event)}
                 contentEditable={(library.texts.length < 1 || selectedText < 0) ? false : true}
                 suppressContentEditableWarning={true}
                 placeholder="Type content here..."
