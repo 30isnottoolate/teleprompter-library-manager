@@ -18,7 +18,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     useEffect(() => {
         if (editorRef.current)
             editorRef.current.innerHTML = library.texts[selectedText].content;
-    }, [selectedText]);
+    }, [library, selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
@@ -53,12 +53,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             event.currentTarget.append(document.createElement("br"));
         }
 
-        if (editorRef.current) {
-            editorRef.current.normalize();
-            removeChildlessNodes(editorRef.current);
-        }
-
-        handleContentChange();
+        cleanupAndStoreContent();
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -69,6 +64,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             event.preventDefault();
             insertText(`\t`);
         }
+
+        cleanupAndStoreContent();
     }
 
     const insertText = (text: string) => {
@@ -124,6 +121,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             selection.removeAllRanges();
             selection.addRange(range);
         }
+
+        cleanupAndStoreContent();
     }
 
     const removeStyleTag = (node: Node | ChildNode | DocumentFragment, tag: string) => {
@@ -186,11 +185,23 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 selection.addRange(range);
             }
         }
+
+        cleanupAndStoreContent();
     }
 
-    const handleRemovalOfAllHighlights = () => {
+    const removeAllHighlights = () => {
         editorRef.current && removeStyleTag(editorRef.current, "SPAN");
         setDeleteAllMarksMode(false);
+        cleanupAndStoreContent();
+    }
+
+    const cleanupAndStoreContent = () => {
+        if (editorRef.current) {
+            editorRef.current.normalize();
+            removeChildlessNodes(editorRef.current);
+        }
+
+        handleContentChange();
     }
 
     return (
@@ -225,7 +236,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"unmark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => removeHighlight()}
+                    clickHandler={removeHighlight}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
                 />
@@ -259,7 +270,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             {deleteAllMarksMode &&
                 <YesNoDialog
                     text="Are you sure you want to remove all highlights?"
-                    clickHandlerOne={handleRemovalOfAllHighlights}
+                    clickHandlerOne={removeAllHighlights}
                     clickHandlerTwo={() => setDeleteAllMarksMode(false)}
                 />
             }
