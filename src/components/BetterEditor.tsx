@@ -81,7 +81,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
-    const applyFontColor = (color: string) => {
+    const applyHighlight = (color: string) => {
         const selection = document.getSelection();
 
         if (selection && selection.rangeCount && selection.toString().length !== 0) {
@@ -122,7 +122,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
-    const removeAllFormatting = () => {
+    const removeHighlight = () => {
         const selection = document.getSelection();
 
         if (selection && selection.rangeCount && selection.toString().length !== 0) {
@@ -180,7 +180,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"redMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => applyFontColor("#f87171")}
+                    clickHandler={() => applyHighlight("#f87171")}
                     tooltipText={"Highlight Selection (Red)"}
                     tooltipCentered={true}
                 />
@@ -188,7 +188,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"greenMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => applyFontColor("#4ade80")}
+                    clickHandler={() => applyHighlight("#4ade80")}
                     tooltipText={"Highlight Selection (Green)"}
                     tooltipCentered={true}
                 />
@@ -196,7 +196,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"blueMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => applyFontColor("#38bdf8")}
+                    clickHandler={() => applyHighlight("#38bdf8")}
                     tooltipText={"Highlight Selection (Blue)"}
                     tooltipCentered={true}
                 />
@@ -204,7 +204,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"unmark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => removeAllFormatting()}
+                    clickHandler={() => removeHighlight()}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
                 />
