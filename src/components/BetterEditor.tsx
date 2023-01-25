@@ -29,6 +29,16 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         setFileModified(true);
     }
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            insertText(`\n`);
+        } else if (event.key === "Tab") {
+            event.preventDefault();
+            insertText(`\t`);
+        }
+    }
+
     const insertText = (text: string) => {
         const selection = document.getSelection();
 
@@ -102,6 +112,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 id="editor-box"
                 ref={editorRef}
                 className="scrollbar"
+                onKeyDown={event => handleKeyDown(event)}
                 contentEditable={(library.texts.length < 1 || selectedText < 0) ? false : true}
                 suppressContentEditableWarning={true}
                 placeholder="Type content here..."
