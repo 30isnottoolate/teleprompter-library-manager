@@ -15,9 +15,28 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
     const editorRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        if (editorRef.current)
+            editorRef.current.innerHTML = library.texts[selectedText].content;
+    }, [selectedText]);
+
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newLibraryTexts = [...library.texts];
         newLibraryTexts[selectedText].title = event.target.value;
+
+        setLibrary((prevState: typeof library) => ({
+            ...prevState,
+            texts: [
+                ...newLibraryTexts
+            ]
+        }));
+
+        setFileModified(true);
+    }
+
+    const handleContentChange = () => {
+        let newLibraryTexts = [...library.texts];
+        newLibraryTexts[selectedText].content = editorRef.current ? editorRef.current.innerHTML : "error";
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -38,6 +57,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             editorRef.current.normalize();
             removeChildlessNodes(editorRef.current);
         }
+
+        handleContentChange();
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -168,7 +189,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     }
 
     const handleRemovalOfAllHighlights = () => {
-        editorRef.current && removeStyleTag(editorRef.current, "SPAN"); 
+        editorRef.current && removeStyleTag(editorRef.current, "SPAN");
         setDeleteAllMarksMode(false);
     }
 
