@@ -130,7 +130,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"redMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => { }}
+                    clickHandler={() => applyFontColor("#f87171")}
                     tooltipText={"Highlight Selection (Red)"}
                     tooltipCentered={true}
                 />
@@ -138,7 +138,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"greenMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => { }}
+                    clickHandler={() => applyFontColor("#4ade80")}
                     tooltipText={"Highlight Selection (Green)"}
                     tooltipCentered={true}
                 />
@@ -146,7 +146,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"blueMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => { }}
+                    clickHandler={() => applyFontColor("#38bdf8")}
                     tooltipText={"Highlight Selection (Blue)"}
                     tooltipCentered={true}
                 />
