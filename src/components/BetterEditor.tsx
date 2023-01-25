@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import typeSafeProp from '../utilities/typeSafeProp';
 import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
