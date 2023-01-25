@@ -122,6 +122,11 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
+    const handleRemovalOfAllHighlights = () => {
+        editorRef.current && removeStyleTag(editorRef.current, "SPAN"); 
+        setDeleteAllMarksMode(false);
+    }
+
     return (
         <div id="editor">
             <p className="section-label">EDITOR</p>
@@ -162,7 +167,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"removeMarks"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => { }}
+                    clickHandler={() => setDeleteAllMarksMode(true)}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
                 />
@@ -188,7 +193,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             {deleteAllMarksMode &&
                 <YesNoDialog
                     text="Are you sure you want to remove all highlights?"
-                    clickHandlerOne={() => { }}
+                    clickHandlerOne={handleRemovalOfAllHighlights}
                     clickHandlerTwo={() => setDeleteAllMarksMode(false)}
                 />
             }
