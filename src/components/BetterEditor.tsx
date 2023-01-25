@@ -33,7 +33,11 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         if (event.currentTarget.lastChild && event.currentTarget.lastChild.nodeName !== "BR") {
             event.currentTarget.append(document.createElement("br"));
         }
-        editorRef.current && editorRef.current.normalize();
+
+        if (editorRef.current) {
+            editorRef.current.normalize();
+            removeChildlessNodes(editorRef.current);
+        }
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -63,6 +67,20 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
+    const removeChildlessNodes = (node: Node) => {
+        if (node.hasChildNodes()) {
+            node.childNodes.forEach(childNode => {
+                if (!childNode.hasChildNodes() &&
+                    childNode.nodeName !== "#text" && childNode.nodeName !== "BR") {
+                    node.removeChild(childNode);
+                    removeChildlessNodes(node);
+                } else {
+                    removeChildlessNodes(childNode);
+                }
+            });
+        }
+    }
+
     return (
         <div id="editor">
             <p className="section-label">EDITOR</p>
@@ -71,7 +89,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"redMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => {}}
+                    clickHandler={() => { }}
                     tooltipText={"Highlight Selection (Red)"}
                     tooltipCentered={true}
                 />
@@ -79,7 +97,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"greenMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => {}}
+                    clickHandler={() => { }}
                     tooltipText={"Highlight Selection (Green)"}
                     tooltipCentered={true}
                 />
@@ -87,7 +105,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"blueMark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => {}}
+                    clickHandler={() => { }}
                     tooltipText={"Highlight Selection (Blue)"}
                     tooltipCentered={true}
                 />
@@ -95,7 +113,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"unmark"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => {}}
+                    clickHandler={() => { }}
                     tooltipText={"Remove Highlight"}
                     tooltipCentered={true}
                 />
@@ -103,7 +121,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     icon={"removeMarks"}
                     height={20}
                     disabled={false}
-                    clickHandler={() => {}}
+                    clickHandler={() => { }}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
                 />
@@ -129,7 +147,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             {deleteAllMarksMode &&
                 <YesNoDialog
                     text="Are you sure you want to remove all highlights?"
-                    clickHandlerOne={() => {}}
+                    clickHandlerOne={() => { }}
                     clickHandlerTwo={() => setDeleteAllMarksMode(false)}
                 />
             }
