@@ -81,6 +81,23 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
+    const removeStyleTag = (node: Node | ChildNode | DocumentFragment, tag: string) => {
+        if (node.hasChildNodes()) {
+
+            node.childNodes.forEach((childNode) => {
+                if (childNode.nodeName === tag && childNode.hasChildNodes()) {
+                    childNode.replaceWith(...childNode.childNodes);
+                    removeStyleTag(node, tag);
+                } else if (childNode.nodeName === tag && !childNode.hasChildNodes()) {
+                    node.removeChild(childNode);
+                    removeStyleTag(node, tag);
+                } else if (childNode.hasChildNodes()) {
+                    removeStyleTag(childNode, tag);
+                }
+            });
+        }
+    }
+
     return (
         <div id="editor">
             <p className="section-label">EDITOR</p>
