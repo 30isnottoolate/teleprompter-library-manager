@@ -11,6 +11,7 @@ interface BetterEditorProps {
 }
 
 const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, selectedText, setFileModified }: BetterEditorProps) => {
+    const [selectionExist, setSelectionExist] = useState(false);
     const [deleteAllMarksMode, setDeleteAllMarksMode] = useState(false);
 
     const editorRef = useRef<HTMLDivElement>(null);
@@ -75,6 +76,18 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         insertText(plainText);
 
         handleContentChange();
+    }
+
+    const handleSelection = () => {
+        const selection = document.getSelection();
+
+        if (selection && selection.rangeCount) {
+            if (selection.toString().length !== 0) {
+                setSelectionExist(true);
+            } else setSelectionExist(false);
+
+            const range = selection.getRangeAt(0);
+        }
     }
 
     const insertText = (text: string) => {
@@ -220,7 +233,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 <Icon
                     icon={"redMark"}
                     height={20}
-                    disabled={false}
+                    disabled={selectionExist ? false : true}
                     clickHandler={() => applyHighlight("#f87171")}
                     tooltipText={"Highlight Selection (Red)"}
                     tooltipCentered={true}
@@ -228,7 +241,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 <Icon
                     icon={"greenMark"}
                     height={20}
-                    disabled={false}
+                    disabled={selectionExist ? false : true}
                     clickHandler={() => applyHighlight("#4ade80")}
                     tooltipText={"Highlight Selection (Green)"}
                     tooltipCentered={true}
@@ -236,7 +249,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 <Icon
                     icon={"blueMark"}
                     height={20}
-                    disabled={false}
+                    disabled={selectionExist ? false : true}
                     clickHandler={() => applyHighlight("#38bdf8")}
                     tooltipText={"Highlight Selection (Blue)"}
                     tooltipCentered={true}
@@ -272,6 +285,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 onInput={event => handleInput(event)}
                 onKeyDown={event => handleKeyDown(event)}
                 onPaste={event => handlePaste(event)}
+                onSelect={handleSelection}
                 contentEditable={(library.texts.length < 1 || selectedText < 0) ? false : true}
                 suppressContentEditableWarning={true}
                 placeholder="Type content here..."
