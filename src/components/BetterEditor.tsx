@@ -50,14 +50,14 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
             let newLibraryTexts = [...library.texts];
             newLibraryTexts[selectedText].content = editorRef.current.innerHTML;
-    
+
             setLibrary((prevState: typeof library) => ({
                 ...prevState,
                 texts: [
                     ...newLibraryTexts
                 ]
             }));
-    
+
             setFileModified(true);
         }
     }
@@ -254,7 +254,9 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         let nodeToReturn = node;
 
         const ancestorFinder = (node: Node) => {
-            if (node.parentNode && node.parentNode.nodeName !== "DIV") {
+            if (node.parentNode && node.parentNode.nodeName !== "DIV" &&
+                node.parentElement && node.parentElement.id !== "editor-box") {
+
                 ancestorFinder(node.parentNode);
             } else nodeToReturn = node;
         }
