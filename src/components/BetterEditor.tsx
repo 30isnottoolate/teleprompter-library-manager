@@ -92,7 +92,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
             if (range.startContainer.parentNode && range.startContainer.parentNode.nodeName === "SPAN" ||
                 range.endContainer.parentNode && range.endContainer.parentNode.nodeName === "SPAN") {
-                    setSelectionHasHighlight(true);
+                setSelectionHasHighlight(true);
 
             } else if (selectionFrag.hasChildNodes()) {
                 [...selectionFrag.childNodes].forEach(node => {
@@ -193,16 +193,18 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
             removeStyleTag(selectionFrag, "SPAN");
 
-            if (startNode.parentNode && startNode.parentNode.nodeName !== "DIV" && endNode.parentNode && endNode.parentNode.nodeName !== "DIV") {
-                range.setStartBefore(startNode.parentNode);
+            if (startNode.parentNode && startNode.parentNode.nodeName !== "DIV" &&
+                endNode.parentNode && endNode.parentNode.nodeName !== "DIV") {
+
+                range.setStartBefore(ancestorNode(startNode));
                 range.setEnd(startNode, startOffset);
                 const startFrag = range.cloneContents();
 
-                range.setEndAfter(endNode.parentNode);
+                range.setEndAfter(ancestorNode(endNode));
                 range.setStart(endNode, endOffset);
                 const endFrag = range.cloneContents();
 
-                range.setStartBefore(startNode.parentNode);
+                range.setStartBefore(ancestorNode(startNode));
                 range.deleteContents();
 
                 range.insertNode(startFrag);
