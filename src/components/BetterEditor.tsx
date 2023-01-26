@@ -19,9 +19,18 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (editorRef.current) {
+            editorRef.current.normalize();
+            removeChildlessNodes(editorRef.current);
+        }
+
+        findHighlights();
+        handleContentChange();
+    }, [editorRef.current?.innerHTML, selectedText]);
+
+    useEffect(() => {
         if (editorRef.current)
             editorRef.current.innerHTML = typeSafeProp(library, selectedText, "content");
-            cleanupCheckAndStoreContent();
     }, [selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +65,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         if (event.currentTarget.lastChild && event.currentTarget.lastChild.nodeName !== "BR") {
             event.currentTarget.append(document.createElement("br"));
         }
-
-        cleanupCheckAndStoreContent();
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -68,8 +75,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             event.preventDefault();
             insertText(`\t`);
         }
-
-        cleanupCheckAndStoreContent();
     }
 
     const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
@@ -77,8 +82,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
         event.preventDefault();
         insertText(plainText);
-
-        handleContentChange();
     }
 
     const handleSelection = () => {
@@ -159,8 +162,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             selection.removeAllRanges();
             selection.addRange(range);
         }
-
-        cleanupCheckAndStoreContent();
     }
 
     const removeStyleTag = (node: Node | ChildNode | DocumentFragment, tag: string) => {
@@ -225,15 +226,12 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 selection.addRange(range);
             }
         }
-
-        cleanupCheckAndStoreContent();
     }
 
     const removeAllHighlights = () => {
         if (editorRef.current && editorRef.current.innerHTML.length !== 0) {
             removeStyleTag(editorRef.current, "SPAN");
             setDeleteAllMarksMode(false);
-            cleanupCheckAndStoreContent();
         }
     }
 
@@ -245,16 +243,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 if (node.nodeName === "SPAN") setHighlightExists(true);
             });
         }
-    }
-
-    const cleanupCheckAndStoreContent = () => {
-        if (editorRef.current) {
-            editorRef.current.normalize();
-            removeChildlessNodes(editorRef.current);
-        }
-
-        findHighlights();
-        handleContentChange();
     }
 
     const ancestorNode = (node: Node) => {
