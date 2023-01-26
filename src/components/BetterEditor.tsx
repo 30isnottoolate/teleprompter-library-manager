@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import typeSafeProp from '../utilities/typeSafeProp';
+import {typeSafeProp, insertText, ancestorNode} from '../utilities/helperFunctions';
 import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
 
@@ -105,23 +105,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                     }
                 })
             } else setSelectionHasHighlight(false);
-        }
-    }
-
-    const insertText = (text: string) => {
-        const selection = document.getSelection();
-
-        if (selection && selection.rangeCount) {
-            const range = selection.getRangeAt(0);
-            const textNode = document.createTextNode(text);
-
-            range.deleteContents();
-            range.insertNode(textNode);
-            range.selectNode(textNode);
-            range.collapse(false);
-
-            selection.removeAllRanges();
-            selection.addRange(range);
         }
     }
 
@@ -248,22 +231,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 if (node.nodeName === "SPAN") setHighlightExists(true);
             });
         }
-    }
-
-    const ancestorNode = (node: Node) => {
-        let nodeToReturn = node;
-
-        const ancestorFinder = (node: Node) => {
-            if (node.parentNode && node.parentNode.nodeName !== "DIV" &&
-                node.parentElement && node.parentElement.id !== "editor-box") {
-
-                ancestorFinder(node.parentNode);
-            } else nodeToReturn = node;
-        }
-
-        ancestorFinder(node);
-
-        return nodeToReturn;
     }
 
     return (
