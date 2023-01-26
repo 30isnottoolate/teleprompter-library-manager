@@ -1,4 +1,4 @@
-const typeSafeProp = (library: { texts: [{ title: string, content: string }] },
+const typeSafeProp = (library: { texts: { title: string, content: string }[], librarian: string },
     index: number, prop: string) => {
 
     if (library && library.texts && library.texts[index] && library.texts[index][prop]) {

@@ -1,16 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {typeSafeProp, insertText, ancestorNode, removeChildlessNodes, removeStyleTag} from '../utilities/helperFunctions';
+import { typeSafeProp, insertText, ancestorNode, removeChildlessNodes, removeStyleTag } from '../utilities/helperFunctions';
 import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
 
 interface BetterEditorProps {
-    library: { texts: [{ title: string, content: string }], librarian: string };
+    library: { texts: { title: string, content: string }[], librarian: string };
     setLibrary: Function;
     selectedText: number;
     setFileModified: Function;
 }
 
-const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, selectedText, setFileModified }: BetterEditorProps) => {
+const BetterEditor: React.FC<BetterEditorProps> = (
+    { library, setLibrary, selectedText, setFileModified }: BetterEditorProps) => {
+
     const [selectionExist, setSelectionExist] = useState(false);
     const [selectionHasHighlight, setSelectionHasHighlight] = useState(false);
     const [highlightExists, setHighlightExists] = useState(false);

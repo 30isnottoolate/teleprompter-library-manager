@@ -7,7 +7,7 @@ import NewOpenDialog from './NewOpenDialog';
 import ErrorDialog from './ErrorDialog';
 
 const App: React.FC = () => {
-    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }], librarian: string }>
+    const [library, setLibrary] = useState<{ texts: { title: string, content: string }[], librarian: string }>
         ({ texts: [{ title: "My First Text", content: "" }], librarian: "" });
 
     const [selectedText, setSelectedText] = useState(0);
