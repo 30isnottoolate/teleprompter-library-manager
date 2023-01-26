@@ -39,4 +39,4 @@ const ancestorNode = (node: Node) => {
     return nodeToReturn;
 }
 
-export default { typeSafeProp, insertText, ancestorNode };
+export { typeSafeProp, insertText, ancestorNode };
