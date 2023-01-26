@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
-import typeSafeProp from '../utilities/typeSafeProp';
 import Menu from './Menu';
 import Explorer from './Explorer';
 import BetterEditor from './BetterEditor';
@@ -77,10 +76,6 @@ const App: React.FC = () => {
         setFileModified(false);
         setNewFileMode(false);
         setOpenFileMode(false);
-    }
-
-    const displayText = () => {
-        return typeSafeProp(library, selectedText, "content");
     }
 
     const validateLibrary = (texts: typeof library.texts) => {
