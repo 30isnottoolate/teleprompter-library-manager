@@ -13,13 +13,15 @@ interface BetterEditorProps {
 const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, selectedText, setFileModified }: BetterEditorProps) => {
     const [selectionExist, setSelectionExist] = useState(false);
     const [selectionHasHighlight, setSelectionHasHighlight] = useState(false);
+    const [highlightExists, setHighlightExists] = useState(false);
     const [deleteAllMarksMode, setDeleteAllMarksMode] = useState(false);
 
     const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (editorRef.current)
-            editorRef.current.innerHTML = library.texts[selectedText].content;
+            editorRef.current.innerHTML = typeSafeProp(library, selectedText, "content");
+            cleanupCheckAndStoreContent();
     }, [selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +40,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
     const handleContentChange = () => {
         let newLibraryTexts = [...library.texts];
-        newLibraryTexts[selectedText].content = editorRef.current ? editorRef.current.innerHTML : "error";
+        newLibraryTexts[selectedText].content = editorRef.current ? editorRef.current.innerHTML : "...";
 
         setLibrary((prevState: typeof library) => ({
             ...prevState,
@@ -55,7 +57,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             event.currentTarget.append(document.createElement("br"));
         }
 
-        cleanupAndStoreContent();
+        cleanupCheckAndStoreContent();
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -67,7 +69,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             insertText(`\t`);
         }
 
-        cleanupAndStoreContent();
+        cleanupCheckAndStoreContent();
     }
 
     const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
@@ -158,7 +160,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             selection.addRange(range);
         }
 
-        cleanupAndStoreContent();
+        cleanupCheckAndStoreContent();
     }
 
     const removeStyleTag = (node: Node | ChildNode | DocumentFragment, tag: string) => {
@@ -224,21 +226,34 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             }
         }
 
-        cleanupAndStoreContent();
+        cleanupCheckAndStoreContent();
     }
 
     const removeAllHighlights = () => {
-        editorRef.current && removeStyleTag(editorRef.current, "SPAN");
-        setDeleteAllMarksMode(false);
-        cleanupAndStoreContent();
+        if (editorRef.current && editorRef.current.innerHTML.length !== 0) {
+            removeStyleTag(editorRef.current, "SPAN");
+            setDeleteAllMarksMode(false);
+            cleanupCheckAndStoreContent();
+        }
     }
 
-    const cleanupAndStoreContent = () => {
+    const findHighlights = () => {
+        setHighlightExists(false);
+
+        if (editorRef.current && editorRef.current.hasChildNodes()) {
+            [...editorRef.current.childNodes].forEach(node => {
+                if (node.nodeName === "SPAN") setHighlightExists(true);
+            });
+        }
+    }
+
+    const cleanupCheckAndStoreContent = () => {
         if (editorRef.current) {
             editorRef.current.normalize();
             removeChildlessNodes(editorRef.current);
         }
 
+        findHighlights();
         handleContentChange();
     }
 
@@ -295,7 +310,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 <Icon
                     icon={"removeMarks"}
                     height={20}
-                    disabled={false}
+                    disabled={highlightExists ? false : true}
                     clickHandler={() => setDeleteAllMarksMode(true)}
                     tooltipText={"Remove All Highlights"}
                     tooltipCentered={true}
