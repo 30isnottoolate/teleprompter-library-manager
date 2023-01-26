@@ -152,6 +152,20 @@ const Editor: React.FC<EditorProps> = ({ library, setLibrary, selectedText, setF
         setDeleteAllMarksMode(false);
     }
 
+    const ancestorNode = (node: Node) => {
+        let nodeToReturn = node;
+
+        const ancestorFinder = (node: Node) => {
+            if (node.parentNode && node.parentNode.nodeName !== "DIV") {
+                ancestorFinder(node.parentNode);
+            } else nodeToReturn = node;
+        }
+
+        ancestorFinder(node);
+
+        return nodeToReturn;
+    }
+
     return (
         <div id="editor">
             <p className="section-label">EDITOR</p>
