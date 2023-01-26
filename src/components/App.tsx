@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 import Menu from './Menu';
 import Explorer from './Explorer';
-import BetterEditor from './BetterEditor';
+import Editor from './Editor';
 import NewOpenDialog from './NewOpenDialog';
 import ErrorDialog from './ErrorDialog';
 
@@ -105,7 +105,7 @@ const App: React.FC = () => {
                     setSelectedText={setSelectedText}
                     setFileModified={setFileModified}
                 />
-                <BetterEditor
+                <Editor
                     library={library}
                     setLibrary={setLibrary}
                     selectedText={selectedText}

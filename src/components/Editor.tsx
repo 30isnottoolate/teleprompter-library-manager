@@ -4,15 +4,15 @@ import { typeSafeProp, insertText, ancestorNode, removeChildlessNodes, removeSty
 import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
 
-interface BetterEditorProps {
+interface EditorProps {
     library: { texts: { title: string, content: string }[], librarian: string };
     setLibrary: Function;
     selectedText: number;
     setFileModified: Function;
 }
 
-const BetterEditor: React.FC<BetterEditorProps> = (
-    { library, setLibrary, selectedText, setFileModified }: BetterEditorProps) => {
+const Editor: React.FC<EditorProps> = (
+    { library, setLibrary, selectedText, setFileModified }: EditorProps) => {
 
     const [selectionExist, setSelectionExist] = useState(false);
     const [selectionHasHighlight, setSelectionHasHighlight] = useState(false);
@@ -280,4 +280,4 @@ const BetterEditor: React.FC<BetterEditorProps> = (
     );
 }
 
-export default BetterEditor;
+export default Editor;
