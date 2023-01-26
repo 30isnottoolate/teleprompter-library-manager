@@ -19,16 +19,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (editorRef.current) {
-            editorRef.current.normalize();
-            removeChildlessNodes(editorRef.current);
-        }
-
-        findHighlights();
-        handleContentChange();
-    }, [editorRef.current?.innerHTML, selectedText]);
-
-    useEffect(() => {
         if (editorRef.current)
             editorRef.current.innerHTML = typeSafeProp(library, selectedText, "content");
     }, [selectedText]);
@@ -48,24 +38,39 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
     }
 
     const handleContentChange = () => {
-        let newLibraryTexts = [...library.texts];
-        newLibraryTexts[selectedText].content = editorRef.current ? editorRef.current.innerHTML : "...";
+        if (editorRef.current) {
+            if (editorRef.current.lastChild && editorRef.current.lastChild.nodeName !== "BR") {
+                editorRef.current.append(document.createElement("br"));
+            }
 
-        setLibrary((prevState: typeof library) => ({
-            ...prevState,
-            texts: [
-                ...newLibraryTexts
-            ]
-        }));
+            editorRef.current.normalize();
+            removeChildlessNodes(editorRef.current);
 
-        setFileModified(true);
+            findHighlights();
+
+            let newLibraryTexts = [...library.texts];
+            newLibraryTexts[selectedText].content = editorRef.current.innerHTML;
+    
+            setLibrary((prevState: typeof library) => ({
+                ...prevState,
+                texts: [
+                    ...newLibraryTexts
+                ]
+            }));
+    
+            setFileModified(true);
+        }
     }
 
-    const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
+    /* const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
         if (event.currentTarget.lastChild && event.currentTarget.lastChild.nodeName !== "BR") {
             event.currentTarget.append(document.createElement("br"));
         }
-    }
+
+        console.log("input");
+
+        handleContentChange();
+    } */
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "Enter") {
@@ -75,6 +80,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             event.preventDefault();
             insertText(`\t`);
         }
+
+        handleContentChange();
     }
 
     const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
@@ -82,6 +89,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
 
         event.preventDefault();
         insertText(plainText);
+
+        handleContentChange();
     }
 
     const handleSelection = () => {
@@ -162,6 +171,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             selection.removeAllRanges();
             selection.addRange(range);
         }
+
+        handleContentChange();
     }
 
     const removeStyleTag = (node: Node | ChildNode | DocumentFragment, tag: string) => {
@@ -226,6 +237,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 selection.addRange(range);
             }
         }
+
+        handleContentChange();
     }
 
     const removeAllHighlights = () => {
@@ -233,6 +246,8 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
             removeStyleTag(editorRef.current, "SPAN");
             setDeleteAllMarksMode(false);
         }
+
+        handleContentChange();
     }
 
     const findHighlights = () => {
@@ -315,7 +330,7 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 id="editor-box"
                 ref={editorRef}
                 className="scrollbar"
-                onInput={event => handleInput(event)}
+                /* onInput={event => handleInput(event)} */
                 onKeyDown={event => handleKeyDown(event)}
                 onPaste={event => handlePaste(event)}
                 onSelect={handleSelection}
