@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { typeSafeProp, insertText, ancestorNode, removeChildlessNodes, removeStyleTag } from '../utilities/helperFunctions';
 import Icon from './Icon';
 import YesNoDialog from './YesNoDialog';
@@ -22,7 +23,7 @@ const BetterEditor: React.FC<BetterEditorProps> = (
 
     useEffect(() => {
         if (editorRef.current)
-            editorRef.current.innerHTML = typeSafeProp(library, selectedText, "content");
+            editorRef.current.innerHTML = DOMPurify.sanitize(typeSafeProp(library, selectedText, "content"));
     }, [selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
