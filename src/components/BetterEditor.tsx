@@ -62,16 +62,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
         }
     }
 
-    /* const handleInput = (event: React.FormEvent<HTMLDivElement>) => {
-        if (event.currentTarget.lastChild && event.currentTarget.lastChild.nodeName !== "BR") {
-            event.currentTarget.append(document.createElement("br"));
-        }
-
-        console.log("input");
-
-        handleContentChange();
-    } */
-
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "Enter") {
             event.preventDefault();
@@ -330,7 +320,6 @@ const BetterEditor: React.FC<BetterEditorProps> = ({ library, setLibrary, select
                 id="editor-box"
                 ref={editorRef}
                 className="scrollbar"
-                /* onInput={event => handleInput(event)} */
                 onKeyDown={event => handleKeyDown(event)}
                 onPaste={event => handlePaste(event)}
                 onSelect={handleSelection}
