@@ -21,7 +21,7 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: 20% 40% 40%;
+    grid-template-columns: 20% 80%;
     height: calc(100vh - 86px);
 }
 
@@ -53,7 +53,7 @@ header {
 
 nav {
     height: 30px;
-    padding-left: 17px;
+    padding-left: 20px;
 }
 
 #title {
@@ -145,12 +145,12 @@ button:disabled > svg {
     color: #bfbfbf;
     font-size: 13px;
     height: 23px;
-    padding: 0 0 10px 12px;
+    padding: 0 0 10px 10px;
 }
 
 .mini-toolbar {
     height: 30px;
-    padding-left: 12px;
+    padding-left: 10px;
 }
 
 .mini-toolbar > .icon-container {
@@ -158,15 +158,15 @@ button:disabled > svg {
 }
 
 select, select:focus,
-textarea, textarea:focus,
-input, input:focus {
+input, input:focus,
+#editor-box, #editor-box:focus {
     border-width: 0;
     outline: none;
 }
 
 #explorer {
     grid-column: 1 / 2;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 select {
@@ -182,7 +182,7 @@ select {
 
 option {
     height: 32px;
-    padding: 5px 12px;
+    padding: 5px 10px;
 }
 
 #editor {
@@ -192,7 +192,7 @@ option {
 #editor > input {
     background-color: #252525;
     color: #eeeeee;
-    font-family: "Roboto Mono", monospace;
+    font-family: "Roboto", Helvetica;
     font-size: 18px;
     width: calc(100% - 10px);
     height: 38px;
@@ -201,10 +201,10 @@ option {
     user-select: auto;
 }
 
-textarea {
+#editor-box {
     background-color: #252525;
     color: #eeeeee;
-    font-family: "Roboto Mono", monospace;
+    font-family: "Roboto", Helvetica;
     font-size: 18px;
     line-height: 1.2;
     width: calc(100% - 10px);
@@ -216,44 +216,11 @@ textarea {
     user-select: auto;
 }
 
-#output {
-    grid-column: 3 / 4;
-}
-
-#text-display {
-    background-color: #1e1e1e;
-    color: #dddddd;
-    font-size: 18px;
-    line-height: 1.2;
-    width: calc(100% - 5px);
-    height: calc(100vh - 141px);
-    padding: 7.5px 10px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-y: scroll;
-}
-
-span {
-	color: #f87171;
-}
-
-.red-mark {
-    color: #f87171;
-}
-
-.green-mark {
-    color: #4ade80;
-}
-
-.blue-mark {
-    color: #38bdf8;
-}
-
 footer {
     color: #bfbfbf;
     font-size: 13px;
     height: 25px;
-    padding: 4px 12px 8px 17px;
+    padding: 4px 12px 8px 20px;
 }
 
 .dialog-screen {
