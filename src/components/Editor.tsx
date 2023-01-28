@@ -279,7 +279,6 @@ const Editor: React.FC<EditorProps> = (
                 onSelect={handleSelection}
                 contentEditable={(library.texts.length < 1 || selectedText < 0) ? false : true}
                 suppressContentEditableWarning={true}
-                placeholder="Type content here..."
                 spellCheck={false}
             />
             {deleteAllMarksMode &&
