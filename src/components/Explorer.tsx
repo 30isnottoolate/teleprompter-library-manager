@@ -6,13 +6,15 @@ import YesNoDialog from './YesNoDialog';
 interface ExplorerProps {
     library: { texts: { title: string, content: string }[], librarian: string };
     setLibrary: Function;
+    libraryStatus: string;
+    setLibraryStatus: Function;
     selectedText: number;
     setSelectedText: Function;
     setFileModified: Function;
 }
 
 const Explorer: React.FC<ExplorerProps> = ({
-    library, setLibrary, selectedText, setSelectedText, setFileModified }: ExplorerProps) => {
+    library, setLibrary, libraryStatus, setLibraryStatus, selectedText, setSelectedText, setFileModified }: ExplorerProps) => {
 
     const [newTextMode, setNewTextMode] = useState(false);
     const [deleteTextMode, setDeleteTextMode] = useState(false);
@@ -39,6 +41,7 @@ const Explorer: React.FC<ExplorerProps> = ({
             });
         });
 
+        setLibraryStatus("modified");
         setNewTextMode(false);
         setFileModified(true);
     }
@@ -68,6 +71,7 @@ const Explorer: React.FC<ExplorerProps> = ({
             setSelectedText((prevState: number) => (prevState - 1));
         }
 
+        setLibraryStatus("modified");
         setDeleteTextMode(false);
         setFileModified(true);
     }
