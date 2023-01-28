@@ -104,7 +104,6 @@ const App: React.FC = () => {
                 <Explorer
                     library={library}
                     setLibrary={setLibrary}
-                    libraryStatus={libraryStatus}
                     setLibraryStatus={setLibraryStatus}
                     selectedText={selectedText}
                     setSelectedText={setSelectedText}
