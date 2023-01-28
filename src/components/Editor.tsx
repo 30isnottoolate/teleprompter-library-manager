@@ -7,12 +7,14 @@ import YesNoDialog from './YesNoDialog';
 interface EditorProps {
     library: { texts: { title: string, content: string }[], librarian: string };
     setLibrary: Function;
+    libraryStatus: string;
+    setLibraryStatus: Function;
     selectedText: number;
     setFileModified: Function;
 }
 
 const Editor: React.FC<EditorProps> = (
-    { library, setLibrary, selectedText, setFileModified }: EditorProps) => {
+    { library, setLibrary, libraryStatus, setLibraryStatus, selectedText, setFileModified }: EditorProps) => {
 
     const [selectionExist, setSelectionExist] = useState(false);
     const [selectionHasHighlight, setSelectionHasHighlight] = useState(false);
@@ -22,8 +24,18 @@ const Editor: React.FC<EditorProps> = (
     const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (editorRef.current && libraryStatus !== "updated") {
+            editorRef.current.innerHTML = DOMPurify.sanitize(typeSafeProp(library, selectedText, "content"));
+        }
+
+        findHighlights();
+    }, [library, libraryStatus]);
+
+    useEffect(() => {
         if (editorRef.current)
             editorRef.current.innerHTML = DOMPurify.sanitize(typeSafeProp(library, selectedText, "content"));
+
+        findHighlights();
     }, [selectedText]);
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +49,7 @@ const Editor: React.FC<EditorProps> = (
             ]
         }));
 
+        setLibraryStatus("updated");
         setFileModified(true);
     }
 
@@ -61,6 +74,7 @@ const Editor: React.FC<EditorProps> = (
                 ]
             }));
 
+            setLibraryStatus("updated");
             setFileModified(true);
         }
     }
