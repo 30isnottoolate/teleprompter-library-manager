@@ -10,13 +10,13 @@ interface NewOpenDialogProps {
 const NewOpenDialog: React.FC<NewOpenDialogProps> = ({ message, clickHandlerOne, clickHandlerTwo, clickHandlerThree }: NewOpenDialogProps) => {
     return (
         <div className="dialog-screen">
-                    <div className="dialog-box">
-                        <p className="dialog-text">{message}</p>
-                        <button className="dialog-button button-1" onClick={clickHandlerOne}>Save</button>
-                        <button className="dialog-button button-2" onClick={clickHandlerTwo}>Discard</button>
-                        <button className="dialog-button button-3" onClick={clickHandlerThree}>Cancel</button>
-                    </div>
-                </div>
+            <div className="dialog-box">
+                <p className="dialog-text">{message}</p>
+                <button className="dialog-button button-1" onClick={clickHandlerOne}>Save</button>
+                <button className="dialog-button button-2" onClick={clickHandlerTwo}>Discard</button>
+                <button className="dialog-button button-3" onClick={clickHandlerThree}>Cancel</button>
+            </div>
+        </div>
     );
 }
 
