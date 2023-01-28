@@ -10,6 +10,7 @@ const App: React.FC = () => {
     const [library, setLibrary] = useState<{ texts: { title: string, content: string }[], librarian: string }>
         ({ texts: [{ title: "My First Text", content: "" }], librarian: "" });
 
+    const [libraryStatus, setLibraryStatus] = useState("initial"); // initial, loaded, modified, updated
     const [selectedText, setSelectedText] = useState(0);
     const [fileModified, setFileModified] = useState(false);
     const [newFileMode, setNewFileMode] = useState(false);
@@ -25,6 +26,7 @@ const App: React.FC = () => {
 
     const newFile = () => {
         setLibrary({ texts: [{ title: "My First Text", content: "" }], librarian: "" });
+        setLibraryStatus("initial");
         setSelectedText(0);
         setFileModified(false);
         setNewFileMode(false);
@@ -58,6 +60,7 @@ const App: React.FC = () => {
 
         reader.onload = readFile;
         if (event.target.files) reader.readAsText(event.target.files[0]);
+        setLibraryStatus("loaded");
         setSelectedText(0);
     }
 
@@ -101,6 +104,8 @@ const App: React.FC = () => {
                 <Explorer
                     library={library}
                     setLibrary={setLibrary}
+                    libraryStatus={libraryStatus}
+                    setLibraryStatus={setLibraryStatus}
                     selectedText={selectedText}
                     setSelectedText={setSelectedText}
                     setFileModified={setFileModified}
@@ -108,6 +113,8 @@ const App: React.FC = () => {
                 <Editor
                     library={library}
                     setLibrary={setLibrary}
+                    libraryStatus={libraryStatus}
+                    setLibraryStatus={setLibraryStatus}
                     selectedText={selectedText}
                     setFileModified={setFileModified}
                 />
