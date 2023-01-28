@@ -24,9 +24,8 @@ const Editor: React.FC<EditorProps> = (
     const editorRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (editorRef.current && libraryStatus !== "updated") {
+        if (editorRef.current && libraryStatus !== "updated")
             editorRef.current.innerHTML = DOMPurify.sanitize(typeSafeProp(library, selectedText, "content"));
-        }
 
         findHighlights();
     }, [library, libraryStatus]);
