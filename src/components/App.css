@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 :root {
@@ -37,17 +36,9 @@ main {
     height: 0.5rem;
 }
 
-/* .scrollbar::-webkit-scrollbar-track {
-    background-color: rgba(0,0,0,0.0);
-} */
-
 .scrollbar::-webkit-scrollbar-thumb {
     background-color: var(--back-secondary);
 }
-
-/* .scrollbar {
-    scrollbar-color: var(--back-secondary) rgba(0,0,0,0.0);
-} */
 
 header {
     grid-column: 1 / 4;
