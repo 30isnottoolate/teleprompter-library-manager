@@ -18,6 +18,7 @@ const InputDialog: React.FC<InputDialogProps> = ({ newTextTitleInputRef, clickHa
             <div className="dialog-box">
                 <input
                     ref={newTextTitleInputRef}
+                    className="dialog-input"
                     type="text"
                     placeholder="Type title here..."
                     value={titleInput}
