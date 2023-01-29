@@ -26,20 +26,6 @@
     height: 100vh;
 }
 
-main {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
-
-.scrollbar::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.5rem;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-    background-color: var(--back-secondary);
-}
-
 header {
     grid-column: 1 / 4;
     display: grid;
@@ -54,18 +40,16 @@ nav {
     margin-left: 1.25rem;
 }
 
-#title, .section-label, select, footer {
-    color: var(--front-primary);
-}
-
 .section-label, footer {
+    font-size: 0.75rem;
     font-family: "Roboto", Helvetica;
 }
 
 #title {
-    text-align: right;
+    color: var(--front-primary);
     font-size: 1.5rem;
     font-family: "Fjalla One", Helvetica;
+    text-align: right;
     line-height: 0.75;
     margin-right: 1rem;
     transform: translateY(1.75rem);
@@ -102,18 +86,22 @@ button:disabled > svg {
     fill: var(--back-secondary)
 }
 
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
+main {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
 
-    to {
-        opacity: 1;
-    }
+.scrollbar::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--back-secondary);
 }
 
 .section-label {
-    font-size: 0.75rem;
+    color: var(--front-primary);
     height: 1.25rem;
     padding: 0 0 0.5rem 0.75rem;
 }
@@ -145,8 +133,9 @@ select, select:focus,
 
 select {
     background-color: var(--back-quaternary);
-    font-family: "Roboto Condensed", Helvetica;
+    color: var(--front-primary);
     font-size: 1.125rem;
+    font-family: "Roboto Condensed", Helvetica;
     line-height: 1.2;
     width: 100%;
     height: calc(100vh - 8.75rem);
@@ -169,8 +158,8 @@ option {
 #title-input, #content-input {
     background-color: var(--back-tertiary);
     color: var(--front-secondary);
-    font-family: "Roboto", Helvetica;
     font-size: 1.125rem;
+    font-family: "Roboto", Helvetica;
     width: 100%;
     user-select: auto;
 }
@@ -193,7 +182,7 @@ option {
 footer {
     display: flex;
     align-items: center;
-    font-size: 0.75rem;
+    color: var(--front-primary);
     height: 1.875rem;
     padding: 0 0.75rem;
     margin: 0 0.5rem;
