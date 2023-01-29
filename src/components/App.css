@@ -212,7 +212,7 @@ option {
     height: calc(100vh - 184px);
     padding: 7.5px 10px;
     resize: none;
-    white-space: pre;
+    white-space: pre-wrap;
     overflow-y: scroll;
     user-select: auto;
 }
