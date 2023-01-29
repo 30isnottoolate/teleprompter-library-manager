@@ -28,7 +28,7 @@ const ancestorNode = (node: Node) => {
 
     const ancestorFinder = (node: Node) => {
         if (node.parentNode && node.parentNode.nodeName !== "DIV" &&
-            node.parentElement && node.parentElement.id !== "editor-box") {
+            node.parentElement && node.parentElement.id !== "content-input") {
 
             ancestorFinder(node.parentNode);
         } else nodeToReturn = node;

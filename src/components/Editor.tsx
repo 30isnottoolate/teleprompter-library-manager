@@ -264,6 +264,7 @@ const Editor: React.FC<EditorProps> = (
                 />
             </div>
             <input
+                id="title-input"
                 type="text"
                 value={typeSafeProp(library, selectedText, "title")}
                 onChange={handleTitleChange}
@@ -271,7 +272,7 @@ const Editor: React.FC<EditorProps> = (
                 disabled={(library.texts.length < 1 || selectedText < 0) ? true : false}
             />
             <div
-                id="editor-box"
+                id="content-input"
                 ref={editorRef}
                 className="scrollbar"
                 onKeyDown={event => handleKeyDown(event)}
