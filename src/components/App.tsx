@@ -119,7 +119,8 @@ const App: React.FC = () => {
                 />
             </main>
             <footer>
-                CURRENT LIBRARY {fileModified ? "MODIFIED" : "SAVED"}
+                <span>CURRENT LIBRARY {fileModified ? "MODIFIED" : "SAVED"}</span>
+                <span>© {new Date().getFullYear()} Akos Varga, aka 30isnottoolate</span>
             </footer>
             {newFileMode &&
                 <NewOpenDialog
